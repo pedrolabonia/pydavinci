@@ -1,1 +1,1 @@
-::: pydavinci.resolve.Resolve.page
+::: pydavinci.Resolve

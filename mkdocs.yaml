@@ -27,14 +27,15 @@ plugins:
           selection:
             docstring_style: google
           rendering:
-            show_root_heading: yes
+            show_root_heading: false
             separate_signature: true
             show_if_no_docstring: true
             show_source: false
             show_signature_annotations: true
             members_order: source
-            docstring_section_style: list
-            merge_init_into_class: yes
+            docstring_section_style: table
+            heading_level: 4
+            merge_init_into_class: true
 
 markdown_extensions:
   - admonition
