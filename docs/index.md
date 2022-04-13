@@ -1,6 +1,6 @@
 # pydavinci
 
-A lightly opinionated, type-hinted wrapper for Davinci Resolve's Python API.  
+A lightly opinionated, type-hinted wrapper for Davinci Resolve's Python API.
 *I really just wanted auto completion in the IDE*
 
 ## Installation
