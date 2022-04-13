@@ -1,0 +1,2 @@
+class PyRemoteObject(object):
+    pass
