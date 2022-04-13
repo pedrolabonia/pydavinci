@@ -1,5 +1,5 @@
 import time
-from pydavinci.resolve import Resolve
+from pydavinci import Resolve
 from collections import defaultdict
 
 resolve = Resolve()

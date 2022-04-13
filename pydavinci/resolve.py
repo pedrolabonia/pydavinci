@@ -1,8 +1,8 @@
 from typing import Dict, List, Optional, Set, Tuple, Union
-from connect import load_fusionscript  # type: ignore
-import exceptions
-from pydavinci.connect import load_fusionscript
-from pyremoteobject import PyRemoteObject
+from .connect import load_fusionscript  # type: ignore
+from .exceptions import ObjectNotFound
+from .connect import load_fusionscript
+from .pyremoteobject import PyRemoteObject
 
 
 
@@ -290,7 +290,7 @@ class Project(object):
             if tl.name == name:
                 return self._obj.SetCurrentTimeline(tl._obj)
             
-        raise exceptions.ObjectNotFound("Couldn't find timeline by name.")
+        raise ObjectNotFound("Couldn't find timeline by name.")
         
 
 
