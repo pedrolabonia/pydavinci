@@ -1,10 +1,14 @@
 from typing import Dict, List, Optional, Set, Tuple, Union
-
-import fusionscript as dvr_script  # type: ignore
-
-import connect  # type: ignore
+from connect import load_fusionscript  # type: ignore
 import exceptions
+from pydavinci.connect import load_fusionscript
 from pyremoteobject import PyRemoteObject
+
+
+
+load_fusionscript()
+import fusionscript as dvr_script   # type: ignore
+
 
 def get_resolveobjs(objs: List) -> List[PyRemoteObject]:
     return [x._obj for x in objs]
@@ -13,17 +17,6 @@ TRACK_TYPES = ['video', 'audio', 'subtitle']
 TRACK_ERROR = "Track type must be: 'video', 'audio', or 'subtitle"
     
 class Resolve(object):
-    """Resolve object
-
-    Args:
-        object (nada): nada
-
-    Raises:
-        ValueError: _description_
-
-    Returns:
-        _type_: _description_
-    """    
     
     resolve = dvr_script.scriptapp("Resolve")
     def __init__(self):
@@ -35,9 +28,13 @@ class Resolve(object):
         self.fusion = Resolve.resolve.Fusion()
         self._obj = Resolve.resolve
 
-
     @property
-    def page(self) -> str:          
+    def page(self) -> str:  
+        """Page Attribute
+
+        Returns:
+            str: Returns page name
+        """                
         return self._obj.GetCurrentPage()
     
     @page.setter
@@ -138,6 +135,14 @@ class ProjectManager(object):
         return ProjectManager._obj.GetDatabaseList()
        
 class Project(object):
+    """Project class.
+
+    Args:
+        object (_type_): _description_
+
+    Returns:
+        _type_: Object class
+    """    
     _obj = ProjectManager._obj.GetCurrentProject()
     
     def __init__(self, prj = None) -> None:
@@ -172,12 +177,30 @@ class Project(object):
         return self._obj.SetPreset(preset_name)
     
     def add_renderjob(self) -> str:
+        """Adds current render settings to a render job
+
+        Returns:
+            str: returns render job id
+        """        
         return self._obj.AddRenderJob()
     
     def delete_renderjob(self, job_id: str) -> bool:
+        """Deltes render job
+
+        Args:
+            job_id (str): render job ID
+
+        Returns:
+            bool: True if ID exists, false otherwise
+        """        
         return self._obj.DeleteRenderJob(job_id)
     
     def delete_all_renderjobs(self) -> bool:
+        """Deletes all renderjobs
+
+        Returns:
+            bool: True if succesfull, false otherwise
+        """        
         return self._obj.DeleteAllRenderJobs()
     
     @property

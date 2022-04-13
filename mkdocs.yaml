@@ -1,0 +1,49 @@
+site_name: pydavinci Docs
+
+nav:
+  - Home: index.md
+  - Examples:
+    - "Create Premiere Proxies": "examples/premiereproxies.md"
+  - Documentation:
+    - "Resolve": resolve.md
+    - "Project Manager": projectmanager.md
+    - "Media Storage": mediastorage.md
+    - "Media Pool": mediapool.md
+    - "Media Pool Item": mediapoolitem.md
+    - "Folder": folder.md
+    - "Timeline": timeline.md
+    - "Timeline Item": timelineitem.md
+
+theme:
+  name: "material"
+  palette:
+    primary: pink
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          selection:
+            docstring_style: google
+          rendering:
+            show_root_heading: yes
+            separate_signature: true
+            show_if_no_docstring: true
+            show_source: false
+            show_signature_annotations: true
+            members_order: source
+            docstring_section_style: list
+            merge_init_into_class: yes
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: true
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
