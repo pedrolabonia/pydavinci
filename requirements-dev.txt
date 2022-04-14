@@ -18,7 +18,7 @@ mkdocs
 mkdocs-autorefs
 mkdocs-material
 mkdocs-material-extensions
-mkdocstrings=
+mkdocstrings
 mypy-extensions
 nodeenv
 packaging
