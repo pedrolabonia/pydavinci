@@ -1,0 +1,102 @@
+from typing import List
+
+class MediaPoolItem(object):
+    # /TODO: Implement a way to acess metadata such as mediapoolitem.metadata['Good Take'] = True
+    #       ~ need to mess around with a private dict that uses the SetMetadata() when internal dict updates
+
+    def __init__(self, obj):
+        self._obj = obj
+
+    @property
+    def name(self) -> str:
+        return self._obj.GetName()
+
+    @property
+    def metadata(self) -> dict:
+        return self._obj.GetMetadata()
+
+    def set_metadata(self, dict) -> bool:
+        return self._obj.SetMetadata()
+
+    @property
+    def mediaid(self) -> str:
+        return self._obj.GetMediaId()
+
+    def add_marker(
+        self,
+        frameid: int,
+        color: str,
+        name: str,
+        *,
+        note: str = "",
+        duration: int = 1,
+        customdata: str = "",
+    ) -> bool:
+        return self._obj.AddMarker(frameid, color, name, note, duration, customdata)
+
+    def get_custom_marker(self, customdata: str) -> dict:
+        return self._obj.GetMarkerByCustomData(customdata)
+
+    def update_custom_marker(self, frameid: int, customdata: str) -> bool:
+        return self._obj.UpdateMarkerCustomData(frameid, customdata)
+
+    def marker_custom_data(self, frameid: int) -> str:
+        return self._obj.GetMarkerCustomData(frameid)
+
+    def delete_marker(
+        self, *, frameid: int = 0, color: str = "", customdata: str = ""
+    ) -> bool:
+        if frameid:
+            return self._obj.DeleteMarkerAtFrame(frameid)
+        if color:
+            return self._obj.DeleteMarkersByColor(color)
+        if customdata:
+            return self._obj.DeleteMarkerByCustomData(customdata)
+        raise ValueError(
+            "You need to provide either 'frameid', 'color' or 'customdata'"
+        )
+
+    @property
+    def markers(self) -> dict:
+        return self._obj.GetMarkers()
+
+    def add_flag(self, color: str) -> bool:
+        return self._obj.AddFlag(color)
+
+    @property
+    def flags(self) -> List[str]:
+        return self._obj.GetFlagList()
+
+    def clear_flags(self, color: str = "All") -> bool:
+        return self._obj.ClearFlags(color)
+
+    @property
+    def color(self) -> str:
+        return self._obj.GetClipColor()
+
+    @color.setter
+    def color(self, color) -> bool:
+        return self._obj.SetClipColor(color)
+
+    def clear_color(self) -> bool:
+        return self._obj.ClearClipColor()
+
+    @property
+    def properties(self) -> dict:
+        return self._obj.GetClipProperty()
+
+    def set_property(self, name: str, value: str) -> bool:
+        return self._obj.SetClipProperty(name, value)
+
+    def link_proxy(self, path: str) -> bool:
+        return self._obj.LinkProxyMedia(path)
+
+    def unlink_proxy(self, path: str) -> bool:
+        return self._obj.UnlinkProxyMedia(path)
+
+    def replace_clip(self, path: str) -> bool:
+        return self._obj.ReplaceClip(path)
+
+    def __repr__(self) -> str:
+        return f'MediaPoolItem(Name:"{self.name})"'
+
