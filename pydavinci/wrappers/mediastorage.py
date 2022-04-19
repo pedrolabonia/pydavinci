@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 from typing import TYPE_CHECKING, List, Union
 from pydavinci.main import resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
+
 class MediaStorage(object):
-    
     def __init__(self) -> None:
         self._obj = resolve_obj.GetMediaStorage()
 
@@ -25,13 +26,9 @@ class MediaStorage(object):
     def add_clip_mattes(
         self, mediapool_item: "MediaPoolItem", paths: Union[List[str], str], *args
     ) -> bool:
-        return self._obj.AddClipMattesToMediaPool(
-            mediapool_item._obj, paths, *args
-        )
+        return self._obj.AddClipMattesToMediaPool(mediapool_item._obj, paths, *args)
 
-    def add_timelilne_mattes(
-        self, paths: Union[List[str], str]
-    ) -> List["MediaPoolItem"]:
+    def add_timelilne_mattes(self, paths: Union[List[str], str]) -> List["MediaPoolItem"]:
         return self._obj.AddTimelineMattesToMediaPool(paths)
 
     def addclips_to_mediapool(self, item: List[str]) -> List["MediaPoolItem"]:
@@ -50,7 +47,5 @@ class MediaStorage(object):
         # else:
         #     return [MediaPoolItem(self._obj.AddItemListToMediaPool(item)[0])]
 
-        objs_added = [
-            MediaPoolItem(x) for x in self._obj.AddItemListToMediaPool(item)
-        ]
+        objs_added = [MediaPoolItem(x) for x in self._obj.AddItemListToMediaPool(item)]
         return objs_added

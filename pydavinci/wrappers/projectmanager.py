@@ -1,19 +1,22 @@
+# -*- coding: utf-8 -*-
 from typing import TYPE_CHECKING, List, Dict
 from pydavinci.main import resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.project import Project
 
+
 class ProjectManager(object):
-    
+
     _obj = resolve_obj.GetProjectManager()
 
     def __init__(self) -> None:
         pass
-    
+
     @property
-    def project(self) -> 'Project':
+    def project(self) -> "Project":
         from pydavinci.wrappers.project import Project
+
         return Project()
 
     def create_project(self, project_name: str):
@@ -51,9 +54,7 @@ class ProjectManager(object):
     def import_project(self, path: str) -> bool:
         return ProjectManager._obj.ImportProject(path)
 
-    def export_project(
-        self, project_name: str, path: str, stills_and_luts: bool = True
-    ) -> bool:
+    def export_project(self, project_name: str, path: str, stills_and_luts: bool = True) -> bool:
         return ProjectManager._obj.ExportProject(project_name, path, stills_and_luts)
 
     def restore_project(self, path: str) -> bool:

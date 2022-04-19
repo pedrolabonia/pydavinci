@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 def load_fusionscript():
     import imp
     import sys
+
     script_module = None
 
     try:
@@ -8,7 +10,8 @@ def load_fusionscript():
     except ImportError:
         # Look for installer based environment variables:
         import os
-        lib_path=os.getenv("RESOLVE_SCRIPT_LIB")
+
+        lib_path = os.getenv("RESOLVE_SCRIPT_LIB")
         if lib_path:
             try:
                 script_module = imp.load_dynamic("fusionscript", lib_path)
@@ -16,9 +19,11 @@ def load_fusionscript():
                 pass
         if not script_module:
             # Look for default install locations:
-            ext=".so"
+            ext = ".so"
             if sys.platform.startswith("darwin"):
-                path = "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/Libraries/Fusion/"
+                path = (
+                    "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/Libraries/Fusion/"
+                )
             elif sys.platform.startswith("win") or sys.platform.startswith("cygwin"):
                 ext = ".dll"
                 path = "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\"
@@ -26,6 +31,6 @@ def load_fusionscript():
                 path = "/opt/resolve/libs/Fusion/"
 
             try:
-                script_module = imp.load_dynamic("fusionscript", path + "fusionscript" + ext) #type: ignore
+                script_module = imp.load_dynamic("fusionscript", path + "fusionscript" + ext)  # type: ignore # noqa: E501, B950
             except ImportError:
                 pass

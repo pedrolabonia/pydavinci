@@ -1,11 +1,12 @@
-from typing import TYPE_CHECKING, List
+# -*- coding: utf-8 -*-
+from typing import TYPE_CHECKING, List, Dict, Optional
 from pydavinci.utils import TRACK_TYPES, TRACK_ERROR, get_resolveobjs
-from pydavinci.utils import TRACK_ERROR
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.project import Project
     from pydavinci.wrappers.timelineitem import TimelineItem
-    
+
+
 class Timeline(object):
     def __init__(self, data=None) -> None:
         if data:
@@ -42,12 +43,9 @@ class Timeline(object):
         if track_type not in TRACK_TYPES:
             raise ValueError(TRACK_ERROR)
 
-        return [
-            TimelineItem(x)
-            for x in self._obj.GetItemListInTrack(track_type, track_index)
-        ]
+        return [TimelineItem(x) for x in self._obj.GetItemListInTrack(track_type, track_index)]
 
-    ### MARKER STUFF
+    ### MARKER STUFF # noqa: E266
     def add_marker(
         self,
         frameid: int,
@@ -60,7 +58,7 @@ class Timeline(object):
     ) -> bool:
         return self._obj.AddMarker(frameid, color, name, note, duration, customdata)
 
-    def get_custom_marker(self, customdata: str) -> dict:
+    def get_custom_marker(self, customdata: str) -> Dict:
         return self._obj.GetMarkerByCustomData(customdata)
 
     def update_custom_marker(self, frameid: int, customdata: str) -> bool:
@@ -69,29 +67,25 @@ class Timeline(object):
     def marker_custom_data(self, frameid: int) -> str:
         return self._obj.GetMarkerCustomData(frameid)
 
-    def delete_marker(
-        self, *, frameid: int = 0, color: str = "", customdata: str = ""
-    ) -> bool:
+    def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
         if frameid:
             return self._obj.DeleteMarkerAtFrame(frameid)
         if color:
             return self._obj.DeleteMarkersByColor(color)
         if customdata:
             return self._obj.DeleteMarkerByCustomData(customdata)
-        raise ValueError(
-            "You need to provide either 'frameid', 'color' or 'customdata'"
-        )
+        raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
 
     @property
     def markers(self) -> dict:
         return self._obj.GetMarkers()
 
-    ### END MARKER STUFF
+    ### END MARKER STUFF # noqa: E266
 
     def apply_grade_from_DRX(
         self, drx_path: str, grade_mode: int, timeline_items: List["TimelineItem"]
     ) -> bool:
-        if type(timeline_items) == type([]):
+        if isinstance(timeline_items, List):
             items = get_resolveobjs(timeline_items)
             return self._obj.ApplyGradeFromDRX(drx_path, grade_mode, items)
         else:
@@ -106,7 +100,7 @@ class Timeline(object):
         return TimelineItem(self._obj.GetCurrentVideoItem())
 
     @property
-    def current_clip_thumbnail(self) -> dict:
+    def current_clip_thumbnail(self) -> Dict:
         return self._obj.GetCurrentClipThumbnailImage()
 
     def get_track_name(self, track_type: str, track_index: int) -> str:
@@ -126,26 +120,22 @@ class Timeline(object):
             return Timeline(self._obj.DuplicateTimeline())
 
     def create_compound_clip(
-        self, timeline_items: List["TimelineItem"], clip_info: dict = {}
+        self, timeline_items: List["TimelineItem"], clip_info: Optional[Dict] = None
     ) -> "TimelineItem":
-        if clip_info == {}:
-            return TimelineItem(
-                self._obj.CreateCompountClip(get_resolveobjs(timeline_items))
-            )
+        if not clip_info:
+            return TimelineItem(self._obj.CreateCompountClip(get_resolveobjs(timeline_items)))
 
         return TimelineItem(
             self._obj.CreateCompountClip(get_resolveobjs(timeline_items), clip_info)
         )
 
-    def create_fusion_clip(
-        self, timeline_items: List["TimelineItem"]
-    ) -> "TimelineItem":
+    def create_fusion_clip(self, timeline_items: List["TimelineItem"]) -> "TimelineItem":
         return TimelineItem(self._obj.CreateFusionClip(get_resolveobjs(timeline_items)))
 
     def import_aaf_into_timeline(
-        self, file_path: str, import_options: dict = {}
-    ) -> bool:
-        if import_options == {}:
+        self, file_path: str, import_options: Optional[Dict] = None
+    ) -> bool:  # noqa: E501
+        if not import_options:
             return self._obj.ImportIntoTimeline(file_path)
         return self._obj.ImportIntoTimeline(file_path, import_options)
 

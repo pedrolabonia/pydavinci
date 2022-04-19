@@ -6,3 +6,20 @@ build-backend = "setuptools.build_meta"
 dependencies = [
     "mkdocstrings[python]>=0.18",
 ]
+
+[tool.black]
+line_length = 100
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

@@ -1,8 +1,12 @@
-from typing import List
+# -*- coding: utf-8 -*-
+from typing import List, Dict
+
 
 class MediaPoolItem(object):
-    # /TODO: Implement a way to acess metadata such as mediapoolitem.metadata['Good Take'] = True
-    #       ~ need to mess around with a private dict that uses the SetMetadata() when internal dict updates
+    # TODO:
+    # Implement a way to acess metadata such as mediapoolitem.metadata['Good Take'] = True
+    # Meed to mess around with a private dict that uses
+    # the SetMetadata() when internal dict updates
 
     def __init__(self, obj):
         self._obj = obj
@@ -12,11 +16,11 @@ class MediaPoolItem(object):
         return self._obj.GetName()
 
     @property
-    def metadata(self) -> dict:
+    def metadata(self) -> Dict:
         return self._obj.GetMetadata()
 
-    def set_metadata(self, dict) -> bool:
-        return self._obj.SetMetadata()
+    def set_metadata(self, meta_dict) -> bool:
+        return self._obj.SetMetadata(meta_dict)
 
     @property
     def mediaid(self) -> str:
@@ -34,7 +38,7 @@ class MediaPoolItem(object):
     ) -> bool:
         return self._obj.AddMarker(frameid, color, name, note, duration, customdata)
 
-    def get_custom_marker(self, customdata: str) -> dict:
+    def get_custom_marker(self, customdata: str) -> Dict:
         return self._obj.GetMarkerByCustomData(customdata)
 
     def update_custom_marker(self, frameid: int, customdata: str) -> bool:
@@ -43,21 +47,17 @@ class MediaPoolItem(object):
     def marker_custom_data(self, frameid: int) -> str:
         return self._obj.GetMarkerCustomData(frameid)
 
-    def delete_marker(
-        self, *, frameid: int = 0, color: str = "", customdata: str = ""
-    ) -> bool:
+    def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
         if frameid:
             return self._obj.DeleteMarkerAtFrame(frameid)
         if color:
             return self._obj.DeleteMarkersByColor(color)
         if customdata:
             return self._obj.DeleteMarkerByCustomData(customdata)
-        raise ValueError(
-            "You need to provide either 'frameid', 'color' or 'customdata'"
-        )
+        raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
 
     @property
-    def markers(self) -> dict:
+    def markers(self) -> Dict:
         return self._obj.GetMarkers()
 
     def add_flag(self, color: str) -> bool:
@@ -82,7 +82,7 @@ class MediaPoolItem(object):
         return self._obj.ClearClipColor()
 
     @property
-    def properties(self) -> dict:
+    def properties(self) -> Dict:
         return self._obj.GetClipProperty()
 
     def set_property(self, name: str, value: str) -> bool:
@@ -99,4 +99,3 @@ class MediaPoolItem(object):
 
     def __repr__(self) -> str:
         return f'MediaPoolItem(Name:"{self.name})"'
-

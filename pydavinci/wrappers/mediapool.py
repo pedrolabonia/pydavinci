@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, List
+# -*- coding: utf-8 -*-
+from typing import List, Dict, Optional
 from pydavinci.utils import get_resolveobjs
 from pydavinci.main import resolve_obj
 from pydavinci.wrappers.folder import Folder
@@ -9,7 +10,7 @@ from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 class MediaPool(object):
     def __init__(self) -> None:
-        
+
         self._obj = resolve_obj.GetProjectManager().GetCurrentProject().GetMediaPool()
 
     @property
@@ -28,13 +29,11 @@ class MediaPool(object):
         appended = self._obj.AppendToTimeline(get_resolveobjs(clips))
         return [TimelineItem(x) for x in appended]
 
-    def create_timeline_fromclips(
-        self, name: str, clips: List["MediaPoolItem"]
-    ) -> "Timeline":
+    def create_timeline_fromclips(self, name: str, clips: List["MediaPoolItem"]) -> "Timeline":
         return Timeline(self._obj.CreateTimelineFromClips(name, get_resolveobjs(clips)))
 
-    def import_timeline_fromfile(self, path: str, options: dict = {}) -> "Timeline":
-        if options == {}:
+    def import_timeline_fromfile(self, path: str, options: Optional[Dict] = None) -> "Timeline":
+        if not options:
             return Timeline(self._obj.ImportTimelineFromFile(path, options))
         return Timeline(self._obj.ImportTimelineFromFile(path))
 

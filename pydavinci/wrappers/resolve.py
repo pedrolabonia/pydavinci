@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from typing import TYPE_CHECKING
 
 from pydavinci.main import resolve_obj
@@ -7,38 +8,40 @@ if TYPE_CHECKING:
     from pydavinci.wrappers.mediastorage import MediaStorage
     from pydavinci.wrappers.projectmanager import ProjectManager
     from pydavinci.wrappers.project import Project
-    
+
 
 class Resolve(object):
-
     def __init__(self):
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
         self._obj = resolve_obj
 
     @property
-    def project_manager(self) -> 'ProjectManager':
+    def project_manager(self) -> "ProjectManager":
         from pydavinci.wrappers.projectmanager import ProjectManager
+
         return ProjectManager()
 
     @property
-    def project(self) -> 'Project':
+    def project(self) -> "Project":
         from pydavinci.wrappers.project import Project
+
         return Project(resolve_obj.GetProjectManager().GetCurrentProject())
 
     @property
-    def media_storage(self) -> 'MediaStorage':
+    def media_storage(self) -> "MediaStorage":
         from pydavinci.wrappers.mediastorage import MediaStorage
+
         return MediaStorage()
-    
+
     @property
-    def media_pool(self) -> 'MediaPool':
+    def media_pool(self) -> "MediaPool":
         from pydavinci.wrappers.mediapool import MediaPool
+
         return MediaPool()
-    
+
     @property
     def fusion(self):
         return resolve_obj.Fusion()
-
 
     @property
     def page(self) -> str:
@@ -54,9 +57,7 @@ class Resolve(object):
         if page in self.pages:
             return self._obj.OpenPage(page)
         validpages = " ".join(map(str, self.pages))
-        raise ValueError(
-            f'"{page}" is not a valid page. Available pages are: {validpages}'
-        )
+        raise ValueError(f'"{page}" is not a valid page. Available pages are: {validpages}')
 
     @property
     def product_name(self) -> str:
@@ -85,8 +86,8 @@ class Resolve(object):
     @property
     def active_timeline(self):
         from pydavinci.wrappers.timeline import Timeline
+
         return Timeline(resolve_obj.GetProjectManager().GetCurrentTimeline())
 
     def __repr__(self) -> str:
         return f'Resolve(Page: "{self.page}")'
-
