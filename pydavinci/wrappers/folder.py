@@ -1,15 +1,18 @@
+# -*- coding: utf-8 -*-
 from typing import TYPE_CHECKING, List
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+
 
 class Folder(object):
     def __init__(self, obj) -> None:
         self._obj = obj
 
     @property
-    def clips(self) -> List['MediaPoolItem']:
+    def clips(self) -> List["MediaPoolItem"]:
         from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+
         objs = self._obj.GetClipList()
         return [MediaPoolItem(x) for x in objs]
 

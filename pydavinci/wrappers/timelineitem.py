@@ -1,7 +1,9 @@
-from typing import TYPE_CHECKING, List
+# -*- coding: utf-8 -*-
+from typing import TYPE_CHECKING, List, Dict
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+
 
 class TimelineItem(object):
     def __init__(self, obj):
@@ -43,7 +45,7 @@ class TimelineItem(object):
     ) -> bool:
         return self._obj.AddMarker(frameid, color, name, note, duration, customdata)
 
-    def get_custom_marker(self, customdata: str) -> dict:
+    def get_custom_marker(self, customdata: str) -> Dict:
         return self._obj.GetMarkerByCustomData(customdata)
 
     def update_custom_marker(self, frameid: int, customdata: str) -> bool:
@@ -52,21 +54,17 @@ class TimelineItem(object):
     def marker_custom_data(self, frameid: int) -> str:
         return self._obj.GetMarkerCustomData(frameid)
 
-    def delete_marker(
-        self, *, frameid: int = 0, color: str = "", customdata: str = ""
-    ) -> bool:
+    def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
         if frameid:
             return self._obj.DeleteMarkerAtFrame(frameid)
         if color:
             return self._obj.DeleteMarkersByColor(color)
         if customdata:
             return self._obj.DeleteMarkerByCustomData(customdata)
-        raise ValueError(
-            "You need to provide either 'frameid', 'color' or 'customdata'"
-        )
+        raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
 
     @property
-    def markers(self) -> dict:
+    def markers(self) -> Dict:
         return self._obj.GetMarkers()
 
     def add_flag(self, color: str) -> bool:
@@ -103,7 +101,7 @@ class TimelineItem(object):
         return self._obj.RenameVersionByName(oldname, newname, type)
 
     @property
-    def mediapoolitem(self) -> 'MediaPoolItem':
+    def mediapoolitem(self) -> "MediaPoolItem":
         return self._obj.GetMediaPoolItem()
 
     # /TODO: Add Stero and Fusion wrappers
@@ -111,11 +109,11 @@ class TimelineItem(object):
     def set_lut(self, node_index: int, lut_path: str) -> bool:
         return self._obj.SetLUT(node_index, lut_path)
 
-    def set_cdl(self, cdl: dict) -> bool:
+    def set_cdl(self, cdl: Dict) -> bool:
         return self._obj.SetCDL(cdl)
 
     def add_take(
-        self, mediapool_item: 'MediaPoolItem', startframe: int = 0, endframe: int = 0
+        self, mediapool_item: "MediaPoolItem", startframe: int = 0, endframe: int = 0
     ) -> bool:
         return self._obj.AddTake(mediapool_item, startframe, endframe)
 
@@ -131,7 +129,7 @@ class TimelineItem(object):
     def takes(self) -> int:
         return self._obj.GetTakesCount()
 
-    def take_info(self, takeindex: int = 0) -> dict:
+    def take_info(self, takeindex: int = 0) -> Dict:
         if takeindex:
             return self._obj.GetTakeByIndex(takeindex)
         else:

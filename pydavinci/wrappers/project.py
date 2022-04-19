@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, List, Union
+# -*- coding: utf-8 -*-
+from typing import TYPE_CHECKING, List, Dict, Optional
 from pydavinci.main import resolve_obj
 
 
@@ -7,6 +8,7 @@ from pydavinci.exceptions import ObjectNotFound
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
     from pydavinci.wrappers.timeline import Timeline
+
 
 class Project(object):
     """Project class.
@@ -29,6 +31,7 @@ class Project(object):
     @property
     def mediapool(self) -> "MediaPool":
         from pydavinci.wrappers.mediapool import MediaPool
+
         return MediaPool()
 
     @property
@@ -85,8 +88,8 @@ class Project(object):
     def render_presets(self) -> list:
         return self._obj.GetRenderPresetList()
 
-    def render(self, job_ids: List[str] = [""], interactive: bool = False) -> bool:
-        if job_ids == [""]:
+    def render(self, job_ids: Optional[List[str]] = None, interactive: bool = False) -> bool:
+        if not job_ids:
             return self._obj.StartRendering(isInteractiveMode=interactive)
         else:
             return self._obj.StartRendering(job_ids, isInteractiveMode=interactive)
@@ -94,19 +97,19 @@ class Project(object):
     def stop_render(self) -> None:
         return self._obj.StopRendering()
 
-    def render_status(self, job_id: str) -> dict:
+    def render_status(self, job_id: str) -> Dict:
         return self._obj.GetRenderJobStatus(job_id)
 
     @property
-    def render_formats(self) -> dict:
+    def render_formats(self) -> Dict:
         return self._obj.GetRenderFormats()
 
     @property
-    def render_codecs(self) -> dict:
+    def render_codecs(self) -> Dict:
         return self._obj.GetRenderCodecs()
 
     @property
-    def current_render_format_and_codec(self) -> dict:
+    def current_render_format_and_codec(self) -> Dict:
         return self._obj.GetCurrentRenderFormatAndCodec()
 
     def set_render_format_and_codec(self, format: str, codec: str) -> bool:
@@ -124,10 +127,11 @@ class Project(object):
             return self._obj.SetCurrentRenderMode(1)
         else:
             raise ValueError(
-                'Render mode must be "single" or "individual", for single clip and individual clips, respectively.'
+                'Render mode must be "single" or "individual", \
+                for single clip and individual clips, respectively.'
             )
 
-    def available_resolutions(self, format: str, codec: str) -> dict:
+    def available_resolutions(self, format: str, codec: str) -> Dict:
         return self._obj.GetRenderResolutions(format, codec)
 
     @property
@@ -140,10 +144,10 @@ class Project(object):
     def save_render_preset_as(self, preset_name: str) -> bool:
         return self._obj.SaveAsNewRenderPreset(preset_name)
 
-    def set_render_settings(self, render_settings: dict) -> bool:
+    def set_render_settings(self, render_settings: Dict) -> bool:
         return self._obj.SetRenderSettings(render_settings)
 
-    def get_setting(self, setting: str) -> dict:
+    def get_setting(self, setting: str) -> Dict:
         return self._obj.GetSetting(setting)
 
     def set_setting(self, setting: str, value: str) -> bool:
@@ -151,14 +155,17 @@ class Project(object):
 
     def save(self) -> bool:
         from pydavinci.wrappers.projectmanager import ProjectManager
+
         return ProjectManager._obj.SaveProject()
 
     def close(self) -> bool:
         from pydavinci.wrappers.projectmanager import ProjectManager
+
         return ProjectManager._obj.CloseProject(self.name)
 
     def open_timeline(self, name: str) -> bool:
         from pydavinci.wrappers.timeline import Timeline
+
         count = self._obj.GetTimelineCount()
         for i in range(count):
             tl = Timeline(self._obj.GetTimelineByIndex(i + 1))
@@ -168,8 +175,9 @@ class Project(object):
         raise ObjectNotFound("Couldn't find timeline by name.")
 
     @property
-    def timeline(self) -> 'Timeline':
+    def timeline(self) -> "Timeline":
         from pydavinci.wrappers.timeline import Timeline
+
         return Timeline(self._obj.GetCurrentTimeline())
 
     def refresh_luts(self):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 from pydavinci import Resolve
 from collections import defaultdict
@@ -51,7 +52,7 @@ def generate_premiere_proxies(input_dir, proxyfactor, output_dir):
 
         # Set Render Resolution
         project.set_render_settings(render_settings)
-        project.render_mode = 'individual'
+        project.render_mode = "individual"
         render_ids.append(project.add_renderjob())
 
     return render_ids
@@ -67,10 +68,10 @@ job_ids = generate_premiere_proxies(
 project.render(job_ids, interactive=True)
 
 
-for i, job in enumerate(job_ids):
+for i, _job in enumerate(job_ids):
     render_status = project.render_status(job_ids[i])["JobStatus"]
 
-    while render_status is not "Complete":
+    while render_status != "Complete":
         time.sleep(3)
         status = project.render_status(job_ids[i])
 
@@ -83,7 +84,7 @@ for i, job in enumerate(job_ids):
             break
 
         print(
-            f"Job ID {job_ids[i]} | Rendering time left: {time_left} | Percentage completed: {percentage}%\r",
+            f"Job ID {job_ids[i]} | Rendering time left: {time_left} | Percentage completed: {percentage}%\r",  # noqa: E501, B950
             end="",
             flush=True,
         )
@@ -92,6 +93,4 @@ for i, job in enumerate(job_ids):
 
     time_to_render = project.render_status(job_ids[i])["TimeTakenToRenderInMs"] / 1000
     print("\n")
-    print(
-        f"Job ID {job_ids[i]} | Rendering complete. | Total render time: {time_to_render},"
-    )
+    print(f"Job ID {job_ids[i]} | Rendering complete. | Total render time: {time_to_render},")
