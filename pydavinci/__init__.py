@@ -1,1 +1,1 @@
-from .resolve import Resolve
+from pydavinci.wrappers.resolve import Resolve
