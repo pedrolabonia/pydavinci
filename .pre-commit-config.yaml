@@ -12,7 +12,6 @@ repos:
   - id: mixed-line-ending
   - id: requirements-txt-fixer
   - id: trailing-whitespace
-  - id: fix-encoding-pragma
 # Black, the code formatter, natively supports pre-commit
 - repo: https://github.com/psf/black
   rev: 22.3.0
@@ -24,5 +23,11 @@ repos:
   rev: 3.9.2
   hooks:
   - id: flake8
+    args: ['--ignore=F403,E501,B950,E266']
     additional_dependencies: [flake8-bugbear, pep8-naming]
-    exclude: ^(docs/.*|tools/.*)$
+    exclude: ^(docs/.*|tools/.*|tests/.*)$
+- repo: https://github.com/pycqa/isort
+  rev: 5.10.1
+  hooks:
+  - id: isort
+    name: isort (python)

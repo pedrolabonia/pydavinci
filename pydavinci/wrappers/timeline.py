@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
-from typing import TYPE_CHECKING, List, Dict, Optional
-from pydavinci.utils import TRACK_TYPES, TRACK_ERROR, get_resolveobjs
+from typing import TYPE_CHECKING, Dict, List, Optional
+
+from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.project import Project

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pydavinci.connect import load_fusionscript
 
 

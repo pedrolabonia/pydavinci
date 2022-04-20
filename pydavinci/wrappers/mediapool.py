@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
-from typing import List, Dict, Optional
-from pydavinci.utils import get_resolveobjs
+from typing import Dict, List, Optional
+
 from pydavinci.main import resolve_obj
+from pydavinci.utils import get_resolveobjs
 from pydavinci.wrappers.folder import Folder
+from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 from pydavinci.wrappers.timeline import Timeline
 from pydavinci.wrappers.timelineitem import TimelineItem
-from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 
 class MediaPool(object):

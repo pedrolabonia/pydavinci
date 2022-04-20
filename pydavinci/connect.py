@@ -1,7 +1,35 @@
-# -*- coding: utf-8 -*-
 def load_fusionscript():
     import imp
+    import os
     import sys
+
+    WIN_ENV_VARIABLES = {
+        "RESOLVE_SCRIPT_API": r"%PROGRAMDATA%\Blackmagic Design\DaVinciResolve\Support\Developer\Scripting",
+        "RESOLVE_SCRIPT_LIB": r"C:\Program Files\Blackmagic Design\DaVinciResolve\fusionscript.dll",
+        "PYTHONPATH": r"%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules\\",  # type: ignore
+    }
+
+    MAC_ENV_VARIABLES = {
+        "RESOLVE_SCRIPT_API": "/Library/Application Support/Blackmagic Design/DaVinciResolve/Developer/Scripting",
+        "RESOLVE_SCRIPT_LIB": "/Applications/DaVinci Resolve/DaVinciResolve.app/Contents/Libraries/Fusion/fusionscript.so",
+        "PYTHONPATH": "$PYTHONPATH:$RESOLVE_SCRIPT_API/Modules/",
+    }
+    LINUX_ENV_VARIABLES = {
+        "RESOLVE_SCRIPT_API": "/opt/resolve/Developer/Scripting",
+        "RESOLVE_SCRIPT_LIB": "/opt/resolve/libs/Fusion/fusionscript.so",
+        "PYTHONPATH": "$PYTHONPATH:$RESOLVE_SCRIPT_API/Modules/",
+    }
+    if sys.platform.startswith("win32"):
+        for key in WIN_ENV_VARIABLES.keys():
+            os.environ[key] = WIN_ENV_VARIABLES[key]
+
+    elif sys.platform.startswith("darwin"):
+        for key in MAC_ENV_VARIABLES.keys():
+            os.environ[key] = MAC_ENV_VARIABLES[key]
+
+    else:
+        for key in LINUX_ENV_VARIABLES.keys():
+            os.environ[key] = LINUX_ENV_VARIABLES[key]
 
     script_module = None
 

@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-from typing import TYPE_CHECKING, List, Dict
-from pydavinci.main import resolve_obj
+from typing import Dict, List
 
-if TYPE_CHECKING:
-    from pydavinci.wrappers.project import Project
+from pydavinci.main import resolve_obj
+from pydavinci.wrappers.project import Project
 
 
 class ProjectManager(object):
@@ -11,20 +9,22 @@ class ProjectManager(object):
     _obj = resolve_obj.GetProjectManager()
 
     def __init__(self) -> None:
+
         pass
 
     @property
     def project(self) -> "Project":
-        from pydavinci.wrappers.project import Project
-
         return Project()
 
-    def create_project(self, project_name: str):
+    def create_project(self, project_name: str) -> Project:
         created = ProjectManager._obj.CreateProject(project_name)
         return Project(created)
 
-    def load_project(self, project_name: str) -> bool:
-        return ProjectManager._obj.LoadProject(project_name)
+    def delete_project(self, project_name: str) -> bool:
+        return self._obj.DeleteProject(project_name)
+
+    def load_project(self, project_name: str) -> Project:
+        return Project(ProjectManager._obj.LoadProject(project_name))
 
     def create_folder(self, folder_name: str) -> bool:
         return ProjectManager._obj.CreateFolder(folder_name)

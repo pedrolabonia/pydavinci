@@ -1,17 +1,20 @@
-# -*- coding: utf-8 -*-
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
+import pydavinci.utils as utils
 from pydavinci.main import resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
     from pydavinci.wrappers.mediastorage import MediaStorage
-    from pydavinci.wrappers.projectmanager import ProjectManager
     from pydavinci.wrappers.project import Project
+    from pydavinci.wrappers.projectmanager import ProjectManager
 
 
 class Resolve(object):
-    def __init__(self):
+    def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
+
+        utils.launch_resolve(headless, path)
+
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
         self._obj = resolve_obj
 
@@ -55,9 +58,10 @@ class Resolve(object):
     @page.setter
     def page(self, page: str) -> None:
         if page in self.pages:
-            return self._obj.OpenPage(page)
-        validpages = " ".join(map(str, self.pages))
-        raise ValueError(f'"{page}" is not a valid page. Available pages are: {validpages}')
+            self._obj.OpenPage(page)
+        else:
+            validpages = " ".join(map(str, self.pages))
+            raise ValueError(f'"{page}" is not a valid page. Available pages are: {validpages}')
 
     @property
     def product_name(self) -> str:

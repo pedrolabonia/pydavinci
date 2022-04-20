@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-from typing import TYPE_CHECKING, List, Dict, Optional
-from pydavinci.main import resolve_obj
-
+from typing import TYPE_CHECKING, Dict, List, Optional
 
 from pydavinci.exceptions import ObjectNotFound
+from pydavinci.main import resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
@@ -158,10 +156,14 @@ class Project(object):
 
         return ProjectManager._obj.SaveProject()
 
+    ## note: after loading the first project, it's impossible
+    ## to close a project and go back to the window with only
+    ## the project manager showing.
+    ## It defaults to a 'Untitled Project', and you can't close it
     def close(self) -> bool:
         from pydavinci.wrappers.projectmanager import ProjectManager
 
-        return ProjectManager._obj.CloseProject(self.name)
+        return ProjectManager._obj.CloseProject(self._obj)
 
     def open_timeline(self, name: str) -> bool:
         from pydavinci.wrappers.timeline import Timeline
