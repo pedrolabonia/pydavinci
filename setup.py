@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import setuptools
 
 with open("README.md", "r") as fh:
@@ -19,5 +18,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),  # type: ignore
     packages=setuptools.find_packages(),
-    python_requires=">=3.6.0",
+    python_requires="==3.6.*",
 )
