@@ -1,1 +1,1 @@
-::: pydavinci.ProjectManager
+::: pydavinci.wrappers.projectmanager.ProjectManager

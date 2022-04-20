@@ -36,6 +36,7 @@ plugins:
             docstring_section_style: table
             heading_level: 3
             merge_init_into_class: true
+            group_by_category: true
 
 markdown_extensions:
   - admonition

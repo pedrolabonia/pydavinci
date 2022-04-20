@@ -1,1 +1,1 @@
-::: pydavinci.MediaPool
+::: pydavinci.wrappers.mediapool.MediaPool

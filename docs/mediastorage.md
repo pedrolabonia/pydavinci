@@ -1,1 +1,1 @@
-::: pydavinci.MediaStorage
+::: pydavinci.wrappers.mediastorage.MediaStorage
