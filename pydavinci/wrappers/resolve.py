@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Optional
 
-import pydavinci.utils as utils
-from pydavinci.main import resolve_obj
+from pydavinci.main import get_resolve
+from pydavinci.utils import launch_resolve, process_active
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
@@ -13,10 +13,11 @@ if TYPE_CHECKING:
 class Resolve(object):
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
 
-        utils.launch_resolve(headless, path)
+        if headless or path or not process_active("DaVinci Resolve"):
+            launch_resolve(headless, path)
 
+        self._obj = get_resolve()
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
-        self._obj = resolve_obj
 
     @property
     def project_manager(self) -> "ProjectManager":
@@ -28,7 +29,7 @@ class Resolve(object):
     def project(self) -> "Project":
         from pydavinci.wrappers.project import Project
 
-        return Project(resolve_obj.GetProjectManager().GetCurrentProject())
+        return Project(self._obj.GetProjectManager().GetCurrentProject())
 
     @property
     def media_storage(self) -> "MediaStorage":
@@ -44,7 +45,7 @@ class Resolve(object):
 
     @property
     def fusion(self):
-        return resolve_obj.Fusion()
+        return self._obj.Fusion()
 
     @property
     def page(self) -> str:
@@ -91,7 +92,7 @@ class Resolve(object):
     def active_timeline(self):
         from pydavinci.wrappers.timeline import Timeline
 
-        return Timeline(resolve_obj.GetProjectManager().GetCurrentTimeline())
+        return Timeline(self._obj.GetProjectManager().GetCurrentTimeline())
 
     def __repr__(self) -> str:
         return f'Resolve(Page: "{self.page}")'
