@@ -1,8 +1,6 @@
 from pydavinci import davinci
 
-resolve = davinci.Resolve(
-    headless=True, path="/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/MacOS/Resolve"
-)
-
+resolve = davinci.Resolve(headless=True)
+print(resolve)
 print(resolve._obj)
 print(resolve.version)

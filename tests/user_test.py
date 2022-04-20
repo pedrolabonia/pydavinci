@@ -2,7 +2,7 @@
 import time
 from typing import Optional, TypeVar
 
-import pytest
+import pytest  # type: ignore
 
 import pydavinci.wrappers.resolve as davinci
 from pydavinci.utils import launch_resolve, process_active
@@ -13,7 +13,6 @@ resolve: davinci.Resolve
 
 @pytest.fixture(autouse=True)
 def load():
-
     global resolve
     resolve = davinci.Resolve(headless=True)
 

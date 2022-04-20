@@ -12,10 +12,8 @@ if TYPE_CHECKING:
 
 class Resolve(object):
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
-
-        if headless or path or not process_active("DaVinci Resolve"):
+        if not process_active("resolve"):
             launch_resolve(headless, path)
-
         self._obj = get_resolve()
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
 

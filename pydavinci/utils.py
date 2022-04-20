@@ -1,9 +1,11 @@
+import platform
 import subprocess
 import sys
-import time
 from typing import TYPE_CHECKING, List, Optional
 
 import psutil
+
+from pydavinci.main import get_resolve
 
 if TYPE_CHECKING:
     from pyremoteobject import PyRemoteObject
@@ -18,70 +20,83 @@ TRACK_ERROR = "Track type must be: 'video', 'audio', or 'subtitle"
 
 
 default_resolve_install = {
-    "win": "",
+    "win": r"C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Resolve.exe",
     "mac": "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/MacOS/Resolve",
     "linux": "",
+    "wsl": r"/mnt/c/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe",
 }
 
 
 def process_active(process_name: str) -> bool:
+    if "wsl" in platform.uname().release.lower():
+        # WSL, figure out a better place to do this error.
+        raise SystemError("WSL not supported.")
 
-    if process_name.lower() in (p.name().lower() for p in psutil.process_iter()):
-        print(f"Found process: {process_name}")
-        return True
+    for p in psutil.process_iter():
+        if (
+            process_name.lower() in p.name().lower()
+            or process_name.lower() + ".exe" in p.name().lower()  # type: ignore
+        ):
+            print(f"Found process: {process_name}")
+            return True
     return False
 
 
 def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None):
 
-    if not process_active("resolve") or not process_active("fuscript"):
+    if not process_active("resolve"):
 
         system: str = ""
         args: List = []
+
         if sys.platform.startswith("win32"):
             system = "win"
         elif sys.platform.startswith("darwin"):
-
             system = "mac"
-        else:
+        elif sys.platform.startswith("linux"):
             system = "linux"
+        else:
+            raise Exception("Can't find correct platform.")
 
         if path:
-
             args.append(path)
         else:
-
             args.append(default_resolve_install[system])
 
         if headless:
-
             args.append("-nogui")
+
+        kwargs = {}
 
         try:
             if system == "win":
-                subprocess.Popen(
-                    args,
-                    start_new_session=True,
-                    close_fds=True,
-                    creationflags=DETACHED_PROCESS,  # noqa: F821
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )  # noqa: F821 type: ignore
-                # windows needs extra flags for the processes to be detached
-
+                # Windows fuckery here to spawn a process without it being a child
+                # of the python interpreter
+                # https://docs.microsoft.com/pt-br/windows/win32/procthread/process-creation-flags?redirectedfrom=MSDN
+                CREATE_NEW_PROCESS_GROUP = 0x00000200
+                DETACHED_PROCESS = 0x00000008
+                kwargs.update(creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+            elif system == "wsl":
+                args.insert(0, "cmd.exe")
             else:
-                # POSIX
-                subprocess.Popen(args, start_new_session=True, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)  # type: ignore
+                kwargs.update(close_fds=True)
 
-            time.sleep(0.2)
-
+            subprocess.Popen(
+                args,
+                start_new_session=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                **kwargs,
+            )
+            print("subiu processo")
             while not process_active("fuscript"):
-                time.sleep(0.1)
+                while not get_resolve():
+                    pass
 
         except FileNotFoundError:
-            print("davinci Resolve executable not found. Please double check the path")
-        time.sleep(0.2)  # TODO: Parse Popen STDOUT
+            print("Davinci Resolve executable not found. Please double check the path")
+
         return True
 
-    print("davinci resolve already running... Continuing")
+    print("Davinci Resolve already running... Continuing")
     return False

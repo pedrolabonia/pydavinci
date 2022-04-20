@@ -134,7 +134,7 @@ class Timeline(object):
 
     def import_aaf_into_timeline(
         self, file_path: str, import_options: Optional[Dict] = None
-    ) -> bool:  # noqa: E501
+    ) -> bool:
         if not import_options:
             return self._obj.ImportIntoTimeline(file_path)
         return self._obj.ImportIntoTimeline(file_path, import_options)

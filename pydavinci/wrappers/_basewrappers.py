@@ -1,4 +1,4 @@
-# noqa: all
+# flake8: noqa
 from collections.abc import MutableMapping
 from typing import Dict
 
