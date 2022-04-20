@@ -12,13 +12,6 @@ repos:
   - id: mixed-line-ending
   - id: requirements-txt-fixer
   - id: trailing-whitespace
-# Black, the code formatter, natively supports pre-commit
-- repo: https://github.com/psf/black
-  rev: 22.3.0
-  hooks:
-  - id: black
-    # By default, this ignores pyi files, though black supports them
-# Flake8 also supports pre-commit natively (same author)
 - repo: https://gitlab.com/pycqa/flake8
   rev: 3.9.2
   hooks:
@@ -31,3 +24,7 @@ repos:
   hooks:
   - id: isort
     name: isort (python)
+- repo: https://github.com/psf/black
+  rev: 22.3.0
+  hooks:
+  - id: black
