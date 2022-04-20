@@ -1,16 +1,8 @@
-# -*- coding: utf-8 -*-
-from pydavinci import Resolve
+from pydavinci import davinci
 
-a = Resolve()
+resolve = davinci.Resolve(
+    headless=True, path="/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/MacOS/Resolve"
+)
 
-resolve = Resolve()
-
-project = resolve.project
-project_manager = resolve.project_manager
-media_pool = resolve.media_pool
-media_storage = resolve.media_storage
-
-print(project)
-print(project_manager)
-print(media_pool)
-print(media_storage)
+print(resolve._obj)
+print(resolve.version)

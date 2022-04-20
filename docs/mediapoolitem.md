@@ -1,0 +1,1 @@
+::: pydavinci.wrappers.mediapoolitem.MediaPoolItem

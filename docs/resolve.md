@@ -1,1 +1,1 @@
-::: pydavinci.Resolve
+::: pydavinci.wrappers.resolve.Resolve

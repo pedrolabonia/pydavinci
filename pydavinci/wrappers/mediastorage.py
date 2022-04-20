@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 from typing import TYPE_CHECKING, List, Union
+
 from pydavinci.main import resolve_obj
 
 if TYPE_CHECKING:
