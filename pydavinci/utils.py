@@ -1,10 +1,12 @@
+import platform
 import subprocess
 import sys
-import time
 from typing import TYPE_CHECKING, List, Optional
 
 import psutil
 import pydavinci.main
+
+from pydavinci.main import get_resolve
 
 if TYPE_CHECKING:
     from pyremoteobject import PyRemoteObject
@@ -22,6 +24,7 @@ default_resolve_install = {
     "win": r"C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Resolve.exe",
     "mac": "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/MacOS/Resolve",
     "linux": "",
+    "wsl": r"/mnt/c/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe",
 }
 
 
@@ -51,7 +54,7 @@ def get_proc_pid(name):
 
 
 def process_active(process_name: str) -> bool:
-
+  
     if process_name or f"{process_name}.exe" in (p.name().lower() for p in psutil.process_iter()):
         return True
     return False
@@ -59,15 +62,20 @@ def process_active(process_name: str) -> bool:
 
 def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None):
 
+
     if not get_proc_pid("resolve"):
+
         system: str = ""
         args: List = []
+
         if sys.platform.startswith("win32"):
             system = "win"
         elif sys.platform.startswith("darwin"):
             system = "mac"
-        else:
+        elif sys.platform.startswith("linux"):
             system = "linux"
+        else:
+            raise Exception("Can't find correct platform.")
 
         if path:
             args.append(path)
@@ -78,6 +86,7 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
             args.append("-nogui")
 
         kwargs = {}
+
         print(args)
         # try:
         if system == "win":
@@ -122,7 +131,9 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
         time.sleep(4)
         return True
 
-        # except FileNotFoundError:
-        #     print("Davinci Resolve executable not found. Please double check the path")
+        except FileNotFoundError:
+             print("Davinci Resolve executable not found. Please double check the path")
+
 
     print("Davinci Resolve already running... Continuing")
+

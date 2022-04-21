@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
+
 import pydavinci.utils as utils
 from pydavinci.main import resolve_obj, get_resolve
 from pydavinci.wrappers._basewrappers import BaseResolveWrapper
@@ -14,15 +15,13 @@ if TYPE_CHECKING:
 
 class Resolve(BaseResolveWrapper):
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
-
+		
         # if utils.launch_resolve(headless, path): # this check is slow AF, to be implemented when we have auto-launch resolve
         if not process_active("resolve"):
             raise NotImplementedError(
                 "Couldn't find Davinci Resolve. Please make sure it's running"
             )
-
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
-        self._obj = resolve_obj
 
     @property
     def project_manager(self) -> "ProjectManager":
@@ -34,7 +33,7 @@ class Resolve(BaseResolveWrapper):
     def project(self) -> "Project":
         from pydavinci.wrappers.project import Project
 
-        return Project(resolve_obj.GetProjectManager().GetCurrentProject())
+        return Project(self._obj.GetProjectManager().GetCurrentProject())
 
     @property
     def media_storage(self) -> "MediaStorage":
@@ -50,7 +49,7 @@ class Resolve(BaseResolveWrapper):
 
     @property
     def fusion(self):
-        return resolve_obj.Fusion()
+        return self._obj.Fusion()
 
     @property
     def page(self) -> str:
@@ -96,7 +95,6 @@ class Resolve(BaseResolveWrapper):
     @property
     def active_timeline(self):
         from pydavinci.wrappers.timeline import Timeline
-
         return Timeline()
 
     def __repr__(self) -> str:
