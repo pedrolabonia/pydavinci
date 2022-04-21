@@ -4,6 +4,7 @@ import time
 from typing import TYPE_CHECKING, List, Optional
 
 import psutil
+from pydavinci.main import get_resolve
 
 if TYPE_CHECKING:
     from pyremoteobject import PyRemoteObject
@@ -24,6 +25,24 @@ default_resolve_install = {
 }
 
 
+def get_proc_pid(name):
+    for proc in psutil.process_iter():
+        try:
+            pinfo = proc.as_dict(attrs=["pid", "name"])
+            if (
+                pinfo["name"].lower() == name.lower()
+                or pinfo["name"].lower() == f"{name.lower()}.exe"
+            ):
+                return pinfo["pid"]
+        except psutil.AccessDenied:
+            # System process
+            pass
+        except psutil.NoSuchProcess:
+            # Process terminated
+            pass
+    return None
+
+
 def process_active(process_name: str) -> bool:
 
     if process_name or f"{process_name}.exe" in (p.name().lower() for p in psutil.process_iter()):
@@ -33,7 +52,7 @@ def process_active(process_name: str) -> bool:
 
 def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None):
 
-    if not process_active("resolve"):
+    if not get_proc_pid("resolve"):
         system: str = ""
         args: List = []
         if sys.platform.startswith("win32"):
@@ -51,29 +70,52 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
         if headless:
             args.append("-nogui")
 
-        try:
-            if system == "win":
-                subprocess.Popen(
-                    args,
-                    start_new_session=True,
-                    # close_fds=True,
-                    # creationflags=DETACHED_PROCESS,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )  # noqa: F821 type: ignore
-                # windows needs extra flags for the processes to be detached
+        kwargs = {}
+        print(args)
+        # try:
+        if system == "win":
+            # Windows fuckery here to spawn a process without it being a child
+            # of the python interpreter
+            # https://docs.microsoft.com/pt-br/windows/win32/procthread/process-creation-flags?redirectedfrom=MSDN
+            # this holds the tests...
+            CREATE_NEW_PROCESS_GROUP = 0x00000200
+            DETACHED_PROCESS = 0x00000008
+            kwargs.update(creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+        elif system == "wsl":
+            args.insert(0, "cmd.exe")
+        else:
+            kwargs.update(close_fds=True)
 
-            else:  # POSIX
-                subprocess.Popen(args, start_new_session=True, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)  # type: ignore
+        subprocess.Popen(
+            args,
+            start_new_session=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            **kwargs,
+        )
+        print("subiu processo")
+        while not get_proc_pid("fuscript"):
+            print("Waiting for fuscript")
 
-            time.sleep(0.5)
+        ready = False
+        while not ready:
+            time.sleep(0.3)
+            print("...")
+            try:
+                print("try")
+                if get_resolve().GetMediaStorage() is not None:
+                    print(get_resolve().GetMediaStorage())
+                    print("chego aqui")
+                    ready = True
+                    break
+            except AttributeError:
+                continue
 
-            while not process_active("fuscript"):
-                time.sleep(0.1)
+        print("pronto pra vaza")
+        time.sleep(1)
+        return True
 
-            return
+        # except FileNotFoundError:
+        #     print("Davinci Resolve executable not found. Please double check the path")
 
-        except FileNotFoundError:
-            print("Davinci Resolve executable not found. Please double check the path")
-
-        print("Davinci resolve already running... Continuing")
+    print("Davinci Resolve already running... Continuing")

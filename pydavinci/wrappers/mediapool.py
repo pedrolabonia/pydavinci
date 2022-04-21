@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 
-from pydavinci.main import resolve_obj
+from pydavinci.main import resolve_obj, get_resolve
 from pydavinci.utils import get_resolveobjs
 from pydavinci.wrappers.folder import Folder
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
@@ -11,7 +11,7 @@ from pydavinci.wrappers.timelineitem import TimelineItem
 class MediaPool(object):
     def __init__(self) -> None:
 
-        self._obj = resolve_obj.GetProjectManager().GetCurrentProject().GetMediaPool()
+        self._obj = get_resolve().GetProjectManager().GetCurrentProject().GetMediaPool()
 
     @property
     def root_folder(self) -> "Folder":

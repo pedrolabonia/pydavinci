@@ -42,20 +42,20 @@ def test_fusion():
 
 
 def test_create_prjmanager_folder():
-    assert resolve.project_manager.create_folder("pydavinci_prjmanagerfolder") is True
+    assert resolve.project_manager.create_folder("pydavinci_prjmanagerfolder5") is True
 
 
 def test_open_prjmanager_folder():
-    assert resolve.project_manager.open_folder("pydavinci_prjmanagerfolder") is True
+    assert resolve.project_manager.open_folder("pydavinci_prjmanagerfolder5") is True
 
 
 def test_create_and_load_project():
-    project = resolve.project_manager.create_project("pydavinci_testproject")
+    project = resolve.project_manager.create_project("pydavinci_testproject5")
     assert isinstance(project, Project)
 
 
 def test_open_project():
-    assert isinstance(resolve.project_manager.load_project("pydavinci_testproject"), Project)
+    assert isinstance(resolve.project_manager.load_project("pydavinci_testproject5"), Project)
 
 
 def test_resolve_pages():
@@ -88,4 +88,9 @@ def test_close_project():
 
 def test_delete_prjmanager_folder_and_project():
     assert resolve.project_manager.goto_root_folder() is True
-    assert resolve.project_manager.delete_folder("pydavinci_prjmanagerfolder") is True
+    assert resolve.project_manager.delete_folder("pydavinci_prjmanagerfolder5") is True
+
+
+def test_mediastorage():
+    print(resolve.media_storage.mounted_volumes)
+    assert resolve.media_storage.mounted_volumes is not None

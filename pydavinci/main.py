@@ -1,4 +1,5 @@
 from pydavinci.connect import load_fusionscript
+import functools
 
 
 def get_resolve():

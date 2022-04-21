@@ -1,6 +1,8 @@
 from typing import TYPE_CHECKING, Dict, List, Optional
 
 from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs
+from pydavinci.main import get_resolve, resolve_obj
+
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.project import Project
@@ -12,7 +14,7 @@ class Timeline(object):
         if data:
             self._obj = data
         else:
-            self._obj = Project._obj.GetCurrentTimeline()
+            self._obj = get_resolve().GetProjectManager().GetCurrentProject().GetCurrentTimeline()
 
     @property
     def name(self) -> str:
@@ -23,7 +25,7 @@ class Timeline(object):
         return self._obj.SetName(name)
 
     def activate(self):
-        return Project._obj.SetCurrentTimeline(self._obj)
+        return get_resolve().GetProjectManager().GetCurrentProject().SetCurrentTimeline(self._obj)
 
     @property
     def start_frame(self) -> int:

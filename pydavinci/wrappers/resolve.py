@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Optional
 
 import pydavinci.utils as utils
-from pydavinci.main import resolve_obj
+from pydavinci.main import resolve_obj, get_resolve
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
@@ -13,10 +13,11 @@ if TYPE_CHECKING:
 class Resolve(object):
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
 
-        # utils.launch_resolve(headless, path)
+        if utils.launch_resolve(headless, path):
+            print("rolou")
 
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
-        self._obj = resolve_obj
+        self._obj = get_resolve()
 
     @property
     def project_manager(self) -> "ProjectManager":
@@ -44,7 +45,7 @@ class Resolve(object):
 
     @property
     def fusion(self):
-        return resolve_obj.Fusion()
+        return get_resolve().Fusion()
 
     @property
     def page(self) -> str:
@@ -91,7 +92,7 @@ class Resolve(object):
     def active_timeline(self):
         from pydavinci.wrappers.timeline import Timeline
 
-        return Timeline(resolve_obj.GetProjectManager().GetCurrentTimeline())
+        return Timeline(get_resolve().GetProjectManager().GetCurrentTimeline())
 
     def __repr__(self) -> str:
         return f'Resolve(Page: "{self.page}")'

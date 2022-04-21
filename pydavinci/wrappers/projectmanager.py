@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from pydavinci.main import resolve_obj
+from pydavinci.main import get_resolve, resolve_obj
 from pydavinci.wrappers.project import Project
 
 

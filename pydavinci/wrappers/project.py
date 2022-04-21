@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Dict, List, Optional
 
 from pydavinci.exceptions import ObjectNotFound
-from pydavinci.main import resolve_obj
+from pydavinci.main import resolve_obj, get_resolve
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
@@ -18,13 +18,11 @@ class Project(object):
         _type_: Object class
     """
 
-    _obj = resolve_obj.GetProjectManager().GetCurrentProject()
-
     def __init__(self, prj=None) -> None:
         if prj:
             self._obj = prj
         else:
-            self._obj = Project._obj
+            self._obj = get_resolve().GetProjectManager().GetCurrentProject()
 
     @property
     def mediapool(self) -> "MediaPool":

@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, List, Union
 
-from pydavinci.main import resolve_obj
+from pydavinci.main import get_resolve, resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapoolitem import MediaPoolItem
@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 class MediaStorage(object):
     def __init__(self) -> None:
-        self._obj = resolve_obj.GetMediaStorage()
+        self._obj = get_resolve().GetMediaStorage()
 
     @property
     def mounted_volumes(self):
