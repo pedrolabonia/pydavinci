@@ -18,7 +18,7 @@ TRACK_ERROR = "Track type must be: 'video', 'audio', or 'subtitle"
 
 
 default_resolve_install = {
-    "win": "",
+    "win": r"C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Resolve.exe",
     "mac": "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/MacOS/Resolve",
     "linux": "",
 }
@@ -26,7 +26,7 @@ default_resolve_install = {
 
 def process_active(process_name: str) -> bool:
 
-    if process_name in (p.name().lower() for p in psutil.process_iter()):
+    if process_name or f"{process_name}.exe" in (p.name().lower() for p in psutil.process_iter()):
         return True
     return False
 
@@ -56,8 +56,8 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
                 subprocess.Popen(
                     args,
                     start_new_session=True,
-                    close_fds=True,
-                    creationflags=DETACHED_PROCESS,
+                    # close_fds=True,
+                    # creationflags=DETACHED_PROCESS,
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )  # noqa: F821 type: ignore

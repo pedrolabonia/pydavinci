@@ -75,14 +75,17 @@ def test_resolve_pages():
     assert resolve.page == "deliver"
 
 
-### Cleanup for re-running tests
+## Cleanup for re-running tests
 
-# def test_save_project():
-#     assert resolve.project.save() is True
 
-# def test_close_project():
-#     assert resolve.project.close() is True
+def test_save_project():
+    assert resolve.project.save() is True
 
-# def test_delete_prjmanager_folder_and_project():
-#     assert resolve.project_manager.goto_root_folder() is True
-#     assert resolve.project_manager.delete_folder('pydavinci_prjmanagerfolder') is True
+
+def test_close_project():
+    assert resolve.project.close() is True
+
+
+def test_delete_prjmanager_folder_and_project():
+    assert resolve.project_manager.goto_root_folder() is True
+    assert resolve.project_manager.delete_folder("pydavinci_prjmanagerfolder") is True

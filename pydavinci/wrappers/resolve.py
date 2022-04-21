@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class Resolve(object):
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
 
-        utils.launch_resolve(headless, path)
+        # utils.launch_resolve(headless, path)
 
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
         self._obj = resolve_obj
