@@ -25,6 +25,13 @@ default_resolve_install = {
 }
 
 
+def is_resolve_obj(obj):
+    if type(obj) == type(pydavinci.main.resolve_obj):
+        return obj
+    else:
+        return False
+
+
 def get_proc_pid(name):
     for proc in psutil.process_iter():
         try:

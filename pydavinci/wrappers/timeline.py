@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Dict, List, Optional
 
-from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs
+from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
 from pydavinci.main import get_resolve, resolve_obj
 
 
@@ -10,11 +10,15 @@ if TYPE_CHECKING:
 
 
 class Timeline(object):
-    def __init__(self, data=None) -> None:
-        if data:
-            self._obj = data
+    def __init__(self, *args) -> None:
+        if args:
+            if is_resolve_obj(args[0]):
+                self._obj = args[0]
+            else:
+                raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:
-            self._obj = get_resolve().GetProjectManager().GetCurrentProject().GetCurrentTimeline()
+            print(" aqui")
+            self._obj = resolve_obj.GetProjectManager().GetCurrentProject().GetCurrentTimeline()
 
     @property
     def name(self) -> str:
@@ -24,8 +28,8 @@ class Timeline(object):
     def name(self, name: str) -> bool:
         return self._obj.SetName(name)
 
-    def activate(self):
-        return get_resolve().GetProjectManager().GetCurrentProject().SetCurrentTimeline(self._obj)
+    def activate(self) -> bool:
+        return resolve_obj.GetProjectManager().GetCurrentProject().SetCurrentTimeline(self._obj)
 
     @property
     def start_frame(self) -> int:

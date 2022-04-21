@@ -2,6 +2,8 @@ from typing import TYPE_CHECKING, Optional
 
 import pydavinci.utils as utils
 from pydavinci.main import resolve_obj, get_resolve
+from pydavinci.wrappers._basewrappers import BaseResolveWrapper
+from pydavinci.utils import process_active
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
@@ -10,14 +12,17 @@ if TYPE_CHECKING:
     from pydavinci.wrappers.projectmanager import ProjectManager
 
 
-class Resolve(object):
+class Resolve(BaseResolveWrapper):
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
 
-        if utils.launch_resolve(headless, path):
-            print("rolou")
+        # if utils.launch_resolve(headless, path): # this check is slow AF, to be implemented when we have auto-launch resolve
+        if not process_active("resolve"):
+            raise NotImplementedError(
+                "Couldn't find Davinci Resolve. Please make sure it's running"
+            )
 
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
-        self._obj = get_resolve()
+        self._obj = resolve_obj
 
     @property
     def project_manager(self) -> "ProjectManager":
@@ -45,7 +50,7 @@ class Resolve(object):
 
     @property
     def fusion(self):
-        return get_resolve().Fusion()
+        return resolve_obj.Fusion()
 
     @property
     def page(self) -> str:
@@ -92,7 +97,7 @@ class Resolve(object):
     def active_timeline(self):
         from pydavinci.wrappers.timeline import Timeline
 
-        return Timeline(get_resolve().GetProjectManager().GetCurrentTimeline())
+        return Timeline()
 
     def __repr__(self) -> str:
         return f'Resolve(Page: "{self.page}")'

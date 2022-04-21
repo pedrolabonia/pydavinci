@@ -1,12 +1,20 @@
 from typing import TYPE_CHECKING, Dict, List
+from pydavinci.utils import is_resolve_obj
+
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 
 class TimelineItem(object):
-    def __init__(self, obj):
-        self._obj = obj
+    def __init__(self, *args) -> None:
+        if args:
+            if is_resolve_obj(args[0]):
+                self._obj = args[0]
+            else:
+                raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
+        else:
+            raise TypeError(f"You need to provide at least one Resolve object.")
 
     @property
     def name(self) -> str:
