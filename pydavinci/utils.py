@@ -4,7 +4,7 @@ import time
 from typing import TYPE_CHECKING, List, Optional
 
 import psutil
-from pydavinci.main import get_resolve
+import pydavinci.main
 
 if TYPE_CHECKING:
     from pyremoteobject import PyRemoteObject
@@ -103,8 +103,8 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
             print("...")
             try:
                 print("try")
-                if get_resolve().GetMediaStorage() is not None:
-                    print(get_resolve().GetMediaStorage())
+                if pydavinci.main.get_resolve().GetProjectManager() is not None:
+                    print(pydavinci.main.get_resolve().GetProjectManager())
                     print("chego aqui")
                     ready = True
                     break
@@ -112,7 +112,7 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
                 continue
 
         print("pronto pra vaza")
-        time.sleep(1)
+        time.sleep(4)
         return True
 
         # except FileNotFoundError:

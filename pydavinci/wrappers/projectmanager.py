@@ -5,8 +5,10 @@ from pydavinci.wrappers.project import Project
 
 
 class ProjectManager(object):
-
-    _obj = resolve_obj.GetProjectManager()
+    try:
+        _obj = resolve_obj.GetProjectManager()  # if using this one here, everything fails
+    except AttributeError:
+        _obj = get_resolve().GetProjectManager()  # if using this here, closing projects fail
 
     def __init__(self) -> None:
 
