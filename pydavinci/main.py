@@ -1,12 +1,16 @@
+from typing import TYPE_CHECKING
+
 from pydavinci.connect import load_fusionscript
-import functools
+
+if TYPE_CHECKING:
+    from pydavinci.wrappers._resolve_stubs import PyRemoteResolve
 
 
-def get_resolve():
-    load_fusionscript()
+def get_resolve() -> "PyRemoteResolve":
+    load_fusionscript()  # type: ignore
     import fusionscript as dvr_script  # type: ignore
 
-    return dvr_script.scriptapp("Resolve")
+    return dvr_script.scriptapp("Resolve")  # type: ignore
 
 
-resolve_obj = get_resolve()
+resolve_obj: "PyRemoteResolve" = get_resolve()

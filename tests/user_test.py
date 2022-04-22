@@ -1,22 +1,18 @@
 # flake8: noqa
-import time
-from typing import List, Optional, TypeVar
+# type: ignore
+from pathlib import Path
+from typing import List
 
 import pytest
-from pydavinci.wrappers.folder import Folder
-from pydavinci.wrappers.mediapoolitem import MediaPoolItem
-from pydavinci.wrappers.timelineitem import TimelineItem
 
 import pydavinci.wrappers.resolve as davinci
-from pydavinci.utils import launch_resolve, process_active
+from pydavinci.wrappers.folder import Folder
+from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 from pydavinci.wrappers.project import Project
-from pathlib import Path
-
-import sys
-
 from pydavinci.wrappers.timeline import Timeline
+from pydavinci.wrappers.timelineitem import TimelineItem
 
-resolve: davinci.Resolve
+# resolve: davinci.Resolve
 
 
 @pytest.fixture(autouse=True)

@@ -1,17 +1,22 @@
-from typing import Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
-from pydavinci.main import resolve_obj, get_resolve
+from pydavinci.main import resolve_obj
 from pydavinci.utils import get_resolveobjs
 from pydavinci.wrappers.folder import Folder
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 from pydavinci.wrappers.timeline import Timeline
 from pydavinci.wrappers.timelineitem import TimelineItem
 
+if TYPE_CHECKING:
+    from pydavinci.wrappers._resolve_stubs import PyRemoteMediaPool
+
 
 class MediaPool(object):
     def __init__(self) -> None:
 
-        self._obj = resolve_obj.GetProjectManager().GetCurrentProject().GetMediaPool()
+        self._obj: PyRemoteMediaPool = (
+            resolve_obj.GetProjectManager().GetCurrentProject().GetMediaPool()
+        )
 
     @property
     def root_folder(self) -> "Folder":
@@ -32,7 +37,9 @@ class MediaPool(object):
     def create_timeline_fromclips(self, name: str, clips: List["MediaPoolItem"]) -> "Timeline":
         return Timeline(self._obj.CreateTimelineFromClips(name, get_resolveobjs(clips)))
 
-    def import_timeline_fromfile(self, path: str, options: Optional[Dict] = None) -> "Timeline":
+    def import_timeline_fromfile(
+        self, path: str, options: Optional[Dict[Any, Any]] = None
+    ) -> "Timeline":
         if not options:
             return Timeline(self._obj.ImportTimelineFromFile(path, options))
         return Timeline(self._obj.ImportTimelineFromFile(path))
@@ -75,7 +82,7 @@ class MediaPool(object):
     def unlink_clips(self, clips: List["MediaPoolItem"]) -> bool:
         return self._obj.UnlinkClips(get_resolveobjs(clips))
 
-    def import_media(self, paths: Union[str, List[str]]) -> List["MediaPoolItem"]:
+    def import_media(self, paths: List[str]) -> List["MediaPoolItem"]:
         # / TODO: Implement image sequence using ImportMedia({ClipInfo})
 
         imported = self._obj.ImportMedia(paths)

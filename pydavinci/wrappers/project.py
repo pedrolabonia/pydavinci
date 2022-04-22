@@ -1,10 +1,11 @@
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from pydavinci.exceptions import ObjectNotFound
-from pydavinci.main import resolve_obj, get_resolve
+from pydavinci.main import resolve_obj
 from pydavinci.utils import is_resolve_obj
 
 if TYPE_CHECKING:
+    from pydavinci.wrappers._resolve_stubs import PyRemoteProject
     from pydavinci.wrappers.mediapool import MediaPool
     from pydavinci.wrappers.timeline import Timeline
 
@@ -19,7 +20,7 @@ class Project(object):
         _type_: Object class
     """
 
-    def __init__(self, *args) -> None:
+    def __init__(self, *args: "PyRemoteProject") -> None:
         if args:
             if is_resolve_obj(args[0]):
                 self._obj = args[0]
@@ -39,7 +40,7 @@ class Project(object):
         return self._obj.GetTimelineCount()
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._obj.GetName()
 
     @name.setter
@@ -47,7 +48,7 @@ class Project(object):
         return self._obj.SetName(name)
 
     @property
-    def presets(self) -> list:
+    def presets(self) -> List[str]:
         return self._obj.GetPresetList()
 
     def set_preset(self, preset_name: str) -> bool:
@@ -81,14 +82,16 @@ class Project(object):
         return self._obj.DeleteAllRenderJobs()
 
     @property
-    def render_jobs(self) -> list:
+    def render_jobs(self) -> List[str]:
         return self._obj.GetRenderJobList()
 
     @property
-    def render_presets(self) -> list:
+    def render_presets(self) -> List[str]:
         return self._obj.GetRenderPresetList()
 
     def render(self, job_ids: Optional[List[str]] = None, interactive: bool = False) -> bool:
+        # TODO: the API supports passing only jobs ids: str as arguments. Implement here
+        # using *args and update stub.
         if not job_ids:
             return self._obj.StartRendering(isInteractiveMode=interactive)
         else:
@@ -97,26 +100,25 @@ class Project(object):
     def stop_render(self) -> None:
         return self._obj.StopRendering()
 
-    def render_status(self, job_id: str) -> Dict:
+    def render_status(self, job_id: str) -> Dict[Any, Any]:
         return self._obj.GetRenderJobStatus(job_id)
 
     @property
-    def render_formats(self) -> Dict:
+    def render_formats(self) -> Dict[Any, Any]:
         return self._obj.GetRenderFormats()
 
-    @property
-    def render_codecs(self) -> Dict:
-        return self._obj.GetRenderCodecs()
+    def get_render_codecs(self, render_format: str) -> Dict[Any, Any]:
+        return self._obj.GetRenderCodecs(render_format)
 
     @property
-    def current_render_format_and_codec(self) -> Dict:
+    def current_render_format_and_codec(self) -> Dict[Any, Any]:
         return self._obj.GetCurrentRenderFormatAndCodec()
 
     def set_render_format_and_codec(self, format: str, codec: str) -> bool:
         return self._obj.SetCurrentRenderFormatAndCodec(format, codec)
 
     @property
-    def render_mode(self):
+    def render_mode(self) -> int:
         return self._obj.GetCurrentRenderMode()
 
     @render_mode.setter
@@ -131,7 +133,7 @@ class Project(object):
                 for single clip and individual clips, respectively.'
             )
 
-    def available_resolutions(self, format: str, codec: str) -> Dict:
+    def available_resolutions(self, format: str, codec: str) -> List[Dict[Any, Any]]:
         return self._obj.GetRenderResolutions(format, codec)
 
     @property
@@ -144,17 +146,16 @@ class Project(object):
     def save_render_preset_as(self, preset_name: str) -> bool:
         return self._obj.SaveAsNewRenderPreset(preset_name)
 
-    def set_render_settings(self, render_settings: Dict) -> bool:
+    def set_render_settings(self, render_settings: Dict[Any, Any]) -> bool:
         return self._obj.SetRenderSettings(render_settings)
 
-    def get_setting(self, setting: str) -> Dict:
+    def get_setting(self, setting: str) -> Any:
         return self._obj.GetSetting(setting)
 
     def set_setting(self, setting: str, value: str) -> bool:
         return self._obj.SetSetting(setting, value)
 
     def save(self) -> bool:
-
         return resolve_obj.GetProjectManager().SaveProject()
 
     ## note: after loading the first project, it's impossible
@@ -181,7 +182,7 @@ class Project(object):
 
         return Timeline(self._obj.GetCurrentTimeline())
 
-    def refresh_luts(self):
+    def refresh_luts(self) -> bool:
         return self._obj.RefreshLUTList()
 
     def __repr__(self) -> str:

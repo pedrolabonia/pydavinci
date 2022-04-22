@@ -1,3 +1,4 @@
+# type: ignore
 # flake8: noqa
 import imp
 import os
@@ -19,7 +20,7 @@ class BaseResolveWrapper(object):
 
         self.gui_latency = 7  # seconds
 
-        self._obj = None  # type: ignore
+        self._obj = None
         # if davinci is not running, run it
         if not self.process_active("resolve"):
             self.launch_resolve(headless, path)
@@ -27,7 +28,7 @@ class BaseResolveWrapper(object):
 
         self.load_fusionscript()
 
-        import fusionscript as dvr_script  # black: ignore
+        import fusionscript as dvr_script  # type: ignore
 
         self._obj = dvr_script.scriptapp("Resolve")
         # print(self._obj.GetProjectManager())
@@ -40,18 +41,18 @@ class BaseResolveWrapper(object):
 
     # @staticmethod
     # def _get_project_manager(cls):
-    #     return self._obj.GetProjectManager()  # type: ignore
+    #     return self._obj.GetProjectManager()
 
     # @staticmethod
     # def _get_media_storage(cls):
-    #     return self._obj.GetMediaStorage()  # type: ignore
+    #     return self._obj.GetMediaStorage()
 
     def load_fusionscript(self):
 
         WIN_ENV_VARIABLES = {
             "RESOLVE_SCRIPT_API": r"%PROGRAMDATA%\Blackmagic Design\DaVinciResolve\Support\Developer\Scripting",
             "RESOLVE_SCRIPT_LIB": r"C:\Program Files\Blackmagic Design\DaVinciResolve\fusionscript.dll",
-            "PYTHONPATH": r"%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules\\",  # type: ignore
+            "PYTHONPATH": r"%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules\\",
         }
 
         MAC_ENV_VARIABLES = {
@@ -80,7 +81,7 @@ class BaseResolveWrapper(object):
         script_module = None
 
         try:
-            import fusionscript as script_module  # type: ignore
+            import fusionscript as script_module
         except ImportError:
             # Look for installer based environment variables:
             lib_path = os.getenv("RESOLVE_SCRIPT_LIB")
@@ -101,7 +102,9 @@ class BaseResolveWrapper(object):
                     path = "/opt/resolve/libs/Fusion/"
 
                 try:
-                    script_module = imp.load_dynamic("fusionscript", path + "fusionscript" + ext)  # type: ignore # noqa: E501, B950
+                    script_module = imp.load_dynamic(
+                        "fusionscript", path + "fusionscript" + ext
+                    )  # noqa: E501, B950
                 except ImportError:
                     pass
 
@@ -114,7 +117,7 @@ class BaseResolveWrapper(object):
         for p in psutil.process_iter():
             if (
                 process_name.lower() in p.name().lower()
-                or process_name.lower() + ".exe" in p.name().lower()  # type: ignore
+                or process_name.lower() + ".exe" in p.name().lower()
             ):
                 print(f"Found process: {process_name}")
                 return True
@@ -213,7 +216,7 @@ class DavinciMarker(object):
             ```
         """
 
-        return self._obj.GetMarkers()  # type: ignore
+        return self._obj.GetMarkers()
 
     def add_marker(
         self,
@@ -238,7 +241,7 @@ class DavinciMarker(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        return self._obj.AddMarker(frameid, color, name, note, duration, customdata)  # type: ignore
+        return self._obj.AddMarker(frameid, color, name, note, duration, customdata)
 
     def get_custom_marker(self, customdata: str) -> Dict:
         """Returns a dict that's tagged with ``customdata``
@@ -249,7 +252,7 @@ class DavinciMarker(object):
         Returns:
             Dict: marker dictionary
         """
-        return self._obj.GetMarkerByCustomData(customdata)  # type: ignore
+        return self._obj.GetMarkerByCustomData(customdata)
 
     def update_custom_marker(self, frameid: int, customdata: str) -> bool:
         """Updates custom marker at ``frameid`` with ``customdata``
@@ -261,7 +264,7 @@ class DavinciMarker(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        return self._obj.UpdateMarkerCustomData(frameid, customdata)  # type: ignore
+        return self._obj.UpdateMarkerCustomData(frameid, customdata)
 
     def marker_custom_data(self, frameid: int) -> str:
         """Gets marker custom data at ``frameid``
@@ -272,7 +275,7 @@ class DavinciMarker(object):
         Returns:
             str: custom data
         """
-        return self._obj.GetMarkerCustomData(frameid)  # type: ignore
+        return self._obj.GetMarkerCustomData(frameid)
 
     def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
         """Deletes marker at ``frameid`` or with color ``color`` or with customdata ``customdata``.
@@ -290,11 +293,11 @@ class DavinciMarker(object):
             bool: ``True`` if successful, ``False`` otherwise
         """
         if frameid:
-            return self._obj.DeleteMarkerAtFrame(frameid)  # type: ignore
+            return self._obj.DeleteMarkerAtFrame(frameid)
         if color:
-            return self._obj.DeleteMarkersByColor(color)  # type: ignore
+            return self._obj.DeleteMarkersByColor(color)
         if customdata:
-            return self._obj.DeleteMarkerByCustomData(customdata)  # type: ignore
+            return self._obj.DeleteMarkerByCustomData(customdata)
         raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
 
 
@@ -322,8 +325,3 @@ class DavinciSettings(MutableMapping):
 
     def __contains__(self, k):
         return k in self.__data
-
-
-if __name__ == "__main__":
-    print("yea")
-    a = BaseDavinciWrapper()
