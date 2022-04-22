@@ -10,10 +10,10 @@ if TYPE_CHECKING:
 
 
 class Timeline(object):
-    def __init__(self, *args: "PyRemoteTimeline") -> None:
+    def __init__(self, *args: Any) -> None:
         if args:
             if is_resolve_obj(args[0]):
-                self._obj = args[0]
+                self._obj: "PyRemoteTimeline" = args[0]
             else:
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:

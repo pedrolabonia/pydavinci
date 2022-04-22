@@ -12,10 +12,10 @@ class MediaPoolItem(object):
     # Meed to mess around with a private dict that uses
     # the SetMetadata() when internal dict updates
 
-    def __init__(self, *args: "PyRemoteMediaPoolItem") -> None:
+    def __init__(self, *args: Any) -> None:
         if args:
             if is_resolve_obj(args[0]):
-                self._obj = args[0]
+                self._obj: "PyRemoteMediaPoolItem" = args[0]
             else:
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:

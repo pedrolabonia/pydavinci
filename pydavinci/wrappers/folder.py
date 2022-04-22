@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Any
 
 from pydavinci.utils import is_resolve_obj
 
@@ -8,10 +8,10 @@ if TYPE_CHECKING:
 
 
 class Folder(object):
-    def __init__(self, *args: "PyRemoteFolder") -> None:
+    def __init__(self, *args: Any) -> None:
         if args:
             if is_resolve_obj(args[0]):
-                self._obj = args[0]
+                self._obj: "PyRemoteFolder" = args[0]
             else:
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:
