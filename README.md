@@ -10,9 +10,9 @@ pip install -e .
 Then, use by importing it:
 
 ```python
-from pydavinci import Resolve
+from pydavinci import davinci
 
-resolve = Resolve()
+resolve = davinci.Resolve()
 ```
 
 Requires Python 3.6.*
