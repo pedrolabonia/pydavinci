@@ -1,12 +1,19 @@
 # flake8: noqa
 import time
-from typing import Optional, TypeVar
+from typing import List, Optional, TypeVar
 
 import pytest
+from pydavinci.wrappers.folder import Folder
+from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 import pydavinci.wrappers.resolve as davinci
 from pydavinci.utils import launch_resolve, process_active
 from pydavinci.wrappers.project import Project
+from pathlib import Path
+
+import sys
+
+from pydavinci.wrappers.timeline import Timeline
 
 resolve: davinci.Resolve
 
@@ -15,7 +22,7 @@ resolve: davinci.Resolve
 def load():
 
     global resolve
-    resolve = davinci.Resolve(headless=True)
+    resolve = davinci.Resolve()
 
 
 def test_resolve_exists():
@@ -94,3 +101,24 @@ def test_delete_prjmanager_folder_and_project():
 def test_mediastorage():
     print(resolve.media_storage.mounted_volumes)
     assert resolve.media_storage.mounted_volumes is not None
+
+
+def test_create_folder(capsys):
+    resolve.page = "media"
+    created = resolve.media_pool.add_subfolder(resolve.media_pool.root_folder, "Test Folder")
+    assert isinstance(created, Folder)
+    assert resolve.media_pool.set_current_folder(created) is True
+
+
+def test_import_clips_and_import_into_timeline():
+    path = Path("./tests/videos")
+    imported = resolve.media_pool.import_media(str(path.resolve()))
+    assert isinstance(imported, List)
+    assert isinstance(imported[0], MediaPoolItem)
+    timeline = resolve.media_pool.create_timeline_fromclips("Test Timeline", imported)
+    assert isinstance(timeline, Timeline)
+    assert timeline.activate() is True
+
+
+def test_grab_timeline_instance():
+    assert isinstance(resolve.active_timeline, Timeline)

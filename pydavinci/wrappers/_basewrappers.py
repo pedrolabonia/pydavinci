@@ -1,11 +1,196 @@
-# noqa: all
+# flake8: noqa
+import imp
+import os
+import platform
+import subprocess
+import sys
+import time
 from collections.abc import MutableMapping
-from typing import Dict
+from typing import Dict, List, Optional
+
+import psutil
+
+from pydavinci.connect import load_fusionscript
+from pydavinci.utils import default_resolve_install
 
 
-class BaseDavinciWrapper(object):
-    def __init__(self) -> None:
-        pass
+class BaseResolveWrapper(object):
+    def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None) -> None:
+
+        self.gui_latency = 7  # seconds
+
+        self._obj = None  # type: ignore
+        # if davinci is not running, run it
+        if not self.process_active("resolve"):
+            self.launch_resolve(headless, path)
+            print("vazei inner")
+
+        self.load_fusionscript()
+
+        import fusionscript as dvr_script  # black: ignore
+
+        self._obj = dvr_script.scriptapp("Resolve")
+        # print(self._obj.GetProjectManager())
+
+    @property
+    def _root(self):
+        import fusionscript as dvr_script
+
+        return dvr_script.scriptapp("Resolve")
+
+    # @staticmethod
+    # def _get_project_manager(cls):
+    #     return self._obj.GetProjectManager()  # type: ignore
+
+    # @staticmethod
+    # def _get_media_storage(cls):
+    #     return self._obj.GetMediaStorage()  # type: ignore
+
+    def load_fusionscript(self):
+
+        WIN_ENV_VARIABLES = {
+            "RESOLVE_SCRIPT_API": r"%PROGRAMDATA%\Blackmagic Design\DaVinciResolve\Support\Developer\Scripting",
+            "RESOLVE_SCRIPT_LIB": r"C:\Program Files\Blackmagic Design\DaVinciResolve\fusionscript.dll",
+            "PYTHONPATH": r"%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules\\",  # type: ignore
+        }
+
+        MAC_ENV_VARIABLES = {
+            "RESOLVE_SCRIPT_API": "/Library/Application Support/Blackmagic Design/DaVinciResolve/Developer/Scripting",
+            "RESOLVE_SCRIPT_LIB": "/Applications/DaVinci Resolve/DaVinciResolve.app/Contents/Libraries/Fusion/fusionscript.so",
+            "PYTHONPATH": "$PYTHONPATH:$RESOLVE_SCRIPT_API/Modules/",
+        }
+        LINUX_ENV_VARIABLES = {
+            "RESOLVE_SCRIPT_API": "/opt/resolve/Developer/Scripting",
+            "RESOLVE_SCRIPT_LIB": "/opt/resolve/libs/Fusion/fusionscript.so",
+            "PYTHONPATH": "$PYTHONPATH:$RESOLVE_SCRIPT_API/Modules/",
+        }
+
+        if sys.platform.startswith("win32"):
+            for key in WIN_ENV_VARIABLES.keys():
+                os.environ[key] = WIN_ENV_VARIABLES[key]
+
+        elif sys.platform.startswith("darwin"):
+            for key in MAC_ENV_VARIABLES.keys():
+                os.environ[key] = MAC_ENV_VARIABLES[key]
+
+        else:
+            for key in LINUX_ENV_VARIABLES.keys():
+                os.environ[key] = LINUX_ENV_VARIABLES[key]
+
+        script_module = None
+
+        try:
+            import fusionscript as script_module  # type: ignore
+        except ImportError:
+            # Look for installer based environment variables:
+            lib_path = os.getenv("RESOLVE_SCRIPT_LIB")
+            if lib_path:
+                try:
+                    script_module = imp.load_dynamic("fusionscript", lib_path)
+                except ImportError:
+                    pass
+            if not script_module:
+                # Look for default install locations:
+                ext = ".so"
+                if sys.platform.startswith("darwin"):
+                    path = "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/Libraries/Fusion/"
+                elif sys.platform.startswith("win") or sys.platform.startswith("cygwin"):
+                    ext = ".dll"
+                    path = "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\"
+                elif sys.platform.startswith("linux"):
+                    path = "/opt/resolve/libs/Fusion/"
+
+                try:
+                    script_module = imp.load_dynamic("fusionscript", path + "fusionscript" + ext)  # type: ignore # noqa: E501, B950
+                except ImportError:
+                    pass
+
+    def process_active(self, process_name: str) -> bool:
+
+        if "wsl" in platform.uname().release.lower():
+            # WSL, figure out a better place to do this error.
+            raise SystemError("WSL not supported.")
+
+        for p in psutil.process_iter():
+            if (
+                process_name.lower() in p.name().lower()
+                or process_name.lower() + ".exe" in p.name().lower()  # type: ignore
+            ):
+                print(f"Found process: {process_name}")
+                return True
+        return False
+
+    def launch_resolve(self, headless: Optional[bool] = False, path: Optional[str] = None):
+
+        if not self.process_active("resolve"):
+
+            system: str = ""
+            args: List = []
+
+            if sys.platform.startswith("win32"):
+                system = "win"
+            elif sys.platform.startswith("darwin"):
+                system = "mac"
+            elif sys.platform.startswith("linux"):
+                system = "linux"
+            else:
+                raise Exception("Can't find correct platform.")
+
+            if path:
+                args.append(path)
+            else:
+                args.append(default_resolve_install[system])
+
+            if headless:
+                args.append("-nogui")
+
+            kwargs = {}
+
+            try:
+                if system == "win":
+                    # Windows fuckery here to spawn a process without it being a child
+                    # of the python interpreter
+                    # https://docs.microsoft.com/pt-br/windows/win32/procthread/process-creation-flags?redirectedfrom=MSDN
+                    CREATE_NEW_PROCESS_GROUP = 0x00000200
+                    DETACHED_PROCESS = 0x00000008
+                    kwargs.update(creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+                elif system == "wsl":
+                    args.insert(0, "cmd.exe")
+                else:
+                    kwargs.update(close_fds=True)
+
+                subprocess.Popen(
+                    args,
+                    start_new_session=True,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    # **kwargs,
+                )
+                print("subiu processo")
+                while not self.process_active("fuscript"):
+                    print("Waiting for fuscript")
+
+                self.load_fusionscript()
+                import fusionscript as dvr_script
+
+                ready = False
+                while not ready:
+                    self._obj = dvr_script.scriptapp("Resolve")
+                    try:
+                        if dvr_script.scriptapp("Resolve") is not None:
+                            ready = True
+                    except AttributeError:
+                        continue
+                if not headless:
+                    time.sleep(self.gui_latency)
+                time.sleep(0.5)
+                return
+
+            except FileNotFoundError:
+                print("Davinci Resolve executable not found. Please double check the path")
+
+        print("Davinci Resolve already running... Continuing")
+        return
 
 
 class DavinciMarker(object):
@@ -137,3 +322,8 @@ class DavinciSettings(MutableMapping):
 
     def __contains__(self, k):
         return k in self.__data
+
+
+if __name__ == "__main__":
+    print("yea")
+    a = BaseDavinciWrapper()

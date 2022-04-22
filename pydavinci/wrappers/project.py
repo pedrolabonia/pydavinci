@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Dict, List, Optional
 
 from pydavinci.exceptions import ObjectNotFound
 from pydavinci.main import resolve_obj, get_resolve
+from pydavinci.utils import is_resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
@@ -18,11 +19,14 @@ class Project(object):
         _type_: Object class
     """
 
-    def __init__(self, prj=None) -> None:
-        if prj:
-            self._obj = prj
+    def __init__(self, *args) -> None:
+        if args:
+            if is_resolve_obj(args[0]):
+                self._obj = args[0]
+            else:
+                raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:
-            self._obj = get_resolve().GetProjectManager().GetCurrentProject()
+            self._obj = resolve_obj.GetProjectManager().GetCurrentProject()
 
     @property
     def mediapool(self) -> "MediaPool":
@@ -150,18 +154,15 @@ class Project(object):
         return self._obj.SetSetting(setting, value)
 
     def save(self) -> bool:
-        from pydavinci.wrappers.projectmanager import ProjectManager
 
-        return ProjectManager._obj.SaveProject()
+        return resolve_obj.GetProjectManager().SaveProject()
 
     ## note: after loading the first project, it's impossible
     ## to close a project and go back to the window with only
     ## the project manager showing.
     ## It defaults to a 'Untitled Project', and you can't close it
     def close(self) -> bool:
-        from pydavinci.wrappers.projectmanager import ProjectManager
-
-        return ProjectManager._obj.CloseProject(self._obj)
+        return resolve_obj.GetProjectManager().CloseProject(self._obj)
 
     def open_timeline(self, name: str) -> bool:
         from pydavinci.wrappers.timeline import Timeline

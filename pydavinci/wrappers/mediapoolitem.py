@@ -1,4 +1,6 @@
 from typing import Dict, List
+from pydavinci.main import resolve_obj
+from pydavinci.utils import is_resolve_obj
 
 
 class MediaPoolItem(object):
@@ -7,8 +9,14 @@ class MediaPoolItem(object):
     # Meed to mess around with a private dict that uses
     # the SetMetadata() when internal dict updates
 
-    def __init__(self, obj):
-        self._obj = obj
+    def __init__(self, *args) -> None:
+        if args:
+            if is_resolve_obj(args[0]):
+                self._obj = args[0]
+            else:
+                raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
+        else:
+            raise TypeError(f"You need to provide at least one Resolve object.")
 
     @property
     def name(self) -> str:
