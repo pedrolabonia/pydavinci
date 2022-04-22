@@ -1,4 +1,4 @@
-def load_fusionscript():
+def load_fusionscript():  # type: ignore
     import imp
     import os
     import sys
@@ -6,7 +6,7 @@ def load_fusionscript():
     WIN_ENV_VARIABLES = {
         "RESOLVE_SCRIPT_API": r"%PROGRAMDATA%\Blackmagic Design\DaVinciResolve\Support\Developer\Scripting",
         "RESOLVE_SCRIPT_LIB": r"C:\Program Files\Blackmagic Design\DaVinciResolve\fusionscript.dll",
-        "PYTHONPATH": r"%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules\\",  # type: ignore
+        "PYTHONPATH": r"%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules\\",
     }
 
     MAC_ENV_VARIABLES = {
@@ -55,10 +55,12 @@ def load_fusionscript():
             elif sys.platform.startswith("win") or sys.platform.startswith("cygwin"):
                 ext = ".dll"
                 path = "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\"
-            elif sys.platform.startswith("linux"):
+            else:
                 path = "/opt/resolve/libs/Fusion/"
 
             try:
-                script_module = imp.load_dynamic("fusionscript", path + "fusionscript" + ext)  # type: ignore # noqa: E501, B950
+                script_module = imp.load_dynamic(
+                    "fusionscript", f"{path}fusionscript{ext}"
+                )  # noqa: E501, B950 # type: ignore
             except ImportError:
                 pass

@@ -1,16 +1,18 @@
 import subprocess
 import sys
 import time
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 import psutil
+
 import pydavinci.main
 
 if TYPE_CHECKING:
-    from pyremoteobject import PyRemoteObject
+    from pydavinci.wrappers._resolve_stubs import \
+        PyRemoteResolve  # type: ignore
 
 
-def get_resolveobjs(objs: List) -> List["PyRemoteObject"]:
+def get_resolveobjs(objs: List[Any]) -> List[Any]:
     return [x._obj for x in objs]
 
 
@@ -25,14 +27,14 @@ default_resolve_install = {
 }
 
 
-def is_resolve_obj(obj):
+def is_resolve_obj(obj: Any) -> bool:
     if type(obj) == type(pydavinci.main.resolve_obj):
-        return obj
+        return True
     else:
         return False
 
 
-def get_proc_pid(name):
+def get_proc_pid(name: str) -> Union[None, int]:
     for proc in psutil.process_iter():
         try:
             pinfo = proc.as_dict(attrs=["pid", "name"])
@@ -40,7 +42,7 @@ def get_proc_pid(name):
                 pinfo["name"].lower() == name.lower()
                 or pinfo["name"].lower() == f"{name.lower()}.exe"
             ):
-                return pinfo["pid"]
+                return pinfo["pid"]  # type: ignore
         except psutil.AccessDenied:
             # System process
             pass
@@ -57,11 +59,11 @@ def process_active(process_name: str) -> bool:
     return False
 
 
-def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None):
+def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None):  # type: ignore
 
     if not get_proc_pid("resolve"):
         system: str = ""
-        args: List = []
+        args: List[str] = []
         if sys.platform.startswith("win32"):
             system = "win"
         elif sys.platform.startswith("darwin"):
@@ -77,8 +79,7 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
         if headless:
             args.append("-nogui")
 
-        kwargs = {}
-        print(args)
+        kwargs: Dict[Any, Any] = {}
         # try:
         if system == "win":
             # Windows fuckery here to spawn a process without it being a child
@@ -88,8 +89,8 @@ def launch_resolve(headless: Optional[bool] = False, path: Optional[str] = None)
             CREATE_NEW_PROCESS_GROUP = 0x00000200
             DETACHED_PROCESS = 0x00000008
             kwargs.update(creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
-        elif system == "wsl":
-            args.insert(0, "cmd.exe")
+        # elif system == "wsl":
+        #     args.insert(0, "cmd.exe")
         else:
             kwargs.update(close_fds=True)
 

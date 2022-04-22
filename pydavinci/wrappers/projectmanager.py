@@ -1,24 +1,25 @@
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List
 
+# from pydavinci.wrappers._basewrappers import BaseResolveWrapper
+from pydavinci.main import resolve_obj
 from pydavinci.wrappers.project import Project
-from pydavinci.wrappers._basewrappers import BaseResolveWrapper
-from pydavinci.main import get_resolve, resolve_obj
 
 if TYPE_CHECKING:
+    from pydavinci.wrappers._resolve_stubs import PyRemoteProjectManager
     from pydavinci.wrappers.project import Project
 
 # import fusionscript as dvr_script
 
 
-class ProjectManager(BaseResolveWrapper):
-    # try:
+class ProjectManager(object):  # type: ignore
+    # try:  ## this is for when we do auto-launch
     #     _obj = resolve_obj.GetProjectManager()  # if using this one here, everything fails
     # except AttributeError:
     #     _obj = get_resolve().GetProjectManager()  # if using this here, closing projects fail
 
     def __init__(self) -> None:
 
-        self._obj = resolve_obj.GetProjectManager()
+        self._obj: PyRemoteProjectManager = resolve_obj.GetProjectManager()
 
     def create_project(self, project_name: str) -> "Project":
         created = self._obj.CreateProject(project_name)
@@ -31,9 +32,9 @@ class ProjectManager(BaseResolveWrapper):
         return Project(self._obj.LoadProject(project_name))
 
     def close_project(self, project: "Project") -> bool:
-        return self._obj.CloseProject(project)
+        return self._obj.CloseProject(project._obj)
 
-    def create_folder(self, folder_name: str):
+    def create_folder(self, folder_name: str) -> bool:
         return self._obj.CreateFolder(folder_name)
 
     def delete_folder(self, folder_name: str) -> bool:
@@ -69,13 +70,13 @@ class ProjectManager(BaseResolveWrapper):
         return self._obj.RestoreProject(path)
 
     @property
-    def db(self) -> dict:
+    def db(self) -> Dict[Any, Any]:
         return self._obj.GetCurrentDatabase()
 
     @db.setter
-    def db(self, db_info: dict) -> bool:
+    def db(self, db_info: Dict[Any, Any]) -> bool:
         return self._obj.SetCurrentDatabase(db_info)
 
     @property
-    def db_list(self) -> List[Dict]:
+    def db_list(self) -> List[Dict[Any, Any]]:
         return self._obj.GetDatabaseList()

@@ -1,18 +1,18 @@
-from typing import TYPE_CHECKING, List, Union
+from typing import TYPE_CHECKING, Any, List
 
-from pydavinci.main import get_resolve, resolve_obj
-from pydavinci.wrappers._basewrappers import BaseResolveWrapper
+from pydavinci.main import resolve_obj
+from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+    from pydavinci.wrappers._resolve_stubs import PyRemoteMediaStorage
 
 
 class MediaStorage(object):
     def __init__(self) -> None:
-        self._obj = resolve_obj.GetMediaStorage()
+        self._obj: "PyRemoteMediaStorage" = resolve_obj.GetMediaStorage()
 
     @property
-    def mounted_volumes(self):
+    def mounted_volumes(self) -> List[Any]:
         return self._obj.GetMountedVolumeList()
 
     def get_subfolders(self, folder_path: str) -> List[str]:
@@ -21,16 +21,16 @@ class MediaStorage(object):
     def get_file_list(self, folder_path: str) -> List[str]:
         return self._obj.GetFileList(folder_path)
 
-    def reveal_in_storage(self, path: str) -> None:
+    def reveal_in_storage(self, path: str) -> bool:
         return self._obj.RevealInStorage(path)
 
     def add_clip_mattes(
-        self, mediapool_item: "MediaPoolItem", paths: Union[List[str], str], *args
+        self, mediapool_item: "MediaPoolItem", paths: List[str], stereo_eye: str
     ) -> bool:
-        return self._obj.AddClipMattesToMediaPool(mediapool_item._obj, paths, *args)
+        return self._obj.AddClipMattesToMediaPool(mediapool_item._obj, paths, stereo_eye)
 
-    def add_timelilne_mattes(self, paths: Union[List[str], str]) -> List["MediaPoolItem"]:
-        return self._obj.AddTimelineMattesToMediaPool(paths)
+    def add_timelilne_mattes(self, paths: List[str]) -> List["MediaPoolItem"]:
+        return [MediaPoolItem(x) for x in self._obj.AddTimelineMattesToMediaPool(paths)]
 
     def addclips_to_mediapool(self, item: List[str]) -> List["MediaPoolItem"]:
         # /TODO Weird bug. Even if doing return type Union[List[MediaPoolItem], MediaPoolItem],

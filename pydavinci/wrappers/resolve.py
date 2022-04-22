@@ -1,18 +1,19 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
-import pydavinci.utils as utils
-from pydavinci.main import resolve_obj, get_resolve
-from pydavinci.wrappers._basewrappers import BaseResolveWrapper
+from pydavinci.main import resolve_obj
+# from pydavinci.wrappers._basewrappers import BaseResolveWrapper
 from pydavinci.utils import process_active
 
 if TYPE_CHECKING:
+    from pydavinci.wrappers._resolve_stubs import PyRemoteResolve
     from pydavinci.wrappers.mediapool import MediaPool
     from pydavinci.wrappers.mediastorage import MediaStorage
     from pydavinci.wrappers.project import Project
     from pydavinci.wrappers.projectmanager import ProjectManager
+    from pydavinci.wrappers.timeline import Timeline
 
 
-class Resolve(BaseResolveWrapper):
+class Resolve(object):  # type: ignore
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
 
         # if utils.launch_resolve(headless, path): # this check is slow AF, to be implemented when we have auto-launch resolve
@@ -22,7 +23,7 @@ class Resolve(BaseResolveWrapper):
             )
 
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
-        self._obj = resolve_obj
+        self._obj: PyRemoteResolve = resolve_obj
 
     @property
     def project_manager(self) -> "ProjectManager":
@@ -49,7 +50,7 @@ class Resolve(BaseResolveWrapper):
         return MediaPool()
 
     @property
-    def fusion(self):
+    def fusion(self) -> Any:
         return resolve_obj.Fusion()
 
     @property
@@ -74,7 +75,7 @@ class Resolve(BaseResolveWrapper):
         return self._obj.GetProductName()
 
     @property
-    def version(self):
+    def version(self) -> str:
         return self._obj.GetVersionString()
 
     def load_layout(self, layout_name: str) -> bool:
@@ -90,11 +91,11 @@ class Resolve(BaseResolveWrapper):
 
         return self._obj.ImportLayoutPreset(path, layout_name)
 
-    def quit(self):
+    def quit(self) -> None:
         return self._obj.Quit()
 
     @property
-    def active_timeline(self):
+    def active_timeline(self) -> "Timeline":
         from pydavinci.wrappers.timeline import Timeline
 
         return Timeline()

@@ -1,3 +1,4 @@
+# type: ignore
 import setuptools
 
 with open("README.md", "r") as fh:
@@ -16,7 +17,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-    ),  # type: ignore
+    ),
     packages=setuptools.find_packages(),
     python_requires="==3.6.*",
 )

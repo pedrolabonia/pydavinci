@@ -3,9 +3,8 @@ requires = ["setuptools>=42"]
 build-backend = "setuptools.build_meta"
 
 [project]
-dependencies = [
-    "psutil==5.9.0",
-]
+dependencies = ["psutil==5.9.0"]
+
 
 [tool.black]
 line_length = 100

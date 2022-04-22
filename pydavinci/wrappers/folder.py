@@ -1,15 +1,14 @@
 from typing import TYPE_CHECKING, List
 
-from pydavinci.main import resolve_obj
 from pydavinci.utils import is_resolve_obj
-from pydavinci.pyremoteobject import PyRemoteObject
 
 if TYPE_CHECKING:
+    from pydavinci.wrappers._resolve_stubs import PyRemoteFolder
     from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 
 class Folder(object):
-    def __init__(self, *args) -> None:
+    def __init__(self, *args: "PyRemoteFolder") -> None:
         if args:
             if is_resolve_obj(args[0]):
                 self._obj = args[0]
@@ -30,8 +29,8 @@ class Folder(object):
         return self._obj.GetName()
 
     @property
-    def subfolders(self) -> List:
-        return self._obj.GetSubFolderList()
+    def subfolders(self) -> List["Folder"]:
+        return [Folder(x) for x in self._obj.GetSubFolderList()]
 
     def __repr__(self) -> str:
         return f'Folder(Name:"{self.name})"'

@@ -1,8 +1,10 @@
+# type: ignore
 import time
-from pydavinci import Resolve
 from collections import defaultdict
 
-resolve = Resolve()
+from pydavinci import davinci
+
+resolve = davinci.Resolve()
 
 project = resolve.project
 project_manager = resolve.project_manager
@@ -57,7 +59,8 @@ def generate_premiere_proxies(input_dir, output_dir, proxyfactor):
 
 job_ids = generate_premiere_proxies(
     "/Users/pedrolabonia/Documents/media_tests",
-    "/Users/pedrolabonia/Documents/media_tests/output", 2
+    "/Users/pedrolabonia/Documents/media_tests/output",
+    2,
 )
 
 project.render(job_ids, interactive=True)
@@ -88,6 +91,4 @@ for i, job in enumerate(job_ids):
 
     time_to_render = project.render_status(job_ids[i])["TimeTakenToRenderInMs"] / 1000
     print("\n")
-    print(
-        f"Job ID {job_ids[i]} | Rendering complete. | Total render time: {time_to_render},"
-    )
+    print(f"Job ID {job_ids[i]} | Rendering complete. | Total render time: {time_to_render},")
