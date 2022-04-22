@@ -19,6 +19,12 @@ class Folder(object):
 
     @property
     def clips(self) -> List["MediaPoolItem"]:
+        """
+        Gets all clips
+
+        Returns:
+            List[MediaPoolItem]: list of clips
+        """
         from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
         objs = self._obj.GetClipList()
@@ -26,10 +32,22 @@ class Folder(object):
 
     @property
     def name(self) -> str:
+        """
+        Gets folder name
+
+        Returns:
+            str: folder name
+        """
         return self._obj.GetName()
 
     @property
     def subfolders(self) -> List["Folder"]:
+        """
+        Gets subfolders
+
+        Returns:
+            Dict: subfolders
+        """
         return [Folder(x) for x in self._obj.GetSubFolderList()]
 
     def __repr__(self) -> str:

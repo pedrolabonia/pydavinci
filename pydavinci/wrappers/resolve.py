@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Any, Optional
 
 from pydavinci.main import resolve_obj
+
 # from pydavinci.wrappers._basewrappers import BaseResolveWrapper
 from pydavinci.utils import process_active
 
@@ -55,15 +56,22 @@ class Resolve(object):  # type: ignore
 
     @property
     def page(self) -> str:
-        """Page Attribute
-
-        Returns:
-            str: Returns page name
-        """
         return self._obj.GetCurrentPage()
 
     @page.setter
     def page(self, page: str) -> None:
+        """
+        Page Setter test
+
+        Args:
+            page (str): valid page
+
+        Raises:
+            ValueError: _description_
+
+        Returns:
+            None: None
+        """
         if page in self.pages:
             self._obj.OpenPage(page)
         else:
@@ -72,26 +80,77 @@ class Resolve(object):  # type: ignore
 
     @property
     def product_name(self) -> str:
+        """
+        Returns:
+            str: product name
+        """
         return self._obj.GetProductName()
 
     @property
     def version(self) -> str:
+        """
+        Returns:
+            str: version
+        """
         return self._obj.GetVersionString()
 
     def load_layout(self, layout_name: str) -> bool:
+        """
+        Loads saved layout named ``layout_name``
+
+        Args:
+            layout_name (str): layout name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
         return self._obj.LoadLayoutPreset(layout_name)
 
     def update_layout(self, layout_name: str) -> bool:
+        """
+        Updates current layout to ``layout_name``
+
+        Args:
+            layout_name (str): layout to be updated
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
         return self._obj.UpdateLayoutPreset(layout_name)
 
     def save_layout(self, layout_name: str) -> bool:
+        """
+        Saves current layout as ``layout_name``
+
+        Args:
+            layout_name (str): layout name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
         return self._obj.SaveLayoutPreset(layout_name)
 
     def import_layout(self, path: str, layout_name: str) -> bool:
+        """
+        Import ``layout_name`` from ``path``
+
+        Args:
+            path (str): path to layout file
+            layout_name (str): name to be imported as
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
 
         return self._obj.ImportLayoutPreset(path, layout_name)
 
     def quit(self) -> None:
+        """
+        Quits Davinci Resolve
+
+        Returns:
+            None: None
+        """
         return self._obj.Quit()
 
     @property
