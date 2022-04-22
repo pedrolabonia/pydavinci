@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, Dict, List, Optional
 
 from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
 from pydavinci.main import get_resolve, resolve_obj
-
+from pydavinci.wrappers.timelineitem import TimelineItem
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.project import Project
@@ -103,6 +103,8 @@ class Timeline(object):
 
     @property
     def current_video_item(self) -> "TimelineItem":
+        if resolve_obj.GetCurrentPage() != "edit":
+            raise Warning("You need to switch to edit page first before getting using this method.")
         return TimelineItem(self._obj.GetCurrentVideoItem())
 
     @property

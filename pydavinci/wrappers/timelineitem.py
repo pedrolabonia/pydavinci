@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Dict, List
 from pydavinci.utils import is_resolve_obj
+from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 
 if TYPE_CHECKING:
@@ -109,7 +110,7 @@ class TimelineItem(object):
 
     @property
     def mediapoolitem(self) -> "MediaPoolItem":
-        return self._obj.GetMediaPoolItem()
+        return MediaPoolItem(self._obj.GetMediaPoolItem())
 
     # /TODO: Add Stero and Fusion wrappers
 
