@@ -28,7 +28,7 @@ plugins:
             docstring_style: google
           rendering:
             show_root_heading: false
-            separate_signature: true
+            separate_signature: false
             show_if_no_docstring: false
             show_source: false
             show_signature_annotations: true
