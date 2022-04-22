@@ -29,20 +29,26 @@ div.doc-contents:not(.first) {
   font-size: 1.1em;
 }
 
-.md-typeset span small.doc-property {
-  font-size: 0.9em ;
+.md-typeset span small.doc-label {
+  font-size: 1.0em ;
+  font-kerning: unset;
 }
 
 
-.md-typeset span small.doc-property-writable code {
-  color: red !important;
+.md-typeset span small.doc-label-writable code {
+  color: var(--md-typeset-a-color);
 }
 
-.md-typeset span small.doc-property-readonly code {
+/* .md-typeset span small.doc-label-readonly code {
   color: green !important;
-}
+} */
 
 .md-typeset {
   font-size: .7rem;
 line-height: 1.4;
 }
+
+.md-header {
+  background: rgb(171,56,151);
+  background: linear-gradient(0deg, rgba(171,56,151,1) 0%, rgba(245,83,118,1) 90%); 
+} 

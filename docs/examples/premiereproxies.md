@@ -101,3 +101,14 @@ Then we loop for each `MediaPoolItem` in the `ocf_folder`. We access the clips c
 
 !!! info
     We're using a `defaultdict` to simplify our loop. If we used a regular dict, the first time we find a resolution we would have to first initiate it with a list value and then append to it. This way we don't need to check if this is the first resolution we've seen or not.
+
+Now let's set our previously created render preset, which basically is just a H264 preset which has some special parameters:
+<figure markdown>
+![Proxy Settings Figure 01](../static/Resolve_01.png)
+<figcaption>We create a custom preset names `Proxies_Preset` and make sure the resolution is set to "Custom" and "Individual Clips is selected"</figcaption>
+</figure>
+
+<figure markdown>
+![Proxy Settings Figure 02](../static/Resolve_02.png)
+<figcaption>Then, on the Audio tab, we make sure we're exporting audio and we select Same as source for the audio channels. This ensures that our proxy media can be linked without issue in Premiere.</figcaption>
+</figure>
