@@ -9,14 +9,11 @@ if TYPE_CHECKING:
 
 
 class TimelineItem(object):
-    def __init__(self, *args: Any) -> None:
-        if args:
-            if is_resolve_obj(args[0]):
-                self._obj: "PyRemoteTimelineItem" = args[0]
-            else:
-                raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
+    def __init__(self, obj: "PyRemoteTimelineItem") -> None:
+        if is_resolve_obj(obj):
+            self._obj: "PyRemoteTimelineItem" = obj
         else:
-            raise TypeError(f"You need to provide at least one Resolve object.")
+            raise TypeError(f"{type(obj)} is not a valid {self.__class__.__name__} type")
 
     @property
     def name(self) -> str:

@@ -56,6 +56,18 @@ class Resolve(object):  # type: ignore
 
     @property
     def page(self) -> str:
+        """
+        Page Setter test
+
+        Args:
+            page (str): valid page
+
+        Raises:
+            ValueError: _description_
+
+        Returns:
+            None: None
+        """
         return self._obj.GetCurrentPage()
 
     @page.setter
