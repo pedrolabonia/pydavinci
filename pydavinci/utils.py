@@ -8,8 +8,7 @@ import psutil
 import pydavinci.main
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import \
-        PyRemoteResolve  # type: ignore
+    from pydavinci.wrappers._resolve_stubs import PyRemoteResolve  # type: ignore
 
 
 def get_resolveobjs(objs: List[Any]) -> List[Any]:

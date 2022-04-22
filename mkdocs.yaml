@@ -27,9 +27,9 @@ plugins:
           selection:
             docstring_style: google
           rendering:
-            show_root_heading: true
+            show_root_heading: false
             separate_signature: true
-            show_if_no_docstring: true
+            show_if_no_docstring: false
             show_source: false
             show_signature_annotations: true
             members_order: source
