@@ -260,14 +260,14 @@
       
       
         <label class="md-nav__link" for="__nav_3">
-          Code Reference
+          API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Code Reference
+          API Reference
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1462,14 +1462,17 @@
 
 
 <h3 id="pydavinci.wrappers.project.Project.add_renderjob" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">add_renderjob</span><span class="p">()</span></code>
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">add_renderjob</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 
 </h3>
 
     <div class="doc doc-contents ">
 
-<div class="docstring"><p>Adds current render settings to a render job</p></div>
+<div class="docstring"><p>Adds current render settings to a render job.</p>
+<p>If there are already rendered jobs in the render queue and you're executing a lot of commands, there's a bug on
+the Davinci API that there's a chance it will return an empty string instead of the job ID.</p>
+<p><code>block</code> blocks the program until we get a job id back from Davinci Resolve. It's <code>True</code> by default.</p></div>
 
 <p class="returns"><strong>Returns:</strong></p>
 <table>
@@ -1606,7 +1609,7 @@
 
 
 <h3 id="pydavinci.wrappers.project.Project.render" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">job_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">job_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 
 </h3>
@@ -1643,7 +1646,7 @@
       </td>
       <td><p>Whether to use interactive mode. When set to <code>True</code>, enables error feedback in the UI during rendering.</p></td>
       <td>
-        <code>False</code>
+        <code>True</code>
       </td>
     </tr>
   </tbody>
@@ -1935,7 +1938,7 @@ And like this when the render on the provided job id is complete:
 
 
 <h3 id="pydavinci.wrappers.project.Project.available_resolutions" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">available_resolutions</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">available_resolutions</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
 </h3>
@@ -1964,7 +1967,7 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
       </td>
       <td><p>render format</p></td>
       <td>
-        <em>required</em>
+        <code>None</code>
       </td>
     </tr>
     <tr>
@@ -1974,7 +1977,7 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
       </td>
       <td><p>render codec</p></td>
       <td>
-        <em>required</em>
+        <code>None</code>
       </td>
     </tr>
   </tbody>
@@ -2186,7 +2189,37 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
 
     <div class="doc doc-contents ">
 
-<div class="docstring"><p>Set render settings.</p></div>
+<div class="docstring"><p>Set render settings.</p>
+<p>Render Settings:
+<div class="highlight"><pre><span></span><code>    <span class="n">render_settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;SelectAllFrames&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="c1"># (when set True, the settings MarkIn and MarkOut are ignored)</span>
+    <span class="s2">&quot;MarkIn&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s2">&quot;MarkOut&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s2">&quot;TargetDir&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="s2">&quot;CustomName&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="s2">&quot;UniqueFilenameStyle&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="c1"># 0 - Prefix, 1 - Suffix.</span>
+    <span class="s2">&quot;ExportVideo&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="s2">&quot;ExportAudio&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="s2">&quot;FormatWidth&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s2">&quot;FormatHeight&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s2">&quot;FrameRate&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="c1"># (examples: 23.976, 24)</span>
+    <span class="s2">&quot;PixelAspectRatio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="c1"># (for SD resolution: &quot;16_9&quot; or &quot;4_3&quot;) (other resolutions: &quot;square&quot; or &quot;cinemascope&quot;)</span>
+    <span class="s2">&quot;VideoQuality&quot;</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+       <span class="c1"># possible values for current codec (if applicable):</span>
+       <span class="c1"># 0 (int) - will set quality to automatic</span>
+       <span class="c1"># [1 -&gt; MAX] (int) - will set input bit rate</span>
+       <span class="c1"># [&quot;Least&quot;, &quot;Low&quot;, &quot;Medium&quot;, &quot;High&quot;, &quot;Best&quot;] (String) - will set input quality level</span>
+    <span class="s2">&quot;AudioCodec&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="c1"># (example: &quot;aac&quot;)</span>
+    <span class="s2">&quot;AudioBitDepth&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s2">&quot;AudioSampleRate&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s2">&quot;ColorSpaceTag&quot;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="c1"># (example: &quot;Same as Project&quot;, &quot;AstroDesign&quot;)</span>
+    <span class="s2">&quot;GammaTag&quot;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="c1"># (example: &quot;Same as Project&quot;, &quot;ACEScct&quot;)</span>
+    <span class="s2">&quot;ExportAlpha&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="s2">&quot;EncodingProfile&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="c1"># (example: &quot;Main10&quot;). Can only be set for H.264 and H.265.</span>
+    <span class="s2">&quot;MultiPassEncode&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="c1"># Can only be set for H.264.</span>
+    <span class="s2">&quot;AlphaMode&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="c1"># 0 - Premultiplied, 1 - Straight. Can only be set if &quot;ExportAlpha&quot; is true.</span>
+    <span class="s2">&quot;NetworkOptimization&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="c1"># Only supported by QuickTime and MP4 formats.</span>
+</code></pre></div></p></div>
 
 <p class="parameters"><strong>Parameters:</strong></p>
 <table>
@@ -2631,7 +2664,7 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>

@@ -195,79 +195,9 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Home
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="." class="md-nav__link md-nav__link--active">
         Home
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nivel-3" class="md-nav__link">
-    nivel 3
-  </a>
-  
-    <nav class="md-nav" aria-label="nivel 3">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nivel-4" class="md-nav__link">
-    nivel 4
-  </a>
-  
-    <nav class="md-nav" aria-label="nivel 4">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nivel-5" class="md-nav__link">
-    nivel 5
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -338,14 +268,14 @@
       
       
         <label class="md-nav__link" for="__nav_3">
-          Code Reference
+          API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Code Reference
+          API Reference
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -501,60 +431,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nivel-3" class="md-nav__link">
-    nivel 3
-  </a>
-  
-    <nav class="md-nav" aria-label="nivel 3">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nivel-4" class="md-nav__link">
-    nivel 4
-  </a>
-  
-    <nav class="md-nav" aria-label="nivel 4">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nivel-5" class="md-nav__link">
-    nivel 5
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -568,19 +444,26 @@
 
 
 <h1 id="pydavinci">pydavinci</h1>
-<p>A lightly opinionated, type-hinted wrapper for Davinci Resolve's Python API.
-<em>I really just wanted auto completion in the IDE</em></p>
-<h2 id="installation">Installation</h2>
-<p>Install via the command:
+<p>A lightly opinionated DaVinci Resolve Python API wrapper</p>
+<p>Provides auto completion, type hints and great API reference documentation.</p>
+<p><small><em>I really just wanted auto completion in the IDE</em></small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>pydavinci <strong>requires Python 3.6</strong>, as that's a requirements on the software API itself. </p>
+<p>For the newer DaVinci Resolve v18, newer Python installations are supported.</p>
+</div>
+<p>Install pydavinci
 <div class="highlight"><pre><span></span><code>pip install pydavinci
 </code></pre></div></p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>pydavinci only works with Python 3.6 as that is a requirement by Davinci Resolve itself :(</p>
-</div>
-<h3 id="nivel-3">nivel 3</h3>
-<h4 id="nivel-4">nivel 4</h4>
-<h5 id="nivel-5">nivel 5</h5>
+<p>Then, use by importing it:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydavinci</span> <span class="kn">import</span> <span class="n">davinci</span>
+
+<span class="n">resolve</span> <span class="o">=</span> <span class="n">davinci</span><span class="o">.</span><span class="n">Resolve</span><span class="p">()</span>
+</code></pre></div>
+<ul>
+<li>Check out the usage <a href="examples/premiereproxies">examples</a></li>
+<li>Or go deep in the <a href="resolve">documentation</a></li>
+</ul>
 
               
             </article>
@@ -631,7 +514,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.annotate"], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.6e54b5cd.min.js"></script>

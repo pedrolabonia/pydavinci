@@ -299,8 +299,22 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#creating-render-jobs" class="md-nav__link">
+    Creating render jobs
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-time" class="md-nav__link">
+    Render time!
+  </a>
   
 </li>
         
@@ -341,14 +355,14 @@
       
       
         <label class="md-nav__link" for="__nav_3">
-          Code Reference
+          API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Code Reference
+          API Reference
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -547,8 +561,22 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#creating-render-jobs" class="md-nav__link">
+    Creating render jobs
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-time" class="md-nav__link">
+    Render time!
+  </a>
   
 </li>
         
@@ -571,7 +599,9 @@
                 
 
 
-<h1 id="premiere-proxies">Premiere Proxies</h1>
+<h1 class="examples" id="premiere-proxies">Premiere Proxies</h1>
+<h5 class='examples'><a target="_blank" href="https://github.com/pedrolabonia/pydavinci/blob/main/examples/premiere_proxies.py">Just show me the code <span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg></span></a></h5>
+
 <p>We all know about Premieres <strong>particular</strong> need for proxies.</p>
 <p>They have to be:</p>
 <ul>
@@ -605,24 +635,28 @@
 <hr />
 <h2 id="the-code">The code</h2>
 <h3 id="importing-pydavinci">Importing pydavinci</h3>
-<p>Assuming we have <code>pydavinci</code> installed, let's create a <code>premiere_proxies.py</code> file and import and define the variables we're going to use</p>
-<div class="highlight"><span class="filename">premiere_proxies.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">pydavinci</span> <span class="kn">import</span> <span class="n">Resolve</span>
+<p>Assuming we have <code>pydavinci</code> installed and have a Davinci project open, let's create a <code>premiere_proxies.py</code> file and import and define the objects we're going to use.</p>
+<div class="highlight"><span class="filename">premiere_proxies.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">pydavinci</span> <span class="kn">import</span> <span class="n">davinci</span>
 
-<span class="n">resolve</span> <span class="o">=</span> <span class="n">Resolve</span><span class="p">()</span>
+<span class="n">resolve</span> <span class="o">=</span> <span class="n">davinci</span><span class="o">.</span><span class="n">Resolve</span><span class="p">()</span>
 
 <span class="n">project</span> <span class="o">=</span> <span class="n">resolve</span><span class="o">.</span><span class="n">project</span>
 <span class="n">project_manager</span> <span class="o">=</span> <span class="n">resolve</span><span class="o">.</span><span class="n">project_manager</span>
 <span class="n">media_pool</span> <span class="o">=</span> <span class="n">resolve</span><span class="o">.</span><span class="n">media_pool</span>
 <span class="n">media_storage</span> <span class="o">=</span> <span class="n">resolve</span><span class="o">.</span><span class="n">media_storage</span>
 </code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also programatically create a project. Check out <a class="autorefs autorefs-internal" href="../../project/#pydavinci.wrappers.project.Project-attributes"><code>Project</code></a></p>
+</div>
 <h3 id="setting-up-a-folder-to-import-to">Setting up a folder to import to</h3>
-<p>Now let's create a folder on the root folder, and set it as the current folder</p>
+<p>Now let's create a folder on the media pool root folder, and set it as the current folder.</p>
 <div class="highlight"><pre><span></span><code><span class="n">ocf_folder</span> <span class="o">=</span> <span class="n">media_pool</span><span class="o">.</span><span class="n">add_subfolder</span><span class="p">(</span><span class="s1">&#39;OCF&#39;</span><span class="p">,</span> <span class="n">media_pool</span><span class="o">.</span><span class="n">root_folder</span><span class="p">)</span>
 <span class="n">media_pool</span><span class="o">.</span><span class="n">set_current_folder</span><span class="p">(</span><span class="n">ocf_folder</span><span class="p">)</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>OCF means <em>Original Camera Format</em>, and it's a naming standard we all should use!</p>
+<p>OCF means <em>Original Camera Format</em></p>
 </div>
 <h3 id="defining-our-function">Defining our function</h3>
 <p>Let's define our function to generate the Premiere proxies:</p>
@@ -637,10 +671,10 @@ Our function will take as parameters:</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p><code>proxyfactor</code> is the number to divide the original resolution to.</p>
-<p><strong>Example:</strong><br />
-A <code>proxyfactor</code> of <code>2</code> on a <code>1920x1080</code> resolution will give you a <code>960x540</code> resolution proxy
-A <code>proxyfactor</code> of <code>1</code> on a <code>1920x1080</code> resolution will give you a <code>1920x1080</code> resolution proxy.<br />
-A <code>proxyfactor</code> of <code>1.5</code> on a <code>1920x1080</code> resolution will give you a <code>1280x720</code> resolution proxy.  </p>
+<p><strong>Example:</strong>
+A <code>proxyfactor</code> of <code>1</code> on a <code>1920x1080</code> resolution will give you a <code>1920x1080</code> resolution proxy.</p>
+<p>A <code>proxyfactor</code> of <code>1.5</code> on a <code>1920x1080</code> resolution will give you a <code>1280x720</code> resolution proxy.</p>
+<p>A <code>proxyfactor</code> of <code>2</code> on a <code>1920x1080</code> resolution will give you a <code>960x540</code> resolution proxy</p>
 </div>
 <h4 id="importing-media">Importing Media</h4>
 <p>Now we can import the media in our project, and figure out what resolutions they are</p>
@@ -651,21 +685,144 @@ A <code>proxyfactor</code> of <code>1.5</code> on a <code>1920x1080</code> resol
     <span class="k">for</span> <span class="n">media</span> <span class="ow">in</span> <span class="n">ocf_folder</span><span class="o">.</span><span class="n">clips</span><span class="p">:</span>
             <span class="n">clips_res</span><span class="p">[</span><span class="n">media</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s1">&#39;Resolution&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">media</span><span class="p">)</span>
 </code></pre></div>
-<p>We first import our media using the <code>media_pool.import_media</code> method, which imports all valid(as judged by Resolve) media files from <code>input_dir</code> into the media pool. We then create a <code>defaultdict</code> that we will use to store all resolutions from the media.</p>
-<p>Then we loop for each <code>MediaPoolItem</code> in the <code>ocf_folder</code>. We access the clips contained in that <code>Folder</code> by using the <code>.clips</code> attribute.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>We're using a <code>defaultdict</code> to simplify our loop. If we used a regular dict, the first time we find a resolution we would have to first initiate it with a list value and then append to it. This way we don't need to check if this is the first resolution we've seen or not.</p>
+<p>We first import our media using the <a class="autorefs autorefs-internal" href="../../mediapool/#pydavinci.wrappers.mediapool.MediaPool.import_media"><code>media_pool.import_media()</code></a> method, which imports all valid(as judged by Resolve) media files from <code>input_dir</code> into the media pool on our current folder. We then create a <code>defaultdict</code> that we will use to store all resolutions from the media.</p>
+<p>Then we loop for each <a class="autorefs autorefs-internal" href="../../mediapoolitem/#pydavinci.wrappers.mediapoolitem.MediaPoolItem-attributes"><code>MediaPoolItem</code></a> in the <a class="autorefs autorefs-internal" href="../../folder/#pydavinci.wrappers.folder.Folder.clips"><code>ocf_folder.clips</code></a> to grab each clip resolution, and store it in the <code>clips_res</code> dictionary which will end up looking like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">clips_res</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;1920x1080&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">MediaPoolItem1</span><span class="p">,</span> <span class="n">MediaPoolItem2</span><span class="p">],</span>
+    <span class="s1">&#39;3840x2160&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">MediaPoolItem3</span><span class="p">,</span> <span class="n">MediaPoolItem4</span><span class="p">],</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>We're using a <code>defaultdict</code> to simplify our loop. If we used a regular dict, the first time we find a resolution we would have to first initiate it with a list value and then append to it. This way we don't need to check if we've seen this resolution before or not.</p>
 </div>
-<p>Now let's set our previously created render preset, which basically is just a H264 preset which has some special parameters:</p>
-<figure>
-<p><img alt="Proxy Settings Figure 01" src="../../static/Resolve_01.png" /></p>
-<figcaption>We create a custom preset names `Proxies_Preset` and make sure the resolution is set to "Custom" and "Individual Clips is selected"</figcaption>
-</figure>
+<p>Now while the Resolve API is very powerful, it still lacks a way for us to set the default behavior of exporting audio channels to <code>Same as Source</code>, which is what we need for Premiere.. So now let's head to Davinci and create and save a render preset with that option enabled.</p>
 <figure>
 <p><img alt="Proxy Settings Figure 02" src="../../static/Resolve_02.png" /></p>
-<figcaption>Then, on the Audio tab, we make sure we're exporting audio and we select Same as source for the audio channels. This ensures that our proxy media can be linked without issue in Premiere.</figcaption>
+<figcaption>On the Audio tab, we make sure we're exporting audio and we select Same as source for the audio channels. This ensures that our proxy media can be linked without issue in Premiere. Save the preset as <code>Proxies_Preset</code></figcaption>
 </figure>
+<p>Now that we created our preset, let's make sure it's activated when we render the clips by using the <a class="autorefs autorefs-internal" href="../../project/#pydavinci.wrappers.project.Project.set_preset"><code>project.set_preset()</code></a> method.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_premiere_proxies</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">proxyfactor</span><span class="p">):</span>
+
+    <span class="o">...</span>
+
+    <span class="n">project</span><span class="o">.</span><span class="n">set_preset</span><span class="p">(</span><span class="s2">&quot;Proxy_Preset&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>We've imported and grabbed all clips resolutions, and now we can start our main loop.</p>
+<h4 id="creating-render-jobs">Creating render jobs</h4>
+<p>First let's create an empty list which will contain our render jobs, then start our main loop and create a folder for each resolution we have and move the correct clips to that folder.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_premiere_proxies</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">proxyfactor</span><span class="p">):</span>
+
+    <span class="o">...</span>
+
+ <span class="n">render_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">clips_res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+        <span class="n">res_x</span><span class="p">,</span> <span class="n">res_y</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span> <span class="c1"># (1)</span>
+
+        <span class="n">res_folder</span> <span class="o">=</span> <span class="n">media_pool</span><span class="o">.</span><span class="n">add_subfolder</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">ocf_folder</span><span class="p">)</span>
+        <span class="n">clips</span> <span class="o">=</span> <span class="n">clips_res</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="c1"># (2)</span>
+
+        <span class="n">media_pool</span><span class="o">.</span><span class="n">move_clips</span><span class="p">(</span><span class="n">clips</span><span class="p">,</span> <span class="n">res_folder</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>
+<p>When we grab resolutions from DaVinci, they come as a string, eg: <code>"1920x1080"</code>. We split the resolution to get the width and height</p>
+</li>
+<li>
+<p>We create a new variable containing the list of <code>MediaPoolItem</code>s for our current resolution in the loop.</p>
+</li>
+</ol>
+<p><small>Make sure to click the <span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2Z"></path></svg></span> buttons in the code above for more information</small></p>
+<p>Now we need to create a timeline containing all our <code>MediaPoolItem</code>s for the current resolution in the loop. We then activate that timeline and set the timeline resolution to be the same as the clip's resolutions, to avoid any letterboxing.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_premiere_proxies</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">proxyfactor</span><span class="p">):</span>
+
+    <span class="o">...</span>
+
+ <span class="n">render_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">clips_res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+        <span class="o">...</span>
+
+        <span class="n">media_pool</span><span class="o">.</span><span class="n">create_timeline_from_clips</span><span class="p">(</span>
+        <span class="n">res_folder</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="c1"># (1)</span>
+        <span class="n">res_folder</span><span class="o">.</span><span class="n">clips</span>
+        <span class="p">)</span>
+
+        <span class="n">timeline</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">timeline</span>
+        <span class="n">timeline</span><span class="o">.</span><span class="n">set_setting</span><span class="p">(</span><span class="s2">&quot;useCustomSettings&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span> <span class="c1"># (2)</span>
+        <span class="n">timeline</span><span class="o">.</span><span class="n">set_setting</span><span class="p">(</span><span class="s2">&quot;timelineResolutionWidth&quot;</span><span class="p">,</span> <span class="n">res_x</span><span class="p">)</span>
+        <span class="n">timeline</span><span class="o">.</span><span class="n">set_setting</span><span class="p">(</span><span class="s2">&quot;timelineResolutionHeight&quot;</span><span class="p">,</span> <span class="n">res_y</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>
+<p>This is for the created timeline name. We're using the Folder name from before, which is set to be a string representing the resolution.</p>
+</li>
+<li>
+<p>This allows us to set custom resolutions and framerates for timelines more easily through the Python API, without having to mess with the Project Settings.</p>
+</li>
+</ol>
+<p>For the next step, we need to set our render settings. Let's calculate our desired rendered resolution using our provided <code>proxyfactor</code>, set our render format/codec and output directory.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_premiere_proxies</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">proxyfactor</span><span class="p">):</span>
+
+    <span class="o">...</span>
+
+<span class="n">render_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">clips_res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+        <span class="o">...</span>
+
+        <span class="n">project</span><span class="o">.</span><span class="n">set_render_format_and_codec</span><span class="p">(</span><span class="s2">&quot;mp4&quot;</span><span class="p">,</span> <span class="s2">&quot;H264&quot;</span><span class="p">)</span>
+        <span class="n">render_settings</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># (1)</span>
+            <span class="s2">&quot;FormatWidth&quot;</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">res_x</span><span class="p">)</span> <span class="o">//</span> <span class="n">proxyfactor</span><span class="p">),</span> <span class="c1"># (2)</span>
+            <span class="s2">&quot;FormatHeight&quot;</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">res_y</span><span class="p">)</span> <span class="o">//</span> <span class="n">proxyfactor</span><span class="p">),</span>
+            <span class="s2">&quot;TargetDir&quot;</span><span class="p">:</span> <span class="n">output_dir</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">set_render_settings</span><span class="p">(</span><span class="n">render_settings</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>
+<p>The valid render settings that you can change are available at <a class="autorefs autorefs-internal" href="../../project/#pydavinci.wrappers.project.Project.set_render_settings">Project.set_render_settings()</a></p>
+</li>
+<li>
+<p>The <code>\\</code> floor operator ensures we get an <code>int</code> back and not a <code>float</code></p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If for any reason your render resolution ends up being an odd number, DaVinci will throw an error in the GUI and your script won't be able to continue.</p>
+</div>
+<p>Now we're almost done! Just add the current timeline and render settings to the render queue, and append it to our <code>render_ids</code> list</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_premiere_proxies</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">proxyfactor</span><span class="p">):</span>
+
+    <span class="o">...</span>
+
+    <span class="n">render_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">clips_res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+        <span class="o">...</span>
+
+        <span class="n">render_id</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">add_renderjob</span><span class="p">()</span>
+        <span class="n">render_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">render_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_ids</span>
+</code></pre></div>
+<h3 id="render-time">Render time!</h3>
+<p>Now we can get our <code>job_ids</code> and render them out!:</p>
+<div class="highlight"><pre><span></span><code><span class="n">job_ids</span> <span class="o">=</span> <span class="n">generate_premiere_proxies</span><span class="p">(</span>
+    <span class="s2">&quot;Path/To/Folder/With/Clips&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Path/To/Output/Folder,</span>
+    <span class="n">proxyfactor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">project</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">job_ids</span><span class="p">)</span>
+</code></pre></div>
+<p>Resolve will start rendering all our timelines with our clips, and in the end we'll have proxies ready to be edited by Premiere.</p>
+<p><a href="https://github.com/pedrolabonia/pydavinci/blob/main/examples/premiere_proxies.py">Check out the full code here</a>, with some extra functionality at the end which just prints out a nice message on render times left and total render time.</p>
 
               
             </article>
@@ -731,7 +888,7 @@ A <code>proxyfactor</code> of <code>1.5</code> on a <code>1920x1080</code> resol
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.6e54b5cd.min.js"></script>
