@@ -86,7 +86,10 @@ class TimelineItem(object):
         customdata: str = "",
     ) -> bool:
         """
-        Adds a marker
+        Adds a marker.
+
+        ``customdata`` is a ``str`` that can be used for programatically
+        setting and searching for markers. It's not exposed to the GUI.
 
         Args:
             frameid (int): frame for marker to be inserted at
@@ -124,12 +127,20 @@ class TimelineItem(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
 
-        Info:
-        A marker's ``custom data`` is not exposed via UI and is useful for a scripting developer to attach any user specific data to markers.
         """
         return self._obj.UpdateMarkerCustomData(frameid, customdata)
 
-    def marker_custom_data(self, frameid: int) -> str:
+    def get_marker_custom_data(self, frameid: int) -> str:
+        """
+        Gets marker ``customdata`` at ``frameid``
+
+        Args:
+            frameid (int): marker frame
+
+        Returns:
+            ``customdata``
+
+        """
         return self._obj.GetMarkerCustomData(frameid)
 
     def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
@@ -147,9 +158,11 @@ class TimelineItem(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
 
-        Info:
+        Deleting Markers:
             When selecting by ``frameid``, will delete single marker
+
             When selecting by ``color``, will delete _all_ markers with provided color
+
             When selecting by ``customdata``, will delete first marker with matching custom data
         """
         if frameid:
@@ -206,6 +219,15 @@ class TimelineItem(object):
 
     @property
     def color(self) -> str:
+        """
+        Gets or sets clip color
+
+        Args:
+            color (str): color to be applied
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
         return self._obj.GetClipColor()
 
     @color.setter
@@ -229,6 +251,8 @@ class TimelineItem(object):
             bool: ``True`` if successful, ``False`` otherwise
         """
         return self._obj.ClearClipColor()
+
+        # TODO: Document these
 
     def add_color_version(self, name: str, type: int = 0) -> bool:
         return self._obj.AddVersion(name, type)
@@ -308,10 +332,16 @@ class TimelineItem(object):
 
     @property
     def take(self) -> int:
+        """
+        Gets or sets current take
+
+        Args:
+            takeindex (int): take index for selection
+        """
         return self._obj.GetSelectedTakeIndex()
 
     @take.setter
-    def take(self, takeindex: int) -> bool:
+    def take(self, takeindex: int) -> None:
         """
         Sets selected take
 
@@ -321,7 +351,7 @@ class TimelineItem(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        return self._obj.SelectTakeByIndex(takeindex)
+        self._obj.SelectTakeByIndex(takeindex)
 
     @property
     def takes(self) -> int:

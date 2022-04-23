@@ -24,35 +24,35 @@ class MediaPool(object):
         Gets media pool root folder
 
         Returns:
-            Folder: media pool root folder
+            (Folder): media pool root folder
         """
 
         return Folder(self._obj.GetRootFolder())
 
-    def add_subfolder(self, parent_folder: "Folder", folder_name: str) -> "Folder":
+    def add_subfolder(self, folder_name: str, parent_folder: "Folder") -> "Folder":
         """
         Adds subfolder ``folder_name`` into ``parent_folder``
 
         Args:
-            parent_folder (Folder): parent folder object
             folder_name (str): subfolder name
+            parent_folder (Folder): parent folder object
 
         Returns:
-            Folder: created subfolder
+            (Folder): created subfolder
         """
         return Folder(self._obj.AddSubFolder(parent_folder._obj, folder_name))
 
-    def create_empty_timeline(self, name: str) -> "Timeline":
+    def create_empty_timeline(self, timeline_name: str) -> "Timeline":
         """
         Creates empty timeline in current folder
 
         Args:
-            name (str): timeline name
+            timeline_name (str): timeline name
 
         Returns:
-            Timeline: created timeline
+            (Timeline): created timeline
         """
-        return Timeline(self._obj.CreateEmptyTimeline(name))
+        return Timeline(self._obj.CreateEmptyTimeline(timeline_name))
 
     def append_to_timeline(self, clips: List["MediaPoolItem"]) -> List["TimelineItem"]:
         """
@@ -62,13 +62,13 @@ class MediaPool(object):
             clips (List[MediaPoolItem]): list of ``MediaPoolItem``s to append
 
         Returns:
-            List[TimelineItem]: list of inserted ``TimelineItem``s
+            (List[TimelineItem]): list of inserted ``TimelineItem``s
         """
         # / TODO All types: MediaPoolItem, List[Dict], Dict
         appended = self._obj.AppendToTimeline(get_resolveobjs(clips))
         return [TimelineItem(x) for x in appended]
 
-    def create_timeline_fromclips(self, name: str, clips: List["MediaPoolItem"]) -> "Timeline":
+    def create_timeline_from_clips(self, name: str, clips: List["MediaPoolItem"]) -> "Timeline":
         """
         Creates timeline ``name`` from ``clips``
 
@@ -77,7 +77,7 @@ class MediaPool(object):
             clips (List[MediaPoolItem]): list of ``MediaPoolItem``s to use for creating the timeline
 
         Returns:
-            Timeline: created timeline
+            (Timeline): created timeline
         """
         return Timeline(self._obj.CreateTimelineFromClips(name, get_resolveobjs(clips)))
 
@@ -85,14 +85,35 @@ class MediaPool(object):
         self, path: str, options: Optional[Dict[Any, Any]] = None
     ) -> "Timeline":
         """
-        Imports a timeline from ``path`` with ``options``
+        Imports a timeline from ``path`` with ``options``:
 
+        ```python
+            options = {
+            "timelineName": str,
+            # specifies the name of the timeline to be created
+
+            "importSourceClips": bool,
+            # specifies whether source clips should be imported, True by default
+
+            "sourceClipsPath": str,
+            # specifies a filesystem path to search for source clips if the media
+            # is inaccessible in their original path and if "importSourceClips" is True
+
+            "sourceClipsFolders": List[Folder]
+            # to search for source clips if the media is not present in current folder
+            # and if "importSourceClips" is False
+
+            "interlaceProcessing": bool,
+            # specifies whether to enable interlace processing on the imported
+            # timeline being created. valid only for AAF import
+            }
+        ```
         Args:
             path (str): timeline file path
-            options (dict, optional): Dict with import options. Defaults to {}.
+            options (dict, optional): Dict with import options. Defaults to `None`.
 
         Returns:
-            Timeline: created timeline
+            (Timeline): created timeline
         """
         if not options:
             return Timeline(self._obj.ImportTimelineFromFile(path, options))
@@ -119,7 +140,7 @@ class MediaPool(object):
         Gets current mediapool folder
 
         Returns:
-            Folder: current mediapool folder
+            (Folder): current mediapool folder
         """
         return Folder(self._obj.GetCurrentFolder())
 
@@ -161,7 +182,7 @@ class MediaPool(object):
 
     def move_clips(self, clips: List["MediaPoolItem"], folder: "Folder") -> bool:
         """
-        Moves ``clips`` on current active folder to ``folder``
+        Moves ``clips`` inside current active folder to ``folder``
 
         Args:
             clips (List[MediaPoolItem]): list of ``MediaPoolItem``s on current folder
@@ -187,30 +208,39 @@ class MediaPool(object):
 
     def clip_mattes(self, clip: "MediaPoolItem") -> List[str]:
         """
-        Gets clip mattes of ``clip``
+        Gets paths of clip mattes from ``clip``
 
         Args:
-            clip (MediaPoolItem): clip to get clip mattes from
+            clip (MediaPoolItem): clip to get mattes from
 
         Returns:
-            List[str]: list of clip mattes
+            (List[str]): list of file paths associated with ``clip``'s mattes
         """
         return self._obj.GetClipMatteList(clip._obj)
 
     def timeline_mattes(self, folder: "Folder") -> List["MediaPoolItem"]:
         """
-        Gets timeline mattes in ``folder``
+        Gets timeline mattes inside ``folder``
 
         Args:
             folder (Folder): folder to get timeline mattes from
 
         Returns:
-            List[MediaPoolItem]: list of timeline mattes
+            (List[MediaPoolItem]): list of timeline mattes
         """
         result = self._obj.GetTimelineMatteList(folder._obj)
         return [MediaPoolItem(x) for x in result]
 
-    def delete_mattes_bypath(self, clip: "MediaPoolItem", path: List[str]) -> bool:
+    def delete_mattes_by_path(self, clip: "MediaPoolItem", path: List[str]) -> bool:
+        """Delete mattes based on their file paths.
+
+        Args:
+            clip (MediaPoolItem): clip to have mattes deleted
+            path (List[str]): list of matte paths
+
+        Returns:
+            bool: _description_
+        """
         return self._obj.DeleteClipMattes(clip._obj, path)
 
     def relink_clips(self, clips: List["MediaPoolItem"], parent_folder: str) -> bool:
@@ -246,25 +276,31 @@ class MediaPool(object):
             paths (List[str]): list of paths containing the media
 
         Returns:
-            List[MediaPoolItem]: list of imported ``MediaPoolItem``s
+            (List[MediaPoolItem]): list of imported ``MediaPoolItem``s
 
-        Info: Doesn't support image sequences yet.
+        Image Sequences:
+            Doesn't support image sequences yet.
         """
         # / TODO: Implement image sequence using ImportMedia({ClipInfo})
 
         imported = self._obj.ImportMedia(paths)
         return [MediaPoolItem(x) for x in imported]
 
-    def export_metadata(self, file_name: str, clips: List["MediaPoolItem"]) -> bool:
+    def export_metadata(
+        self, file_name: str, clips: Optional[List["MediaPoolItem"]] = None
+    ) -> bool:
         """
-        Exports metadata of specified clips to 'fileName' in CSV format.
-            If no clips are specified, all clips from media pool will be used.
+        Exports metadata of specified clips to ``file_name.csv``.
+            If no clips are specified, all clips from ``MediaPool`` will be used.
 
         Args:
             file_name (str): _description_
-            clips (List[MediaPoolItem]], optional): list of clips to be processed, defaults to ``None``
+            clips (List[MediaPoolItem], optional): list of clips to be processed, defaults to ``None``
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        return self._obj.ExportMetadata(file_name, get_resolveobjs(clips))
+        if clips:
+            return self._obj.ExportMetadata(file_name, get_resolveobjs(clips))
+        else:
+            return self._obj.ExportMetadata(file_name)

@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from pydavinci.exceptions import ObjectNotFound
 from pydavinci.main import resolve_obj
@@ -22,9 +22,10 @@ class Project(object):
 
     @property
     def mediapool(self) -> "MediaPool":
-        """
+        """Returns the
+        [``MediaPool``][pydavinci.wrappers.mediapool.MediaPool-attributes] object.
         Returns:
-            MediaPool: media pool object
+            (MediaPool): Media Storage object
         """
         from pydavinci.wrappers.mediapool import MediaPool
 
@@ -36,12 +37,18 @@ class Project(object):
         Get total timeline count on current project
 
         Returns:
-            int: timeline count
+            timeline count
         """
         return self._obj.GetTimelineCount()
 
     @property
     def name(self) -> str:
+        """
+        Gets or sets current project name
+
+        Returns:
+            project name
+        """
         return self._obj.GetName()
 
     @name.setter
@@ -58,6 +65,11 @@ class Project(object):
 
     @property
     def presets(self) -> List[str]:
+        """Gets a list of available project presets
+
+        Returns:
+            project presets
+        """
         return self._obj.GetPresetList()
 
     def set_preset(self, preset_name: str) -> bool:
@@ -105,7 +117,7 @@ class Project(object):
     @property
     def render_jobs(self) -> List[str]:
         """
-        Gets current render job list
+        Gets current list of render jobs
 
         Returns:
             list: render job list
@@ -128,10 +140,10 @@ class Project(object):
 
         Args:
             job_ids (Union[None, List[str]], optional): Renders provided list of ``job ids``. If ``None`` provided, render all jobs in queue. Defaults to ``None``.
-            interactive (bool, optional): Whether to use interactive mode. ``False`` provides better results when rendering programatically. Defaults to False.
+            interactive (bool, optional): Whether to use interactive mode. When set to ``True``, enables error feedback in the UI during rendering.
 
         Returns:
-            bool: _description_
+            bool: ``True`` if successful, ``False`` otherwise
         """
         # TODO: the API supports passing only jobs ids: str as arguments. Implement here
         # using *args and update stub.
@@ -142,14 +154,14 @@ class Project(object):
 
     def stop_render(self) -> None:
         """
-        Stops all rendering
+        Stops all rendering.
 
         Returns:
             None: None
         """
         return self._obj.StopRendering()
 
-    def render_status(self, job_id: str) -> Dict[Any, Any]:
+    def render_status(self, job_id: str) -> Dict[Any, Union[str, int]]:
         """
         Gets render status on ``job_id``
 
@@ -159,14 +171,14 @@ class Project(object):
         Returns:
             dict: dictionary with render status
 
-        Info:
+        Render Status:
             The dictionary returned looks like this when rendering:
             ```python
             {'JobStatus': 'Rendering',
             'CompletionPercentage': 92,
             'EstimatedTimeRemainingInMs': 1000}
             ```
-            And like this when the render is complete:
+            And like this when the render on the provided job id is complete:
             ```python
             {'JobStatus': 'Complete',
             'CompletionPercentage': 100,
@@ -178,7 +190,7 @@ class Project(object):
     @property
     def render_formats(self) -> Dict[Any, Any]:
         """
-        Gets all possible render formats
+        Gets all possible render formats.
 
         Returns:
             dict: dict with render formats
@@ -186,12 +198,20 @@ class Project(object):
         return self._obj.GetRenderFormats()
 
     def get_render_codecs(self, render_format: str) -> Dict[Any, Any]:
+        """Returns all possible render codecs.
+
+        Args:
+            render_format (str): render format
+
+        Returns:
+            Dict[Any, Any]: render codecs
+        """
         return self._obj.GetRenderCodecs(render_format)
 
     @property
     def current_render_format_and_codec(self) -> Dict[Any, Any]:
         """
-        Gets current render format and codec
+        Gets current render format and codec.
 
         Returns:
             dict: dict with current render format and codec
@@ -213,8 +233,16 @@ class Project(object):
         return self._obj.SetCurrentRenderFormatAndCodec(format, codec)
 
     @property
-    def render_mode(self) -> int:
-        return self._obj.GetCurrentRenderMode()
+    def render_mode(self) -> str:
+        """Gets or sets current render mode. ``single`` for single clip and ``individual`` for individual clips.
+
+        Returns:
+            render mode ``single`` or ``individual``
+        """
+        if self._obj.GetCurrentRenderMode() == 1:
+            return "single"
+        else:
+            return "individual"
 
     @render_mode.setter
     def render_mode(self, mode: str) -> bool:
@@ -228,13 +256,29 @@ class Project(object):
                 for single clip and individual clips, respectively.'
             )
 
-    def available_resolutions(self, format: str, codec: str) -> List[Dict[Any, Any]]:
-        return self._obj.GetRenderResolutions(format, codec)
+    def available_resolutions(
+        self, format: Optional[str], codec: Optional[str]
+    ) -> List[Dict[Any, Any]]:
+        """Returns list of resolutions applicable for the given render ``format`` and render ``codec``.
 
-    @property
-    def rendering(self) -> bool:
+        Returns full list of resolutions if no argument is provided.
+        Each element in the list is a dictionary with 2 keys "Width" and "Height".
+
+        Args:
+            format (str): render format
+            codec (str): render codec
+
+        Returns:
+            List[Dict[Any, Any]]: _description_
         """
-        Checks if Davinci is rendering
+        if format and codec is None:
+            return self._obj.GetRenderResolutions()
+        else:
+            return self._obj.GetRenderResolutions(format, codec)
+
+    def is_rendering(self) -> bool:
+        """
+        Checks if DaVinci Resolve is rendering.
 
         Returns:
             bool: `True` if rendering, `False` otherwise
@@ -243,7 +287,7 @@ class Project(object):
 
     def load_render_preset(self, preset_name: str) -> bool:
         """
-        Loads render preset
+        Loads render preset ``preset_name``.
 
         Args:
             preset_name (str): preset name
@@ -255,7 +299,7 @@ class Project(object):
 
     def save_render_preset_as(self, preset_name: str) -> bool:
         """
-        Save current preset as ``preset_name``
+        Save current preset as ``preset_name``.
 
         Args:
             preset_name (str): preset name
@@ -267,7 +311,7 @@ class Project(object):
 
     def set_render_settings(self, render_settings: Dict[Any, Any]) -> bool:
         """
-        Set render settins
+        Set render settings.
 
         Args:
             render_settings (dict): dictionary with render settings
@@ -279,7 +323,7 @@ class Project(object):
 
     def get_setting(self, setting: str) -> Any:
         """
-        Get Setting
+        Get project setting.
 
         Args:
             setting (str): setting name
@@ -289,13 +333,13 @@ class Project(object):
         """
         return self._obj.GetSetting(setting)
 
-    def set_setting(self, setting: str, value: str) -> bool:
+    def set_setting(self, setting: str, value: Any) -> bool:
         """
-        Set Setting
+        Set project setting.
 
         Args:
             setting (str): setting name
-            value (str): setting value, stringfied
+            value (Any): setting value
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
@@ -304,7 +348,7 @@ class Project(object):
 
     def save(self) -> bool:
         """
-        Saves project
+        Saves project.
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
@@ -317,7 +361,7 @@ class Project(object):
     ## It defaults to a 'Untitled Project', and you can't close it
     def close(self) -> bool:
         """
-        Closes project
+        Closes current project.
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
@@ -326,13 +370,10 @@ class Project(object):
 
     def open_timeline(self, name: str) -> bool:
         """
-        Opens timeline named ``name``
+        Opens timeline named ``name``.
 
         Args:
             name (str): timeline name
-
-        Raises:
-            ObjectNotFound: Can't find timeline named ``name``
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
@@ -350,10 +391,10 @@ class Project(object):
     @property
     def timeline(self) -> "Timeline":
         """
-        Returns current timeline object
+        Returns current [``Timeline``][pydavinci.wrappers.timeline.Timeline-attributes] object
 
         Returns:
-            Timeline: timeline object
+            Timeline(Timeline): timeline object
         """
         from pydavinci.wrappers.timeline import Timeline
 
@@ -361,7 +402,7 @@ class Project(object):
 
     def refresh_luts(self) -> bool:
         """
-        Refresh luts
+        Refresh luts.
 
         Returns:
             None: None

@@ -102,7 +102,7 @@ def test_mediastorage():
 
 def test_create_folder():
     resolve.page = "media"
-    created = resolve.media_pool.add_subfolder(resolve.media_pool.root_folder, "Test Folder")
+    created = resolve.media_pool.add_subfolder("Test Folder", resolve.media_pool.root_folder)
     assert isinstance(created, Folder)
     assert resolve.media_pool.set_current_folder(created) is True
 
@@ -115,7 +115,7 @@ def test_import_clips_and_import_into_timeline():
 
     resolve.media_pool.set_current_folder(resolve.media_pool.root_folder)
     assert resolve.media_pool.current_folder.name == "Master"
-    timeline = resolve.media_pool.create_timeline_fromclips("Test Timeline", mp_clips)
+    timeline = resolve.media_pool.create_timeline_from_clips("Test Timeline", mp_clips)
 
     assert isinstance(timeline, Timeline)
     assert timeline.activate() is True

@@ -4,7 +4,7 @@ from pydavinci.utils import is_resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteFolder
-    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 
 class Folder(object):
@@ -15,12 +15,12 @@ class Folder(object):
             raise TypeError(f"{type(obj)} is not a valid {self.__class__.__name__} type")
 
     @property
-    def clips(self) -> List["MediaPoolItem"]:
+    def clips(self) -> List[MediaPoolItem]:
         """
         Gets all clips
 
         Returns:
-            List[MediaPoolItem]: list of clips
+            (List[MediaPoolItem]): list of clips
         """
         from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
@@ -33,7 +33,7 @@ class Folder(object):
         Gets folder name
 
         Returns:
-            str: folder name
+            name(str): folder name
         """
         return self._obj.GetName()
 
@@ -43,7 +43,7 @@ class Folder(object):
         Gets subfolders
 
         Returns:
-            Dict: subfolders
+            subfolders(List[Folder]): subfolders
         """
         return [Folder(x) for x in self._obj.GetSubFolderList()]
 

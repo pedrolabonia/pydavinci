@@ -24,46 +24,75 @@ class Resolve(object):  # type: ignore
             )
 
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
+        """Available pages to switch to using [``Resolve.page``][pydavinci.wrappers.resolve.Resolve.page]"""
         self._obj: PyRemoteResolve = resolve_obj
 
     @property
     def project_manager(self) -> "ProjectManager":
+        """Returns the
+        [``ProjectManager``][pydavinci.wrappers.projectmanager.ProjectManager-attributes] object.
+
+        Returns:
+            (ProjectManager): Project Manager object
+        """
         from pydavinci.wrappers.projectmanager import ProjectManager
 
         return ProjectManager()
 
     @property
-    def project(self) -> "Project":
-        from pydavinci.wrappers.project import Project
-
-        return Project(resolve_obj.GetProjectManager().GetCurrentProject())
-
-    @property
     def media_storage(self) -> "MediaStorage":
+        """Returns the
+        [``MediaStorage``][pydavinci.wrappers.mediastorage.MediaStorage-attributes] object.
+
+        Returns:
+            (MediaStorage): Media Storage object
+        """
         from pydavinci.wrappers.mediastorage import MediaStorage
 
         return MediaStorage()
 
     @property
     def media_pool(self) -> "MediaPool":
+        """Returns the
+        [``MediaPool``][pydavinci.wrappers.mediapool.MediaPool-attributes] object.
+        Returns:
+            (MediaPool): Media Storage object
+        """
         from pydavinci.wrappers.mediapool import MediaPool
 
         return MediaPool()
 
     @property
-    def fusion(self) -> Any:
-        return resolve_obj.Fusion()
+    def project(self) -> "Project":
+        """Returns the current active
+        [``Project``][pydavinci.wrappers.project.Project-attributes] object.
+
+        Returns:
+            (Project): Project object
+        """
+        from pydavinci.wrappers.project import Project
+
+        return Project(resolve_obj.GetProjectManager().GetCurrentProject())
+
+    @property
+    def active_timeline(self) -> "Timeline":
+        """Returns the current active
+        [``Timeline``][pydavinci.wrappers.timeline.Timeline-attributes] object.
+
+        Returns:
+            (Timeline): Timeline object
+        """
+        from pydavinci.wrappers.timeline import Timeline
+
+        return Timeline()
 
     @property
     def page(self) -> str:
         """
-        Page Setter test
+        Gets or sets current [``Resolve Page``][pydavinci.wrappers.resolve.Resolve.pages]. Note that certain methods are only available when in the right page.
 
         Args:
             page (str): valid page
-
-        Raises:
-            ValueError: _description_
 
         Returns:
             None: None
@@ -77,9 +106,6 @@ class Resolve(object):  # type: ignore
 
         Args:
             page (str): valid page
-
-        Raises:
-            ValueError: _description_
 
         Returns:
             None: None
@@ -105,6 +131,20 @@ class Resolve(object):  # type: ignore
             str: version
         """
         return self._obj.GetVersionString()
+
+    @property
+    def fusion(self) -> Any:
+        """Returns the Fusion object.
+
+        Fusion Object:
+            This is object is the same as the regular Fusion API. You can call ``fusion.__dir__()``
+            to see all available methods.
+
+            See [The last Fusion API documentation for more details.](https://documents.blackmagicdesign.com/UserManuals/Fusion8_Scripting_Guide.pdf)
+        Returns:
+            (Fusion): Fusion object
+        """
+        return resolve_obj.Fusion()
 
     def load_layout(self, layout_name: str) -> bool:
         """
@@ -164,12 +204,6 @@ class Resolve(object):  # type: ignore
             None: None
         """
         return self._obj.Quit()
-
-    @property
-    def active_timeline(self) -> "Timeline":
-        from pydavinci.wrappers.timeline import Timeline
-
-        return Timeline()
 
     def __repr__(self) -> str:
         return f'Resolve(Page: "{self.page}")'

@@ -10,7 +10,7 @@ project = resolve.project
 project_manager = resolve.project_manager
 media_pool = resolve.media_pool
 media_storage = resolve.media_storage
-ocf_folder = media_pool.add_subfolder(media_pool.root_folder, "OCF")
+ocf_folder = media_pool.add_subfolder("OCF", media_pool.root_folder)
 media_pool.set_current_folder(ocf_folder)
 
 
@@ -31,11 +31,11 @@ def generate_premiere_proxies(input_dir, output_dir, proxyfactor):
 
         res_x, res_y = key.split("x")
 
-        res_folder = media_pool.add_subfolder(ocf_folder, key)
+        res_folder = media_pool.add_subfolder(key, ocf_folder)
         clips = clips_res[key]
 
         media_pool.move_clips(clips, res_folder)
-        media_pool.create_timeline_fromclips(res_folder.name, res_folder.clips)
+        media_pool.create_timeline_from_clips(res_folder.name, res_folder.clips)
 
         timeline = project.timeline
         timeline.set_setting(

@@ -4,19 +4,19 @@ We all know about Premieres __particular__ need for proxies.
 
 They have to be:
 
--   :material-aspect-ratio:{ .lg .middle } __Same aspect ratio as the original files__
+-   :material-aspect-ratio:{ .lg .middle } Same aspect ratio as the original files
 
         Otherwise you end up with stretched proxies, and no one likes that.
 
     ---
 
--   :material-cast-audio:{ .lg .middle } __Same number of audio tracks as the original files__
+-   :material-cast-audio:{ .lg .middle } Same number of audio tracks as the original files
 
         This doesn't make sense, but that's how it is.
 
     ---
 
--   :material-timeline-clock-outline:{ .lg .middle } __Ideally same timecode__
+-   :material-timeline-clock-outline:{ .lg .middle } Ideally same timecode
 
         Because otherwise you're going to have headaches.
 
@@ -54,7 +54,7 @@ media_storage = resolve.media_storage
 Now let's create a folder on the root folder, and set it as the current folder
 
 ```py
-ocf_folder = media_pool.add_subfolder(media_pool.root_folder, 'OCF')
+ocf_folder = media_pool.add_subfolder('OCF', media_pool.root_folder)
 media_pool.set_current_folder(ocf_folder)
 ```
 
