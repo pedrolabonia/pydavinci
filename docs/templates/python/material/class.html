@@ -45,7 +45,7 @@
         {% if "__init__" in class.members %}
           {% with function = class.members["__init__"] %}
             {% filter highlight(language="python", inline=False) %}
-              {% filter format_signature(config.line_length) %}        
+              {% filter format_signature(config.line_length) %}
                 {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
                 {% include "signature.html" with context %}
               {% endfilter %}

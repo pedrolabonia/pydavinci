@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import TYPE_CHECKING, Dict, List
 
 # from pydavinci.wrappers._basewrappers import BaseResolveWrapper
 from pydavinci.main import resolve_obj
@@ -6,7 +6,6 @@ from pydavinci.wrappers.project import Project
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteProjectManager
-    from pydavinci.wrappers.project import Project
 
 # import fusionscript as dvr_script
 

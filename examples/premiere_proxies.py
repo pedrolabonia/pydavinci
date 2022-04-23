@@ -44,35 +44,38 @@ def generate_premiere_proxies(input_dir, output_dir, proxyfactor):
         timeline.set_setting("timelineResolutionWidth", res_x)
         timeline.set_setting("timelineResolutionHeight", res_y)
 
+        project.set_render_format_and_codec("mp4", "H264")
         render_settings = {
-            "FormatWidth": int(int(res_x) / proxyfactor),
-            "FormatHeight": int(int(res_y) / proxyfactor),
+            "FormatWidth": (int(res_x) // proxyfactor),
+            "FormatHeight": (int(res_y) // proxyfactor),
             "TargetDir": output_dir,
         }
 
         # Set Render Resolution
         project.set_render_settings(render_settings)
-        render_ids.append(project.add_renderjob())
 
+        # print(render_id)
+        render_id = project.add_renderjob()
+        render_ids.append(render_id)
     return render_ids
 
 
 job_ids = generate_premiere_proxies(
-    "/Users/pedrolabonia/Documents/media_tests",
-    "/Users/pedrolabonia/Documents/media_tests/output",
+    "A:/media_test2/",
+    "A:/media_test2/output",
     2,
 )
 
-project.render(job_ids, interactive=True)
+project.render(job_ids)
 
 
-for i, job in enumerate(job_ids):
+for i in len(job_ids):
+
     render_status = project.render_status(job_ids[i])["JobStatus"]
 
-    while render_status is not "Complete":
+    while render_status != "Complete":
         time.sleep(3)
         status = project.render_status(job_ids[i])
-        print(status)
         try:
             percentage = status["CompletionPercentage"]
             time_left = status["EstimatedTimeRemainingInMs"] / 1000
@@ -91,4 +94,4 @@ for i, job in enumerate(job_ids):
 
     time_to_render = project.render_status(job_ids[i])["TimeTakenToRenderInMs"] / 1000
     print("\n")
-    print(f"Job ID {job_ids[i]} | Rendering complete. | Total render time: {time_to_render},")
+    print(f"Job ID {job_ids[i]} | Rendering complete. | Total render time: {time_to_render}")

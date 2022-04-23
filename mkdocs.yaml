@@ -5,7 +5,7 @@ nav:
   # - Quickstart: quickstart.md
   - Examples:
     - "Create Premiere Proxies": "examples/premiereproxies.md"
-  - Code Reference:
+  - API Reference:
     - "Resolve": resolve.md
     - "ProjectManager": projectmanager.md
     - "Project": project.md
@@ -21,11 +21,13 @@ theme:
   palette:
     primary: purple
     scheme: slate
+  features:
+    - content.code.annotate
 
 
 
 plugins:
-  - search 
+  - search
   - mkdocstrings:
       handlers:
         python:
@@ -42,7 +44,7 @@ plugins:
             group_by_category: true
             show_category_heading: true
             show_source: false
-            merge_init_into_class: true     
+            merge_init_into_class: true
             separate_signature: false
             docstring_section_style: table
             show_signature_annotations: false
@@ -53,7 +55,7 @@ plugins:
         - docs/css
         - docs/templates/
   - autorefs
-  
+
 extra_css:
 - css/style.css
 

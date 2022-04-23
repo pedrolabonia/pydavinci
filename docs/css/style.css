@@ -64,7 +64,7 @@ div.doc-contents:not(.first) {
 
 .md-header {
   background: rgb(171, 56, 151);
-  background: linear-gradient(0deg, rgba(171, 56, 151, 1) 0%, rgba(245, 83, 118, 1) 90%);
+  background: linear-gradient(0deg, rgb(102, 36, 91) 0%, rgb(155, 66, 133) 90%);
 }
 
 
@@ -223,3 +223,26 @@ h1 {
   font-size: 1em;
   /* margin-left: 0.6em; */
 }
+
+h1.examples {
+  margin-bottom: 0em !important;
+}
+
+h5.examples {
+  line-height: 0em !important;
+  margin-top: 0.6em !important;
+  margin-bottom: 3em !important;
+
+}
+
+.md-typeset :is(.admonition, details) {
+  font-size: 0.85em !important;
+}
+
+/* article p:nth-child(2) {
+  line-height: 0em !important;
+}
+
+article p:nth-child(3) {
+  margin-top: 2em;
+} */

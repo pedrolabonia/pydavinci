@@ -84,14 +84,28 @@ class Project(object):
         """
         return self._obj.SetPreset(preset_name)
 
-    def add_renderjob(self) -> str:
+    def add_renderjob(self, block: bool = True) -> str:
         """
-        Adds current render settings to a render job
+        Adds current render settings to a render job.
+
+        If there are already rendered jobs in the render queue and you're executing a lot of commands, there's a bug on
+        the Davinci API that there's a chance it will return an empty string instead of the job ID.
+
+        ``block`` blocks the program until we get a job id back from Davinci Resolve. It's ``True`` by default.
 
         Returns:
             str: render job id
         """
-        return self._obj.AddRenderJob()
+        job_id = self._obj.AddRenderJob()
+
+        if block and job_id == "":
+            while job_id == "":
+
+                job_id = self._obj.AddRenderJob()
+
+            return job_id
+
+        return job_id
 
     def delete_renderjob(self, job_id: str) -> bool:
         """
@@ -134,7 +148,7 @@ class Project(object):
         """
         return self._obj.GetRenderPresetList()
 
-    def render(self, job_ids: Optional[List[str]] = None, interactive: bool = False) -> bool:
+    def render(self, job_ids: Optional[List[str]] = None, interactive: bool = True) -> bool:
         """
         Render jobs
 
@@ -257,7 +271,7 @@ class Project(object):
             )
 
     def available_resolutions(
-        self, format: Optional[str], codec: Optional[str]
+        self, format: Optional[str] = None, codec: Optional[str] = None
     ) -> List[Dict[Any, Any]]:
         """Returns list of resolutions applicable for the given render ``format`` and render ``codec``.
 
@@ -313,6 +327,37 @@ class Project(object):
         """
         Set render settings.
 
+        Render Settings:
+        ```python
+            render_settings = {
+            "SelectAllFrames": bool, # (when set True, the settings MarkIn and MarkOut are ignored)
+            "MarkIn": int,
+            "MarkOut": int,
+            "TargetDir": str,
+            "CustomName": str,
+            "UniqueFilenameStyle": int, # 0 - Prefix, 1 - Suffix.
+            "ExportVideo": bool,
+            "ExportAudio": bool,
+            "FormatWidth": int,
+            "FormatHeight": int,
+            "FrameRate": float, # (examples: 23.976, 24)
+            "PixelAspectRatio": str, # (for SD resolution: "16_9" or "4_3") (other resolutions: "square" or "cinemascope")
+            "VideoQuality": Union[int, str],
+               # possible values for current codec (if applicable):
+               # 0 (int) - will set quality to automatic
+               # [1 -> MAX] (int) - will set input bit rate
+               # ["Least", "Low", "Medium", "High", "Best"] (String) - will set input quality level
+            "AudioCodec": str, # (example: "aac")
+            "AudioBitDepth": int,
+            "AudioSampleRate": int,
+            "ColorSpaceTag" : str, # (example: "Same as Project", "AstroDesign")
+            "GammaTag" : str, # (example: "Same as Project", "ACEScct")
+            "ExportAlpha": bool,
+            "EncodingProfile": str, # (example: "Main10"). Can only be set for H.264 and H.265.
+            "MultiPassEncode": bool, # Can only be set for H.264.
+            "AlphaMode": int, # 0 - Premultiplied, 1 - Straight. Can only be set if "ExportAlpha" is true.
+            "NetworkOptimization": bool, # Only supported by QuickTime and MP4 formats.
+        ```
         Args:
             render_settings (dict): dictionary with render settings
 
