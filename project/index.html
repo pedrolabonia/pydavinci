@@ -1,0 +1,2641 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.9">
+    
+    
+      
+        <title>Project - pydavinci Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.120efc48.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.9647289d.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ab47bd">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../css/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pydavinci.wrappers.project.Project-attributes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="pydavinci Docs" class="md-header__button md-logo" aria-label="pydavinci Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pydavinci Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="pydavinci Docs" class="md-nav__button md-logo" aria-label="pydavinci Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    pydavinci Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/premiereproxies/" class="md-nav__link">
+        Create Premiere Proxies
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Code Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Code Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resolve/" class="md-nav__link">
+        Resolve
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../projectmanager/" class="md-nav__link">
+        ProjectManager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Project
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Project
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project-attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.mediapool" class="md-nav__link">
+    mediapool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.timeline_count" class="md-nav__link">
+    timeline_count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.name" class="md-nav__link">
+    name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.presets" class="md-nav__link">
+    presets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_jobs" class="md-nav__link">
+    render_jobs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_presets" class="md-nav__link">
+    render_presets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_formats" class="md-nav__link">
+    render_formats
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.current_render_format_and_codec" class="md-nav__link">
+    current_render_format_and_codec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_mode" class="md-nav__link">
+    render_mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.timeline" class="md-nav__link">
+    timeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project-functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_preset" class="md-nav__link">
+    set_preset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.add_renderjob" class="md-nav__link">
+    add_renderjob()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.delete_renderjob" class="md-nav__link">
+    delete_renderjob()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.delete_all_renderjobs" class="md-nav__link">
+    delete_all_renderjobs()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render" class="md-nav__link">
+    render()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.stop_render" class="md-nav__link">
+    stop_render()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_status" class="md-nav__link">
+    render_status()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.get_render_codecs" class="md-nav__link">
+    get_render_codecs()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_render_format_and_codec" class="md-nav__link">
+    set_render_format_and_codec()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.available_resolutions" class="md-nav__link">
+    available_resolutions()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.is_rendering" class="md-nav__link">
+    is_rendering()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.load_render_preset" class="md-nav__link">
+    load_render_preset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.save_render_preset_as" class="md-nav__link">
+    save_render_preset_as()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_render_settings" class="md-nav__link">
+    set_render_settings()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.get_setting" class="md-nav__link">
+    get_setting()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_setting" class="md-nav__link">
+    set_setting()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.save" class="md-nav__link">
+    save()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.open_timeline" class="md-nav__link">
+    open_timeline()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.refresh_luts" class="md-nav__link">
+    refresh_luts()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mediastorage/" class="md-nav__link">
+        MediaStorage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mediapool/" class="md-nav__link">
+        MediaPool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mediapoolitem/" class="md-nav__link">
+        MediaPool Item
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../folder/" class="md-nav__link">
+        Folder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timeline/" class="md-nav__link">
+        Timeline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timelineitem/" class="md-nav__link">
+        TimelineItem
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project-attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.mediapool" class="md-nav__link">
+    mediapool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.timeline_count" class="md-nav__link">
+    timeline_count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.name" class="md-nav__link">
+    name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.presets" class="md-nav__link">
+    presets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_jobs" class="md-nav__link">
+    render_jobs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_presets" class="md-nav__link">
+    render_presets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_formats" class="md-nav__link">
+    render_formats
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.current_render_format_and_codec" class="md-nav__link">
+    current_render_format_and_codec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_mode" class="md-nav__link">
+    render_mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.timeline" class="md-nav__link">
+    timeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project-functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_preset" class="md-nav__link">
+    set_preset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.add_renderjob" class="md-nav__link">
+    add_renderjob()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.delete_renderjob" class="md-nav__link">
+    delete_renderjob()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.delete_all_renderjobs" class="md-nav__link">
+    delete_all_renderjobs()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render" class="md-nav__link">
+    render()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.stop_render" class="md-nav__link">
+    stop_render()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.render_status" class="md-nav__link">
+    render_status()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.get_render_codecs" class="md-nav__link">
+    get_render_codecs()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_render_format_and_codec" class="md-nav__link">
+    set_render_format_and_codec()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.available_resolutions" class="md-nav__link">
+    available_resolutions()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.is_rendering" class="md-nav__link">
+    is_rendering()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.load_render_preset" class="md-nav__link">
+    load_render_preset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.save_render_preset_as" class="md-nav__link">
+    save_render_preset_as()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_render_settings" class="md-nav__link">
+    set_render_settings()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.get_setting" class="md-nav__link">
+    get_setting()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.set_setting" class="md-nav__link">
+    set_setting()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.save" class="md-nav__link">
+    save()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.open_timeline" class="md-nav__link">
+    open_timeline()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.refresh_luts" class="md-nav__link">
+    refresh_luts()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>Project</h1>
+
+<div class="doc doc-object doc-class">
+
+
+    <div class="doc doc-contents first">
+        <p class="doc doc-class-bases">
+          Bases: <code>object</code></p>
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+<h2 id="pydavinci.wrappers.project.Project-attributes">Attributes</h2>
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.mediapool" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">mediapool</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Returns the
+<a class="autorefs autorefs-internal" href="../mediapool/#pydavinci.wrappers.mediapool.MediaPool-attributes"><code>MediaPool</code></a> object.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code><span title="pydavinci.wrappers.mediapool.MediaPool">MediaPool</span></code>
+      </td>
+      <td><p>Media Storage object</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.timeline_count" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">timeline_count</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Get total timeline count on current project</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>int</code>
+      </td>
+      <td><p>timeline count</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.name" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">name</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets or sets current project name</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>project name</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.presets" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">presets</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets a list of available project presets</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code><span title="typing.List">List</span>[str]</code>
+      </td>
+      <td><p>project presets</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.render_jobs" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_jobs</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets current list of render jobs</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>list</code></td>      <td>
+        <code><span title="typing.List">List</span>[str]</code>
+      </td>
+      <td><p>render job list</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.render_presets" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_presets</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets available <strong>render</strong> presets list</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>list</code></td>      <td>
+        <code><span title="typing.List">List</span>[str]</code>
+      </td>
+      <td><p>available render presets list</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.render_formats" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_formats</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets all possible render formats.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>dict</code></td>      <td>
+        <code><span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Any">Any</span>]</code>
+      </td>
+      <td><p>dict with render formats</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.current_render_format_and_codec" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">current_render_format_and_codec</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets current render format and codec.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>dict</code></td>      <td>
+        <code><span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Any">Any</span>]</code>
+      </td>
+      <td><p>dict with current render format and codec</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.render_mode" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_mode</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets or sets current render mode. <code>single</code> for single clip and <code>individual</code> for individual clips.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>render mode <code>single</code> or <code>individual</code></p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.timeline" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">timeline</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Returns current <a class="autorefs autorefs-internal" href="../timeline/#pydavinci.wrappers.timeline.Timeline-attributes"><code>Timeline</code></a> object</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>Timeline</code></td>      <td>
+        <code><span title="pydavinci.wrappers.timeline.Timeline">Timeline</span></code>
+      </td>
+      <td><p>timeline object</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+<h2 id="pydavinci.wrappers.project.Project-functions">Functions</h2>
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.set_preset" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_preset</span><span class="p">(</span><span class="n">preset_name</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Activates <code>preset_name</code></p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>preset_name</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>preset name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.add_renderjob" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">add_renderjob</span><span class="p">()</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Adds current render settings to a render job</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>str</code></td>      <td>
+        <code>str</code>
+      </td>
+      <td><p>render job id</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.delete_renderjob" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">delete_renderjob</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Deletes render job <code>job_id</code></p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>job_id</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>render job id</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.delete_all_renderjobs" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">delete_all_renderjobs</span><span class="p">()</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Deletes all renderjobs</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.render" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">job_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Render jobs</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>job_ids</code></td>
+      <td>
+        <code><span title="typing.Union">Union</span>[None, <span title="typing.List">List</span>[str]]</code>
+      </td>
+      <td><p>Renders provided list of <code>job ids</code>. If <code>None</code> provided, render all jobs in queue. Defaults to <code>None</code>.</p></td>
+      <td>
+        <code>None</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>interactive</code></td>
+      <td>
+        <code>bool</code>
+      </td>
+      <td><p>Whether to use interactive mode. When set to <code>True</code>, enables error feedback in the UI during rendering.</p></td>
+      <td>
+        <code>False</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.stop_render" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">stop_render</span><span class="p">()</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Stops all rendering.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>None</code></td>      <td>
+        <code>None</code>
+      </td>
+      <td><p>None</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.render_status" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_status</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Gets render status on <code>job_id</code></p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>job_id</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>job id</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>dict</code></td>      <td>
+        <code><span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Union">Union</span>[str, int]]</code>
+      </td>
+      <td><p>dictionary with render status</p></td>
+    </tr>
+  </tbody>
+</table>
+
+<details class="render-status">
+  <summary>Render Status</summary>
+  <p>The dictionary returned looks like this when rendering:
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s1">&#39;JobStatus&#39;</span><span class="p">:</span> <span class="s1">&#39;Rendering&#39;</span><span class="p">,</span>
+<span class="s1">&#39;CompletionPercentage&#39;</span><span class="p">:</span> <span class="mi">92</span><span class="p">,</span>
+<span class="s1">&#39;EstimatedTimeRemainingInMs&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">}</span>
+</code></pre></div>
+And like this when the render on the provided job id is complete:
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s1">&#39;JobStatus&#39;</span><span class="p">:</span> <span class="s1">&#39;Complete&#39;</span><span class="p">,</span>
+<span class="s1">&#39;CompletionPercentage&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+<span class="s1">&#39;TimeTakenToRenderInMs&#39;</span><span class="p">:</span> <span class="mi">25991</span><span class="p">}</span>
+</code></pre></div></p>
+</details>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.get_render_codecs" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">get_render_codecs</span><span class="p">(</span><span class="n">render_format</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Returns all possible render codecs.</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>render_format</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>render format</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code><span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Any">Any</span>]</code>
+      </td>
+      <td><p>Dict[Any, Any]: render codecs</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.set_render_format_and_codec" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_render_format_and_codec</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Sets current <code>format</code> and <code>codec</code></p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>format</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>render format</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>codec</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>render codec</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.available_resolutions" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">available_resolutions</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Returns list of resolutions applicable for the given render <code>format</code> and render <code>codec</code>.</p>
+<p>Returns full list of resolutions if no argument is provided.
+Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>format</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>render format</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>codec</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>render codec</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code><span title="typing.List">List</span>[<span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Any">Any</span>]]</code>
+      </td>
+      <td><p>List[Dict[Any, Any]]: <em>description</em></p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.is_rendering" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">is_rendering</span><span class="p">()</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Checks if DaVinci Resolve is rendering.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if rendering, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.load_render_preset" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">load_render_preset</span><span class="p">(</span><span class="n">preset_name</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Loads render preset <code>preset_name</code>.</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>preset_name</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>preset name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.save_render_preset_as" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">save_render_preset_as</span><span class="p">(</span><span class="n">preset_name</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Save current preset as <code>preset_name</code>.</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>preset_name</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>preset name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.set_render_settings" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_render_settings</span><span class="p">(</span><span class="n">render_settings</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Set render settings.</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>render_settings</code></td>
+      <td>
+        <code>dict</code>
+      </td>
+      <td><p>dictionary with render settings</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.get_setting" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">get_setting</span><span class="p">(</span><span class="n">setting</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Get project setting.</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>setting</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>setting name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>dict</code></td>      <td>
+        <code><span title="typing.Any">Any</span></code>
+      </td>
+      <td><p>dict with setting name and value</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.set_setting" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_setting</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Set project setting.</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>setting</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>setting name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>value</code></td>
+      <td>
+        <code><span title="typing.Any">Any</span></code>
+      </td>
+      <td><p>setting value</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.save" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Saves project.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.close" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Closes current project.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.open_timeline" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">open_timeline</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Opens timeline named <code>name</code>.</p></div>
+
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>timeline name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="pydavinci.wrappers.project.Project.refresh_luts" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">refresh_luts</span><span class="p">()</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+<div class="docstring"><p>Refresh luts.</p></div>
+
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>None</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p>None</p></td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../projectmanager/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ProjectManager" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              ProjectManager
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../mediastorage/" class="md-footer__link md-footer__link--next" aria-label="Next: MediaStorage" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              MediaStorage
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>
+      
+    
+  </body>
+</html>
