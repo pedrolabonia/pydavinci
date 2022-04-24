@@ -2,9 +2,6 @@ from typing import TYPE_CHECKING, Any, Optional
 
 from pydavinci.main import resolve_obj
 
-# from pydavinci.wrappers._basewrappers import BaseResolveWrapper
-from pydavinci.utils import process_active
-
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteResolve
     from pydavinci.wrappers.mediapool import MediaPool
@@ -17,11 +14,12 @@ if TYPE_CHECKING:
 class Resolve(object):  # type: ignore
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
 
-        # if utils.launch_resolve(headless, path): # this check is slow AF, to be implemented when we have auto-launch resolve
-        if not process_active("resolve"):
-            raise NotImplementedError(
-                "Couldn't find Davinci Resolve. Please make sure it's running"
-            )
+        # this check is slow AF, to be implemented when we have auto-launch resolve
+
+        # if not process_active("resolve"):
+        #     raise NotImplementedError(
+        #         "Couldn't find Davinci Resolve. Please make sure it's running"
+        #     )
 
         self.pages = ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
         """Available pages to switch to using [``Resolve.page``][pydavinci.wrappers.resolve.Resolve.page]"""

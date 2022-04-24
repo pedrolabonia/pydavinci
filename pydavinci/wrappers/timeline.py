@@ -6,7 +6,6 @@ from pydavinci.wrappers.timelineitem import TimelineItem
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
-    from pydavinci.wrappers.timelineitem import TimelineItem
 
 
 class Timeline(object):

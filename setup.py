@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydavinci",
-    version="1.0.0",
+    version="0.1.0",
     author="Pedro Labonia",
     author_email="pedromslabonia@gmail.com",
     description="A Davinci Resolve API Wrapper",
@@ -19,5 +19,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     packages=setuptools.find_packages(),
+    package_data={"pydavinci": ["py.typed"]},
     python_requires="==3.6.*",
 )
