@@ -133,4 +133,4 @@ dmypy.json
 .idea
 
 test_build.ps1
-build.ps1
+build_pypy.ps1

@@ -19,6 +19,7 @@ def load_fusionscript():  # type: ignore
         "RESOLVE_SCRIPT_LIB": "/opt/resolve/libs/Fusion/fusionscript.so",
         "PYTHONPATH": "$PYTHONPATH:$RESOLVE_SCRIPT_API/Modules/",
     }
+
     if sys.platform.startswith("win32"):
         for key in WIN_ENV_VARIABLES.keys():
             os.environ[key] = WIN_ENV_VARIABLES[key]

@@ -1,2 +1,2 @@
 # type: ignore
-import pydavinci.wrappers.resolve as davinci  # noqa: E261,F401
+from .wrappers import resolve as davinci  # noqa: F401
