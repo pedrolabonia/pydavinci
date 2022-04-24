@@ -12,7 +12,9 @@
 pydavinci __only works with `Python 3.6.*`__, as that's a requirement on DaVinci Resolve's part. You also need the __Studio__ version.
 
 
-For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported.
+For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported. 
+
+If you want to try out ``pydavinci`` with new python versions, use pip with the ``--ignore-requires-python`` flag.
 
 
 ### Install pydavinci
