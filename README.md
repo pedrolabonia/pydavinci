@@ -8,7 +8,9 @@ Provides auto completion, type hints and great API reference documentation.
 
 
 ---
+
 pydavinci __requires Python 3.6.*__, as that's a requirements on the software API itself. 
+
 
 For the newer DaVinci Resolve v18, newer Python installations are supported.
 

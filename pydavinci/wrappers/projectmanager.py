@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import TYPE_CHECKING, Dict, List
 
 # from pydavinci.wrappers._basewrappers import BaseResolveWrapper
 from pydavinci.main import resolve_obj
@@ -6,7 +6,6 @@ from pydavinci.wrappers.project import Project
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteProjectManager
-    from pydavinci.wrappers.project import Project
 
 # import fusionscript as dvr_script
 
@@ -21,7 +20,7 @@ class ProjectManager(object):  # type: ignore
 
         self._obj: PyRemoteProjectManager = resolve_obj.GetProjectManager()
 
-    def create_project(self, project_name: str) -> "Project":
+    def create_project(self, project_name: str) -> Project:
         """
         Creates a project with ``project_name``
 
@@ -35,9 +34,18 @@ class ProjectManager(object):  # type: ignore
         return Project(created)
 
     def delete_project(self, project_name: str) -> bool:
+        """
+        Deletes project ``project_name``
+
+        Args:
+            project_name (str): project name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
         return self._obj.DeleteProject(project_name)
 
-    def load_project(self, project_name: str) -> "Project":
+    def load_project(self, project_name: str) -> Project:
         """
         Loads project ``project_name``
 
@@ -49,12 +57,21 @@ class ProjectManager(object):  # type: ignore
         """
         return Project(self._obj.LoadProject(project_name))
 
-    def close_project(self, project: "Project") -> bool:
-        return self._obj.CloseProject(project._obj)
+    def close_project(self, project_name: Project) -> bool:
+        """
+        Closes project ``project_name``
+
+        Args:
+            project_name (str): project name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.CloseProject(project_name._obj)
 
     def create_folder(self, folder_name: str) -> bool:
         """
-        Creates folder ``folder_name``
+        Creates project manager folder ``folder_name``
 
         Args:
             folder_name (str): folder name
@@ -66,7 +83,7 @@ class ProjectManager(object):  # type: ignore
 
     def delete_folder(self, folder_name: str) -> bool:
         """
-        Deletes folder ``folder_name
+        Deletes project manager folder ``folder_name``
 
         Args:
             folder_name (str): folder name
@@ -76,18 +93,20 @@ class ProjectManager(object):  # type: ignore
         """
         return self._obj.DeleteFolder(folder_name)
 
-    def project_list(self) -> List[str]:
+    @property
+    def projects(self) -> List[str]:
         """
-        Returns a list with project names
+        Returns a list with project names in current project manager folder
 
         Returns:
             List[str]: list of project names
         """
         return self._obj.GetProjectListInCurrentFolder()
 
-    def folder_list(self) -> List[str]:
+    @property
+    def folders(self) -> List[str]:
         """
-        Returns a list with folder names
+        Returns a list with project manager folder names
 
         Returns:
             List[str]: list of folder names
@@ -105,7 +124,7 @@ class ProjectManager(object):  # type: ignore
 
     def goto_parent_folder(self) -> bool:
         """
-        Goes to parent folder
+        Goes to parent of current project manager folder
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
@@ -147,7 +166,7 @@ class ProjectManager(object):  # type: ignore
         """
         return self._obj.ImportProject(path)
 
-    def export_project(self, project_name: str, path: str, stills_and_luts: bool = True) -> bool:
+    def export_project(self, project_name: str, path: str, stills_and_luts: bool = False) -> bool:
         """
         Exports project
 
@@ -174,11 +193,37 @@ class ProjectManager(object):  # type: ignore
         return self._obj.RestoreProject(path)
 
     @property
-    def db(self) -> Dict[Any, Any]:
+    def db(self) -> Dict[str, str]:
+        """
+        Gets or sets current database.
+        For setting a Disk DB:
+             ```python
+             ProjectManager.db = {
+             'DbType': 'Disk',
+             'DbName': 'Local Database'
+             }
+             ```
+        For setting a PostgresSQL db:
+             ```python
+             ProjectManager.db = {
+             'DbType': 'PostgreSQL',
+             'DbName': 'PostgresDB',
+             'IpAddress': '127.0.0.1'
+             }
+             ```
+
+        Args:
+             db_info (dict): valid ``db_info`` dict.
+
+
+        Returns:
+             bool: ``True`` if successful, ``False`` otherwise
+
+        """
         return self._obj.GetCurrentDatabase()
 
     @db.setter
-    def db(self, db_info: Dict[Any, Any]) -> bool:
+    def db(self, db_info: Dict[str, str]) -> bool:
         """
         Sets current database according to ``db_info``
 
@@ -209,7 +254,7 @@ class ProjectManager(object):  # type: ignore
         return self._obj.SetCurrentDatabase(db_info)
 
     @property
-    def db_list(self) -> List[Dict[Any, Any]]:
+    def db_list(self) -> List[Dict[str, str]]:
         """
         Returns list of all databases
 

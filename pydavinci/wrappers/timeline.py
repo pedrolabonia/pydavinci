@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from pydavinci.main import resolve_obj
 from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
@@ -6,7 +6,6 @@ from pydavinci.wrappers.timelineitem import TimelineItem
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
-    from pydavinci.wrappers.timelineitem import TimelineItem
 
 
 class Timeline(object):
@@ -21,6 +20,15 @@ class Timeline(object):
 
     @property
     def name(self) -> str:
+        """
+        Gets or sets timeline ``name``
+
+        Args:
+            name (str): new timeline name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
         return self._obj.GetName()
 
     @name.setter
@@ -58,7 +66,7 @@ class Timeline(object):
     @property
     def end_frame(self) -> int:
         """
-        Gets end frame
+        Gets timeline end frame
 
         Returns:
             int: end frame
@@ -85,7 +93,7 @@ class Timeline(object):
 
     def items(self, track_type: str, track_index: int) -> List["TimelineItem"]:
         """
-        Get ``TimelineItem``s from a track
+        Gets [``TimelineItem``][pydavinci.wrappers.timelineitem.TimelineItem-attributes]s from a track
 
         Args:
             track_type (str): valid ``track_type``: ``video``, ``audio``, ``subtitle``
@@ -95,14 +103,13 @@ class Timeline(object):
             ValueError: Not a valid track type
 
         Returns:
-            List[TimelineItem]: list of items at specified track
+            (List[TimelineItem]): list of items at specified track
         """
         if track_type not in TRACK_TYPES:
             raise ValueError(TRACK_ERROR)
 
         return [TimelineItem(x) for x in self._obj.GetItemListInTrack(track_type, track_index)]
 
-    ### MARKER STUFF # noqa: E266
     def add_marker(
         self,
         frameid: int,
@@ -114,7 +121,10 @@ class Timeline(object):
         customdata: str = "",
     ) -> bool:
         """
-        Adds a marker
+        Adds a marker.
+
+        ``customdata`` is a ``str`` that can be used for programatically
+        setting and searching for markers. It's not exposed to the GUI.
 
         Args:
             frameid (int): frame for marker to be inserted at
@@ -152,12 +162,20 @@ class Timeline(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
 
-        Info:
-        A marker's ``custom data`` is not exposed via UI and is useful for a scripting developer to attach any user specific data to markers.
         """
         return self._obj.UpdateMarkerCustomData(frameid, customdata)
 
-    def marker_custom_data(self, frameid: int) -> str:
+    def get_marker_custom_data(self, frameid: int) -> str:
+        """
+        Gets marker ``customdata`` at ``frameid``
+
+        Args:
+            frameid (int): marker frame
+
+        Returns:
+            ``customdata``
+
+        """
         return self._obj.GetMarkerCustomData(frameid)
 
     def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
@@ -175,9 +193,11 @@ class Timeline(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
 
-        Info:
+        Deleting Markers:
             When selecting by ``frameid``, will delete single marker
+
             When selecting by ``color``, will delete _all_ markers with provided color
+
             When selecting by ``customdata``, will delete first marker with matching custom data
         """
         if frameid:
@@ -198,13 +218,12 @@ class Timeline(object):
         """
         return self._obj.GetMarkers()
 
-    ### END MARKER STUFF # noqa: E266
-
     def apply_grade_from_DRX(
         self, drx_path: str, grade_mode: int, timeline_items: List["TimelineItem"]
     ) -> bool:
         """
-        Applies drx grade on a list of ``TimelineItem``s
+        Applies drx grade on a list of
+        [``TimelineItem``][pydavinci.wrappers.timelineitem.TimelineItem-attributes]s
 
         Args:
             drx_path (str): path to a ``.drx`` file
@@ -241,7 +260,7 @@ class Timeline(object):
     @property
     def current_clip_thumbnail(self) -> Dict[Any, Any]:
         """
-        # Returns a dict with data containing metadata + raw thumbnail
+        Returns a dict with data containing metadata + raw thumbnail
         image data (RGB 8-bit image data encoded in base64 format) for current media in the Color Page.
 
         Returns:
@@ -280,24 +299,24 @@ class Timeline(object):
             ValueError: Not a valid track type
 
         Returns:
-            bool: ``True`` if successful, ``False`` otherwise
+            (bool): ``True`` if successful, ``False`` otherwise
         """
         if track_type not in TRACK_TYPES:
             raise ValueError(TRACK_ERROR)
         return self._obj.SetTrackName(track_type, track_index, new_name)
 
-    def duplicate_timeline(self, track_name: str = "") -> "Timeline":
+    def duplicate_timeline(self, timeline_name: Optional[str] = None) -> "Timeline":
         """
         Duplicates this timeline
 
         Args:
-            track_name (str, optional): New timeline name. If not provided, appends "Copy" to timeline name.
+            timeline_name (str, optional): New timeline name. If not provided, appends "Copy" to timeline name.
 
         Returns:
-            Timeline: new duplicated timeline
+            (Timeline): new duplicated timeline
         """
-        if track_name:
-            return Timeline(self._obj.DuplicateTimeline(track_name))
+        if timeline_name:
+            return Timeline(self._obj.DuplicateTimeline(timeline_name))
         else:
             return Timeline(self._obj.DuplicateTimeline())
 
@@ -315,7 +334,7 @@ class Timeline(object):
                 ```
 
         Returns:
-            TimelineItem: compound clip
+            (TimelineItem): compound clip
         """
         if not clip_info:
             return TimelineItem(self._obj.CreateCompoundClip(get_resolveobjs(timeline_items)))
@@ -332,7 +351,7 @@ class Timeline(object):
             timeline_items (List[TimelineItem]): timeline items to be used as input in the Fusion clip
 
         Returns:
-            TimelineItem: resulting fusion clip
+            (TimelineItem): resulting fusion clip
         """
         return TimelineItem(self._obj.CreateFusionClip(get_resolveobjs(timeline_items)))
 
@@ -341,22 +360,33 @@ class Timeline(object):
     ) -> bool:  # noqa: E501
         """
         Imports an aaf into the timeline
-         Imports timeline items from an AAF file and optional ``import_options`` dict into the timeline, with support for the keys:
-         ``"autoImportSourceClipsIntoMediaPool"``: ``bool``, specifies if source clips should be imported into media pool, ``True`` by default
-         ``"ignoreFileExtensionsWhenMatching"``: ``bool``, specifies if file extensions should be ignored when matching, ``False`` by default
-         ``"linkToSourceCameraFiles"``: bool, specifies if link to source camera files should be enabled, False by default
-        ``"useSizingInfo"``: bool, specifies if sizing information should be used, ``False`` by default
-         ``"importMultiChannelAudioTracksAsLinkedGroups"``: bool, specifies if multi-channel audio tracks should be imported as linked groups, ``False`` by default
-         ``"insertAdditionalTracks"``: bool, specifies if additional tracks should be inserted, ``True`` by default
-         ``"insertWithOffset"``: ``str``, specifies insert with offset value in timecode format - defaults to ``"00:00:00:00"``, applicable if "insertAdditionalTracks" is False
-         ``"sourceClipsPath"``: ``str``, specifies a filesystem path to search for source clips if the media is inaccessible in their original path and if ``"ignoreFileExtensionsWhenMatching"`` is True
-         ``"sourceClipsFolders"``: ``str``, list of ``Folder`` objects to search for source clips if the media is not present in current folder
 
-         Args:
+        Import Options:
+            Imports timeline items from an AAF file and optional ``import_options`` dict into the timeline, with support for the keys:
+
+            ``"autoImportSourceClipsIntoMediaPool"``: ``bool``, specifies if source clips should be imported into media pool, ``True`` by default
+
+            ``"ignoreFileExtensionsWhenMatching"``: ``bool``, specifies if file extensions should be ignored when matching, ``False`` by default
+
+            ``"linkToSourceCameraFiles"``: bool, specifies if link to source camera files should be enabled, False by default
+
+            ``"useSizingInfo"``: ``bool``, specifies if sizing information should be used, ``False`` by default
+
+            ``"importMultiChannelAudioTracksAsLinkedGroups"``: bool, specifies if multi-channel audio tracks should be imported as linked groups, ``False`` by default
+
+            ``"insertAdditionalTracks"``: bool, specifies if additional tracks should be inserted, ``True`` by default
+
+            ``"insertWithOffset"``: ``str``, specifies insert with offset value in timecode format - defaults to ``"00:00:00:00"``, applicable if "insertAdditionalTracks" is False
+
+            ``"sourceClipsPath"``: ``str``, specifies a filesystem path to search for source clips if the media is inaccessible in their original path and if ``"ignoreFileExtensionsWhenMatching"`` is ``True``
+
+            ``"sourceClipsFolders"``: ``str``, list of ``Folder`` objects to search for source clips if the media is not present in current folder
+
+        Args:
              file_path (str): path to ``.aaf`` file
              import_options (dict, optional): optional import options. See description above. Defaults to {}.
 
-         Returns:
+        Returns:
              bool: ``True`` if successful, ``False`` otherwise
 
         """
@@ -397,14 +427,17 @@ class Timeline(object):
         resolve.EXPORT_MISSING_CLIPS
         ```
 
-        Info:
+        Export types and subtypes:
             Please note that ``export_subtype`` is a required parameter for ``resolve.EXPORT_AAF`` and ``resolve.EXPORT_EDL``. For rest of the ``export_type``, ``export_subtype`` is ignored.
-            When exportType is ``resolve.EXPORT_AAF``, valid ``export_subtype`` values are ``resolve.EXPORT_AAF_NEW`` and ``resolve.EXPORT_AAF_EXISTING``.
-            When exportType is ``resolve.EXPORT_EDL``, valid exportSubtype values are ``resolve.EXPORT_CDL``, ``resolve.EXPORT_SDL``, ``resolve.EXPORT_MISSING_CLIPS`` and ``resolve.EXPORT_NONE``.
+
+            When ``exportType`` is ``resolve.EXPORT_AAF``, valid ``export_subtype`` values are ``resolve.EXPORT_AAF_NEW`` and ``resolve.EXPORT_AAF_EXISTING``.
+
+            When ``exportType`` is ``resolve.EXPORT_EDL``, valid exportSubtype values are ``resolve.EXPORT_CDL``, ``resolve.EXPORT_SDL``, ``resolve.EXPORT_MISSING_CLIPS`` and ``resolve.EXPORT_NONE``.
+
             Note: Replace ``resolve.`` when using the constants above, if a different ``Resolve`` class instance name is used.
 
         Args:
-            file_path (str): full filepath to export to including file name
+            file_name (str): full filepath to export to including file name
             export_type (_type_): supported export type
             export_subtype (_type_): supported export subtype
 
@@ -414,7 +447,7 @@ class Timeline(object):
         # / TODO: Do the Enums here. For now we're just passing as-is.
         return self._obj.Export(file_name, export_type, export_subtype)
 
-    def get_setting(self, settingname: str = "") -> str:
+    def get_setting(self, settingname: Optional[Union[str, Dict[Any, Any]]] = None) -> str:
         """
         Gets setting
 
@@ -424,20 +457,20 @@ class Timeline(object):
         Returns:
             Union[str, Dict]: setting(s)
         """
-        if settingname == "":
-            return self._obj.GetSetting()
-        return self._obj.GetSetting(settingname)
+        if settingname:
+            return self._obj.GetSetting(settingname)
+        return self._obj.GetSetting()
 
-    def set_setting(self, setting_name: str, value: str) -> bool:
+    def set_setting(self, setting_name: str, value: Union[str, int, Dict[Any, Any]]) -> bool:
         """
         Set setting
 
         Args:
             setting_name (str): setting name
-            value (str): setting value
+            value (Union[str, int, Dict[Any, Any]): setting value
 
         Returns:
-            bool: ``True`` if successful, ``False`` otherwise
+           ``True`` if successful, ``False`` otherwise
         """
         return self._obj.SetSetting(setting_name, value)
 
@@ -449,7 +482,7 @@ class Timeline(object):
             generator_name (str): generator name to be inserted
 
         Returns:
-            TimelineItem: generator
+            (TimelineItem): generator
         """
         return TimelineItem(self._obj.InsertGeneratorIntoTimeline(generator_name))
 
@@ -461,7 +494,7 @@ class Timeline(object):
             generator_name (str): fusion generator name
 
         Returns:
-            TimelineItem: fusion generator
+            (TimelineItem): fusion generator
         """
         return TimelineItem(self._obj.InsertFusionGeneratorIntoTimeline(generator_name))
 
@@ -473,7 +506,7 @@ class Timeline(object):
             generator_name (str): OFX generator name
 
         Returns:
-            TimelineItem: OFX generator
+            (TimelineItem): OFX generator
         """
         return TimelineItem(self._obj.InsertOFXGeneratorIntoTimeline(generator_name))
 
@@ -485,7 +518,7 @@ class Timeline(object):
             title_name (str): title name
 
         Returns:
-            TimelineItem: title
+            (TimelineItem): title
         """
         return TimelineItem(self._obj.InsertTitleIntoTimeline(title_name))
 
@@ -497,6 +530,6 @@ class Timeline(object):
             title_name (str): fusion title name
 
         Returns:
-            TimelineItem: fusion title
+            (TimelineItem): fusion title
         """
         return TimelineItem(self._obj.InsertFusionTitleIntoTimeline(title_name))

@@ -22,19 +22,39 @@ class MediaPoolItem(object):
     def name(self) -> str:
         """
         Returns:
-            str: name
+            (str): ``MediaPoolItem`` name
         """
         return self._obj.GetName()
 
-    def get_metadata(self, metadata_type: Optional[Any]) -> Union[str, Dict[Any, Any]]:
-        return self._obj.GetMetadata(metadata_type)
+    def get_metadata(self, metadata_key: Optional[Any]) -> Union[str, Dict[Any, Any]]:
+        """Gets metadata ``metadata_key`` for ``MediaPoolItem``. If ``metadata_key`` is not provided,
+           returns a ``Dict`` with all available metadata.
+
+        Args:
+            metadata_key (Optional[Any]): metadata key
+
+        Returns:
+            (Union[str, Dict[Any, Any]]): ``Dict`` or ``str`` corresponding to ``metadata_key``
+        """
+        return self._obj.GetMetadata(metadata_key)
 
     def set_metadata(self, meta_dict: Any) -> bool:
         """
-        Sets metadata
+        Sets metadata with ``meta_dict``:
+        ```python
+            meta_dict = {
+                metadata_key: metadata value
+                }
+        ```
+
+        It's recommended you validate which metadata you wan't to change first
+        by using [MediaPoolItem.get_metadata()][pydavinci.wrappers.mediapoolitem.MediaPoolItem.get_metadata]
+        and getting a dict with all the metadata to see which one you want to alter.
+
+        This will probably change for the better for version 1.0
 
         Args:
-            dict (dict): dict with metadata to be set
+            meta_dict (dict): dict with metadata to be set
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
@@ -42,10 +62,10 @@ class MediaPoolItem(object):
         return self._obj.SetMetadata(meta_dict)
 
     @property
-    def mediaid(self) -> str:
+    def media_id(self) -> str:
         """
         Returns:
-            str: media id
+            (str): ``MediaPoolItem`` UUID
         """
         return self._obj.GetMediaId()
 
@@ -60,7 +80,10 @@ class MediaPoolItem(object):
         customdata: str = "",
     ) -> bool:
         """
-        Adds a marker
+        Adds a marker.
+
+        ``customdata`` is a ``str`` that can be used for programatically
+        setting and searching for markers. It's not exposed to the GUI.
 
         Args:
             frameid (int): frame for marker to be inserted at
@@ -98,12 +121,20 @@ class MediaPoolItem(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
 
-        Info:
-        A marker's ``custom data`` is not exposed via UI and is useful for a scripting developer to attach any user specific data to markers.
         """
         return self._obj.UpdateMarkerCustomData(frameid, customdata)
 
-    def marker_custom_data(self, frameid: int) -> str:
+    def get_marker_custom_data(self, frameid: int) -> str:
+        """
+        Gets marker ``customdata`` at ``frameid``
+
+        Args:
+            frameid (int): marker frame
+
+        Returns:
+            ``customdata``
+
+        """
         return self._obj.GetMarkerCustomData(frameid)
 
     def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
@@ -121,9 +152,11 @@ class MediaPoolItem(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
 
-        Info:
+        Deleting Markers:
             When selecting by ``frameid``, will delete single marker
+
             When selecting by ``color``, will delete _all_ markers with provided color
+
             When selecting by ``customdata``, will delete first marker with matching custom data
         """
         if frameid:
@@ -162,7 +195,7 @@ class MediaPoolItem(object):
         Gets flag list
 
         Returns:
-            List[str]: list of valid flag colors
+            list of valid flag colors
         """
         return self._obj.GetFlagList()
 
@@ -174,12 +207,21 @@ class MediaPoolItem(object):
             color (str, optional): Clears flag by ``color``. If none provided, defaults to "All" which clears all flags.
 
         Returns:
-            bool: _description_
+            ``True`` if successful, ``False`` otherwise
         """
         return self._obj.ClearFlags(color)
 
     @property
     def color(self) -> str:
+        """
+        Gets or sets clip color
+
+        Args:
+            color (str): new clip color
+
+        Returns:
+            clip color
+        """
         return self._obj.GetClipColor()
 
     @color.setter

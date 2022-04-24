@@ -131,3 +131,6 @@ dmypy.json
 .DS_Store
 .vscode/
 .idea
+
+test_build.ps1
+build.ps1

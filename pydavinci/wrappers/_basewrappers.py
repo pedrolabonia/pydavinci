@@ -266,7 +266,7 @@ class DavinciMarker(object):
         """
         return self._obj.UpdateMarkerCustomData(frameid, customdata)
 
-    def marker_custom_data(self, frameid: int) -> str:
+    def get_marker_custom_data(self, frameid: int) -> str:
         """Gets marker custom data at ``frameid``
 
         Args:
