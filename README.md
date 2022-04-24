@@ -4,7 +4,7 @@ A lightly opinionated DaVinci Resolve Python API wrapper
 
 Provides auto completion, type hints and great API reference documentation.
 
-*I really just wanted auto completion in the IDE*
+*I really just wanted auto completion in the IDE and to program transcoding RAW formats*
 
 
 ---
