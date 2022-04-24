@@ -9,14 +9,6 @@
 
 ---
 
-pydavinci __only works with `Python 3.6.*`__, as that's a requirement on DaVinci Resolve's part. You also need the __Studio__ version.
-
-
-For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported. 
-
-If you want to try out ``pydavinci`` with new python versions, use pip with the ``--ignore-requires-python`` flag.
-
-
 ### Install pydavinci
 
 Install via pip using a __Python 3.6__ environment
@@ -25,10 +17,6 @@ Install via pip using a __Python 3.6__ environment
 pip install pydavinci
 
 ```
-Then make sure external scripting is set to `Local` in Settings -> System -> General
-<p align='center'>
-<img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
-</p>
 
 Now we just need to import it!
 
@@ -37,6 +25,38 @@ from pydavinci import davinci
 
 resolve = davinci.Resolve()
 ```
+
+---
+
+### Installation requirements and guidelines
+pydavinci __only works with `Python 3.6.*`__, as that's a requirement on DaVinci Resolve's part. 
+
+For launching scripts externally, you also need the __Studio__ version.
+
+If you're working with the built-in Davinci Resolve Python console, you need to install ``pydavinci`` for the Python interpreter that's used by Davinci's console.
+
+---
+
+#### Davinci Resolve v18 beta
+For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported. 
+
+If you want to try out ``pydavinci`` with new Python versions for Resolve v18, use pip with the ``--ignore-requires-python`` flag.
+
+Note that while I did some quick tests, I can't guarantee everything works on Resolve v18.
+
+---
+
+### Launching scripts externally (Studio version)
+
+
+For `pydavinci` to work by launching scripts outside the embedded console, make sure external scripting is set to `Local` in `Settings -> System -> General`
+<p align='center'>
+<img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
+</p>
+
+
+
+### Examples and documentation
 
 - Check out the usage [examples](https://pedrolabonia.github.io/pydavinci/examples/premiereproxies/)
 - Or go deep in the [documentation](https://pedrolabonia.github.io/pydavinci/resolve/)
