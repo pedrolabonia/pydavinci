@@ -257,6 +257,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples-and-documentation" class="md-nav__link">
+    Examples and documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-requirements-and-guidelines" class="md-nav__link">
+    Installation requirements and guidelines
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation requirements and guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#davinci-resolve-v18-beta" class="md-nav__link">
+    Davinci Resolve v18 beta
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-scripts-externally-studio-version" class="md-nav__link">
+    Launching scripts externally (Studio version)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#to-do-and-contributing" class="md-nav__link">
     To-do and contributing
   </a>
@@ -511,6 +545,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples-and-documentation" class="md-nav__link">
+    Examples and documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-requirements-and-guidelines" class="md-nav__link">
+    Installation requirements and guidelines
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation requirements and guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#davinci-resolve-v18-beta" class="md-nav__link">
+    Davinci Resolve v18 beta
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-scripts-externally-studio-version" class="md-nav__link">
+    Launching scripts externally (Studio version)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#to-do-and-contributing" class="md-nav__link">
     To-do and contributing
   </a>
@@ -541,40 +609,49 @@
 
 <p align='center'>Provides auto completion, type hints and great API reference documentation.</p>
 
-<p align='center'><small><i>I really just wanted auto completion in the IDE and to program transcoding RAW formats</i></small></p>
+<p align='center'><sup><i align='center'>I really just wanted auto completion in the IDE and to program transcoding RAW formats</i></sup></p>
 
 <hr />
-<p>pydavinci <strong>only works with <code>Python 3.6.*</code></strong>, as that's a requirement on DaVinci Resolve's part. You also need the <strong>Studio</strong> version.</p>
-<p>For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported.</p>
-<p>If you want to try out <code>pydavinci</code> with new python versions, use pip with the <code>--ignore-requires-python</code> flag.</p>
 <h3 id="install-pydavinci">Install pydavinci</h3>
 <p>Install via pip using a <strong>Python 3.6</strong> environment</p>
-<p><div class="highlight"><pre><span></span><code>pip install pydavinci
+<div class="highlight"><pre><span></span><code>pip install pydavinci
 </code></pre></div>
-Then make sure external scripting is set to <code>Local</code> in Settings -&gt; System -&gt; General</p>
-<p align='center'>
-<img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
-</p>
-
 <p>Now we just need to import it!</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydavinci</span> <span class="kn">import</span> <span class="n">davinci</span>
 
 <span class="n">resolve</span> <span class="o">=</span> <span class="n">davinci</span><span class="o">.</span><span class="n">Resolve</span><span class="p">()</span>
 </code></pre></div>
+<h3 id="examples-and-documentation">Examples and documentation</h3>
 <ul>
 <li>Check out the usage <a href="https://pedrolabonia.github.io/pydavinci/examples/premiereproxies/">examples</a></li>
 <li>Or go deep in the <a href="https://pedrolabonia.github.io/pydavinci/resolve/">documentation</a></li>
 </ul>
 <hr />
+<h3 id="installation-requirements-and-guidelines">Installation requirements and guidelines</h3>
+<p>pydavinci <strong>only works with <code>Python 3.6.*</code></strong>, as that's a requirement on DaVinci Resolve's part. </p>
+<p>For launching scripts externally, you also need the <strong>Studio</strong> version.</p>
+<p>If you're working with the built-in Davinci Resolve Python console, you need to install <code>pydavinci</code> for the Python interpreter that's used by Davinci's console.</p>
+<hr />
+<h4 id="davinci-resolve-v18-beta">Davinci Resolve v18 beta</h4>
+<p>For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported. </p>
+<p>If you want to try out <code>pydavinci</code> with new Python versions for Resolve v18, use pip with the <code>--ignore-requires-python</code> flag.</p>
+<p>Note that while I did some quick tests, I can't guarantee everything works on Resolve v18 beta. Full testing will become available as further betas come through, and will be supported fully on the official release.</p>
+<hr />
+<h3 id="launching-scripts-externally-studio-version">Launching scripts externally (Studio version)</h3>
+<p>For <code>pydavinci</code> to work by launching scripts outside the embedded console, make sure external scripting is set to <code>Local</code> in <code>Settings -&gt; System -&gt; General</code></p>
+<p align='center'>
+<img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
+</p>
+
 <h2 id="to-do-and-contributing">To-do and contributing</h2>
 <p>Contributors are always welcome! I currently have a few things I want to change, some of them are:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Document all possible values of <code>get_setting</code> and <code>set_setting</code></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add a better way of interfacing with the whole <code>get_setting</code> and <code>set_setting</code> methods using a proxy class or something to that effect</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Create a Marker class to inherit from for the objects that need it</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Deal with markers in a better way</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Auto launch Resolve when it's not open - I've ran into some issues while trying to connect to the C extension right after launching it, a dirty way to do it is to just implement a <code>time.sleep</code> before trying to import the fusionscript module, otherwise we'll need to create another entrypoint to the api for launching the process and then signaling when it's ready </li>
 </ul>
-<p><strong>If you want to contribute feel free to open a pull request!</strong></p>
+<p>If you want to contribute feel free to open a pull request!</p>
 
               
             </article>
