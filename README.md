@@ -42,7 +42,7 @@ For the newer DaVinci Resolve v18, currently in beta, newer Python installations
 
 If you want to try out ``pydavinci`` with new Python versions for Resolve v18, use pip with the ``--ignore-requires-python`` flag.
 
-Note that while I did some quick tests, I can't guarantee everything works on Resolve v18.
+Note that while I did some quick tests, I can't guarantee everything works on Resolve v18 beta. Full testing will become available as further betas come through, and will be supported fully on the official release.
 
 ---
 
