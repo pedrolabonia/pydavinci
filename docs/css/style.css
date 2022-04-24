@@ -246,3 +246,7 @@ h5.examples {
 article p:nth-child(3) {
   margin-top: 2em;
 } */
+
+.md-typeset .task-list-indicator::before {
+  background-color: var(--md-primary-fg-color--light);
+}

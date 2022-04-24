@@ -55,6 +55,7 @@ plugins:
         - docs/css
         - docs/templates/
   - autorefs
+  
 
 extra_css:
 - css/style.css
@@ -65,6 +66,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.highlight:
       use_pygments: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - attr_list
   - md_in_html
   - pymdownx.emoji:
