@@ -40,13 +40,9 @@ For launching scripts externally, you also need the __Studio__ version.
 
 If you're working with the built-in Davinci Resolve Python console, you need to install ``pydavinci`` for the Python interpreter that's used by Davinci's console.
 
-For avoiding conflicts when using inside the embedded console, use any other variable other than `resolve`, as that's reserved by the console 
+For avoiding conflicts when using inside the embedded console, don't use `resolve` as the entry point variable, as that's reserved by the console. Example of suggested usage:
 
-```python
-from pydavinci import davinci
-
-pyresolve = davinci.Resolve()
-```
+<img src=https://user-images.githubusercontent.com/4316044/164998485-8a4e6fa7-3f8c-436c-b9ab-43350a3e6766.png />
 
 ---
 
@@ -63,9 +59,7 @@ Note that while I did some quick tests, I can't guarantee everything works on Re
 
 
 For `pydavinci` to work by launching scripts outside the embedded console, make sure external scripting is set to `Local` in `Settings -> System -> General`
-<p align='center'>
 <img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
-</p>
 
 ## To-do and contributing
 
