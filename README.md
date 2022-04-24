@@ -1,18 +1,18 @@
-# pydavinci
+<h1 align='center'>pydavinci</h1>
 
-A lightly opinionated DaVinci Resolve Python API wrapper
+<p align='center'>A lightly opinionated DaVinci Resolve Python API wrapper</p>
 
-Provides auto completion, type hints and great API reference documentation.
+<p align='center'>Provides auto completion, type hints and great API reference documentation.</p>
 
-*I really just wanted auto completion in the IDE and to program transcoding RAW formats*
+<p align='center'><sup><i align='center'>I really just wanted auto completion in the IDE and to program transcoding RAW formats</i></sup></p>
 
 
 ---
 
-pydavinci __requires Python 3.6.__, as that's a requirement on the software API itself. You also need the __Studio__ version.
+pydavinci __only works with `Python 3.6.*`__, as that's a requirement on DaVinci Resolve's part. You also need the __Studio__ version.
 
 
-For the newer DaVinci Resolve v18, newer Python installations are supported.
+For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported.
 
 
 ### Install pydavinci
@@ -24,8 +24,9 @@ pip install pydavinci
 
 ```
 Then make sure external scripting is set to `Local` in Settings -> System -> General
-
-![image](https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png)
+<p align='center'>
+<img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
+</p>
 
 Now we just need to import it!
 
