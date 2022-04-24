@@ -18,7 +18,7 @@ pip install pydavinci
 
 ```
 
-Now we just need to import it!
+Now, with Davinci Resolve open, we just need to import it!
 
 ```python
 from pydavinci import davinci
