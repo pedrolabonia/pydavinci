@@ -75,3 +75,8 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+
+extra:
+  analytics:
+    provider: google
+    property: G-QVTDEJ1RJH
