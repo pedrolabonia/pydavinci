@@ -40,6 +40,14 @@ For launching scripts externally, you also need the __Studio__ version.
 
 If you're working with the built-in Davinci Resolve Python console, you need to install ``pydavinci`` for the Python interpreter that's used by Davinci's console.
 
+For avoiding conflicts when using inside the embedded console, use any other variable other than `resolve`, as that's reserved by the console 
+
+```python
+from pydavinci import davinci
+
+pyresolve = davinci.Resolve()
+```
+
 ---
 
 #### Davinci Resolve v18 beta
