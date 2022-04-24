@@ -60,9 +60,9 @@ def generate_premiere_proxies(input_dir, output_dir, proxyfactor):
 
 
 job_ids = generate_premiere_proxies(
-    "A:/media_test2/",
-    "A:/media_test2/output",
-    2,
+    "A:/path/to/my/media",
+    "A:/path/to/output",
+    proxyfactor=2,
 )
 
 project.render(job_ids)
