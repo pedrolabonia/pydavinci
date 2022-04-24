@@ -15,13 +15,19 @@ pydavinci __requires Python 3.6.__, as that's a requirement on the software API 
 For the newer DaVinci Resolve v18, newer Python installations are supported.
 
 
-## Install pydavinci
+### Install pydavinci
+
+Install via pip using a __Python 3.6__ environment
+
 ```bash
 pip install pydavinci
 
 ```
+Then make sure external scripting is set to `Local` in Settings -> System -> General
 
-Then, use by creating the `Resolve` class:
+![image](https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png)
+
+Now we just need to import it!
 
 ```python
 from pydavinci import davinci
@@ -34,7 +40,7 @@ resolve = davinci.Resolve()
 
 ---
 
-### To-do and contributing
+## To-do and contributing
 
 Contributors are always welcome! I currently have a few things I want to change, some of them are:
 - [ ] Document all possible values of `get_setting` and `set_setting`
