@@ -1,5 +1,7 @@
 site_name: pydavinci Docs
 
+repo_url: https://github.com/pedrolabonia/pydavinci
+
 nav:
   - Home: index.md
   # - Quickstart: quickstart.md
