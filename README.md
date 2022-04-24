@@ -26,6 +26,11 @@ from pydavinci import davinci
 resolve = davinci.Resolve()
 ```
 
+### Examples and documentation
+
+- Check out the usage [examples](https://pedrolabonia.github.io/pydavinci/examples/premiereproxies/)
+- Or go deep in the [documentation](https://pedrolabonia.github.io/pydavinci/resolve/)
+
 ---
 
 ### Installation requirements and guidelines
@@ -53,15 +58,6 @@ For `pydavinci` to work by launching scripts outside the embedded console, make 
 <p align='center'>
 <img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
 </p>
-
-
-
-### Examples and documentation
-
-- Check out the usage [examples](https://pedrolabonia.github.io/pydavinci/examples/premiereproxies/)
-- Or go deep in the [documentation](https://pedrolabonia.github.io/pydavinci/resolve/)
-
----
 
 ## To-do and contributing
 
