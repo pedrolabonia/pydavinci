@@ -54,7 +54,6 @@ def generate_premiere_proxies(input_dir, output_dir, proxyfactor):
         # Set Render Resolution
         project.set_render_settings(render_settings)
 
-        # print(render_id)
         render_id = project.add_renderjob()
         render_ids.append(render_id)
     return render_ids
