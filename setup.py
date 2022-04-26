@@ -21,4 +21,5 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     package_data={"pydavinci": ["py.typed"]},
     python_requires="==3.6.*",
+    install_requires=["structlog==21.5.0"],
 )

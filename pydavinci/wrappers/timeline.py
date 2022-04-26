@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from pydavinci.main import resolve_obj
 from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
 from pydavinci.wrappers.timelineitem import TimelineItem
+from pydavinci.wrappers.marker import MarkerInterface
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
@@ -17,6 +18,8 @@ class Timeline(object):
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:
             self._obj = resolve_obj.GetProjectManager().GetCurrentProject().GetCurrentTimeline()
+
+        self.markers = MarkerInterface(self)
 
     @property
     def name(self) -> str:
@@ -109,114 +112,6 @@ class Timeline(object):
             raise ValueError(TRACK_ERROR)
 
         return [TimelineItem(x) for x in self._obj.GetItemListInTrack(track_type, track_index)]
-
-    def add_marker(
-        self,
-        frameid: int,
-        color: str,
-        name: str,
-        *,
-        note: str = "",
-        duration: int = 1,
-        customdata: str = "",
-    ) -> bool:
-        """
-        Adds a marker.
-
-        ``customdata`` is a ``str`` that can be used for programatically
-        setting and searching for markers. It's not exposed to the GUI.
-
-        Args:
-            frameid (int): frame for marker to be inserted at
-            color (str): marker color
-            name (str): marker name
-            note (str, optional): marker note. Defaults to empty.
-            duration (int, optional): marker duration. Defaults to 1 frame.
-            customdata (str, optional): custom user data. Defaults to empty.
-
-        Returns:
-            bool: ``True`` if successful, ``False`` otherwise
-        """
-        return self._obj.AddMarker(frameid, color, name, note, duration, customdata)
-
-    def get_custom_marker(self, customdata: str) -> Dict[Any, Any]:
-        """
-        Gets custom marker by ``customdata``
-
-        Args:
-            customdata (str): custom data string
-
-        Returns:
-            dict: dict with marker data
-        """
-        return self._obj.GetMarkerByCustomData(customdata)
-
-    def update_custom_marker(self, frameid: int, customdata: str) -> bool:
-        """
-        Updates marker at ``frameid`` with new ``customdata``
-
-        Args:
-            frameid (int): marker frame
-            customdata (str): new customdata
-
-        Returns:
-            bool: ``True`` if successful, ``False`` otherwise
-
-        """
-        return self._obj.UpdateMarkerCustomData(frameid, customdata)
-
-    def get_marker_custom_data(self, frameid: int) -> str:
-        """
-        Gets marker ``customdata`` at ``frameid``
-
-        Args:
-            frameid (int): marker frame
-
-        Returns:
-            ``customdata``
-
-        """
-        return self._obj.GetMarkerCustomData(frameid)
-
-    def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
-        """
-        Deletes marker using ``frameid``, ``color`` or ``customdata``
-
-        Args:
-            frameid (int, optional): frameid to use for choosing which markers to delete
-            color (str, optional): color to use for choosing which markers to delete
-            customdata (str, optional): custom data to use for choosing which markers to delete
-
-        Raises:
-            ValueError: no valid params provided
-
-        Returns:
-            bool: ``True`` if successful, ``False`` otherwise
-
-        Deleting Markers:
-            When selecting by ``frameid``, will delete single marker
-
-            When selecting by ``color``, will delete _all_ markers with provided color
-
-            When selecting by ``customdata``, will delete first marker with matching custom data
-        """
-        if frameid:
-            return self._obj.DeleteMarkerAtFrame(frameid)
-        if color:
-            return self._obj.DeleteMarkersByColor(color)
-        if customdata:
-            return self._obj.DeleteMarkerByCustomData(customdata)
-        raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
-
-    @property
-    def markers(self) -> Dict[Any, Any]:
-        """
-        Gets markers
-
-        Returns:
-            dict: markers
-        """
-        return self._obj.GetMarkers()
 
     def apply_grade_from_DRX(
         self, drx_path: str, grade_mode: int, timeline_items: List["TimelineItem"]

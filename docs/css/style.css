@@ -171,7 +171,7 @@ a.autorefs-internal {
   margin-right: 1em;
 }
 
-.highlight.language-python span {
+/* .highlight.language-python span {
   position: relative;
 }
 
@@ -183,7 +183,7 @@ a.autorefs-internal {
 .highlight.language-python span:nth-child(3) {
   color: var(--md-primary-fg-color--light) !important;
   font-weight: 600 !important;
-}
+} */
 
 td code {
   padding: .2em .5em !important;
@@ -249,4 +249,11 @@ article p:nth-child(3) {
 
 .md-typeset .task-list-indicator::before {
   background-color: var(--md-primary-fg-color--light);
+}
+
+
+.highlight.language-python span:nth-child(3),
+.highlight.language-python span:first-child:nth-last-child(3)~span {
+  color: var(--md-primary-fg-color--light) !important;
+  font-weight: 600 !important;
 }
