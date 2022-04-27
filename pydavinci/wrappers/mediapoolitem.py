@@ -29,9 +29,9 @@ class MediaPoolItem(object):
         """
         return self._obj.GetName()
 
-    def get_metadata(self, metadata_key: Optional[Any]) -> Union[str, Dict[Any, Any]]:
-        """Gets metadata ``metadata_key`` for ``MediaPoolItem``. If ``metadata_key`` is not provided,
-           returns a ``Dict`` with all available metadata.
+    def get_metadata(self, metadata_key: Optional[str] = None) -> Union[str, Dict[Any, Any]]:
+        """Gets metadata ``metadata_key`` for ``MediaPoolItem``. If no ``metadata_key`` is provided,
+           returns a ``Dict`` with all available metadata. Can return an empty ``dict`` if there's no metadata.
 
         Args:
             metadata_key (Optional[Any]): metadata key
@@ -39,7 +39,9 @@ class MediaPoolItem(object):
         Returns:
             (Union[str, Dict[Any, Any]]): ``Dict`` or ``str`` corresponding to ``metadata_key``
         """
-        return self._obj.GetMetadata(metadata_key)
+        if metadata_key:
+            return self._obj.GetMetadata(metadata_key)
+        return self._obj.GetMetadata()
 
     def set_metadata(self, meta_dict: Any) -> bool:
         """
