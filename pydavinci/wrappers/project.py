@@ -366,9 +366,9 @@ class Project(object):
         """
         return self._obj.SetRenderSettings(render_settings)
 
-    def get_setting(self, setting: str) -> Any:
+    def get_setting(self, settingname: Optional[str] = None) -> Any:
         """
-        Get project setting.
+        Get project setting. If no setting provided, returns a dict with all settings.
 
         Args:
             setting (str): setting name
@@ -376,7 +376,9 @@ class Project(object):
         Returns:
             dict: dict with setting name and value
         """
-        return self._obj.GetSetting(setting)
+        if settingname:
+            return self._obj.GetSetting(settingname)
+        return self._obj.GetSetting()
 
     def set_setting(self, setting: str, value: Any) -> bool:
         """

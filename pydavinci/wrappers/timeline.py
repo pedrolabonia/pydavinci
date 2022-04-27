@@ -447,12 +447,12 @@ class Timeline(object):
         # / TODO: Do the Enums here. For now we're just passing as-is.
         return self._obj.Export(file_name, export_type, export_subtype)
 
-    def get_setting(self, settingname: Optional[Union[str, Dict[Any, Any]]] = None) -> str:
+    def get_setting(self, settingname: Optional[str] = None) -> str:
         """
-        Gets setting
+        Get timeline setting. If no setting provided, returns a dict with all settings.
 
         Args:
-            settingname (str, optional): setting name. If none provided, returns all available settings in a dict.
+            settingname (str, optional): setting name.
 
         Returns:
             Union[str, Dict]: setting(s)
