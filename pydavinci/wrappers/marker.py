@@ -77,16 +77,17 @@ class MarkerInterface(object):
             dict: markers
         """
         markers: RemoteMarkerData = self._parent_obj.GetMarkers()
-        for frameid in markers:
-            marker: MarkerData = {
-                "frameid": frameid,
-                "color": markers[frameid]["color"],
-                "duration": markers[frameid]["duration"],
-                "name": markers[frameid]["name"],
-                "customdata": markers[frameid]["customData"],
-                "note": markers[frameid]["note"],
-            }
-            self._cache_add(Marker(self, self._parent_obj, marker, frameid))
+        if markers:
+            for frameid in markers:
+                marker: MarkerData = {
+                    "frameid": frameid,
+                    "color": markers[frameid]["color"],
+                    "duration": markers[frameid]["duration"],
+                    "name": markers[frameid]["name"],
+                    "customdata": markers[frameid]["customData"],
+                    "note": markers[frameid]["note"],
+                }
+                self._cache_add(Marker(self, self._parent_obj, marker, frameid))
 
         return
 
