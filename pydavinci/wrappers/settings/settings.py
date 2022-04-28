@@ -3,13 +3,11 @@
 #   timestamp: 2022-04-27T02:50:45+00:00
 # type: ignore
 
-import orjson
 from typing import TYPE_CHECKING, TypeVar, NewType, Optional
 from typing_extensions import TypeAlias, Annotated, Literal
 from pydantic import BaseModel, Field, root_validator, validator, DirectoryPath, conint
 from pydavinci.wrappers.settings.map_project import SETTINGS_MAP, super_scale_reverse
 from pathlib import Path
-import inspect
 
 if TYPE_CHECKING:
     from pydantic.fields import ModelField
@@ -83,7 +81,6 @@ def set_setting(name, value=None):
     if name == "superScale":
         return super_scale_reverse(value)
     if value:
-        print("ta coisando")
         resolve.project.set_setting(name, value)
         return value
     else:
@@ -276,7 +273,7 @@ class ProjectSettings(_ProjectSettings):
         allow_population_by_field_name = True
 
     @validator("*", allow_reuse=True)
-    def test_validator(cls, value, field):
+    def set_prop_validator(cls, value, field):
         call = SETTINGS_MAP[field.alias]
         return set_setting(field.alias, call(value))
 
