@@ -2,10 +2,14 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from pydavinci.main import resolve_obj
 from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
+from pydavinci.wrappers.settings.constructor import get_tl_settings
 from pydavinci.wrappers.timelineitem import TimelineItem
 from pydavinci.wrappers.marker import MarkerInterface
+import pydavinci.logger as log
+from pydavinci.exceptions import TimelineNotFound
 
 if TYPE_CHECKING:
+    from pydavinci.wrappers.settings.constructor import TimelineSettings
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
 
 
@@ -16,10 +20,44 @@ class Timeline(object):
                 self._obj: "PyRemoteTimeline" = args[0]
             else:
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
+
         else:
-            self._obj = resolve_obj.GetProjectManager().GetCurrentProject().GetCurrentTimeline()
+            _obj = resolve_obj.GetProjectManager().GetCurrentProject().GetCurrentTimeline()
+            if _obj:
+                self._obj = _obj
+            else:
+                raise TimelineNotFound(
+                    extra="Couldn't find any active timeline. Are you sure there's any timeline in the project?"
+                )
 
         self.markers = MarkerInterface(self)
+        self._settings: Optional[TimelineSettings] = None
+
+    def custom_settings(self, use: bool):
+        # Davinci only allows setting timeline settings if "useCustomSettings" is true, otherwise it returns False every time.
+        if use:
+            self.set_setting("useCustomSettings", "1")
+        else:
+            self.set_setting("useCustomSettings", "0")
+
+    @property
+    def settings(self) -> "TimelineSettings":
+        if self.get_setting("useCustomSettings") == "0":
+            # doing the check here again in case user uses self.set_setting("useCustomSettings")
+            # need to be compatible with that too
+
+            log.error(
+                "Can't create timeline settings. Timeline not configured for custom settings. "
+                + "Use Timeline.custom_settings(True) and then call Timeline.settings again."
+            )
+
+            return  # type: ignore
+
+        if self._settings:
+            return self._settings
+        else:
+            self._settings = get_tl_settings(self)
+            return self._settings
 
     @property
     def name(self) -> str:
@@ -342,7 +380,7 @@ class Timeline(object):
         # / TODO: Do the Enums here. For now we're just passing as-is.
         return self._obj.Export(file_name, export_type, export_subtype)
 
-    def get_setting(self, settingname: Optional[str] = None) -> str:
+    def get_setting(self, settingname: Optional[str] = None) -> Union[str, Dict[Any, Any]]:
         """
         Get timeline setting. If no setting provided, returns a dict with all settings.
 
@@ -428,3 +466,6 @@ class Timeline(object):
             (TimelineItem): fusion title
         """
         return TimelineItem(self._obj.InsertFusionTitleIntoTimeline(title_name))
+
+    def __repr__(self) -> str:
+        return f"Timeline(name: {self.name})"

@@ -7,23 +7,30 @@ logger.remove()
 STR_FORMAT = (
     "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
     "<level>{level: <8}</level> | "
-    "<cyan>{file}</cyan>:<cyan>{line}</cyan> | <level>{message}</level> |"
+    "<cyan>{module}</cyan>:<cyan>{line}</cyan> | <level>{message}</level> |"
 )
 
 logger.add(sink=sys.stderr, backtrace=True, format=STR_FORMAT)
 
 
-def info(message: str):
-    logger.opt(record=True, depth=2).info(message)
+def info(message: str, depth: int = 2):
+    return logger.opt(record=True, depth=depth).info(message)
 
 
-def warn(message: str) -> None:
-    logger.opt(record=True, depth=2).warning(message)
+def warn(message: str, depth: int = 2) -> None:
+    return logger.opt(record=True, depth=depth).warning(message)
 
 
-def debug(message: str) -> None:
-    logger.opt(record=True, depth=2).debug(message)
+def debug(message: str, depth: int = 2) -> None:
+    return logger.opt(record=True, depth=depth).debug(message)
 
 
-def error(message: str) -> None:
-    logger.opt(depth=2).error(message)
+def error(message: str, depth: int = 2) -> None:
+    return logger.opt(depth=depth).error(message)
+
+
+def raise_exception(exception, message, depth=2):
+    try:
+        raise exception
+    except exception:
+        logger.opt(exception=exception, depth=depth).info(message)

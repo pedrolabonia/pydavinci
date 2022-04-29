@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from pydavinci.exceptions import ObjectNotFound
 from pydavinci.main import resolve_obj
 from pydavinci.utils import is_resolve_obj
-from pydavinci.wrappers.settings.settings import get_prj_settings
+from pydavinci.wrappers.settings.constructor import get_prj_settings
 
 
 if TYPE_CHECKING:
@@ -21,8 +21,15 @@ class Project(object):
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:
             self._obj = resolve_obj.GetProjectManager().GetCurrentProject()
+        self._settings = None
 
-        self.settings = get_prj_settings()
+    @property
+    def settings(self):
+        if self._settings:
+            return self._settings
+        else:
+            self._settings = get_prj_settings(self)
+            return self._settings
 
     @property
     def mediapool(self) -> "MediaPool":
