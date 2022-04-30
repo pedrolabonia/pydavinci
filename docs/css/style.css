@@ -257,3 +257,18 @@ article p:nth-child(3) {
   color: var(--md-primary-fg-color--light) !important;
   font-weight: 600 !important;
 }
+
+h4.pydantic-field code.highlight.language-python {
+  background: none;
+  box-shadow: none;
+}
+
+h5.validvalues {
+  letter-spacing: 2px !important;
+  font-size: 0.9em !important;
+}
+
+h5.validvalues code {
+  padding: 5px;
+  padding-left: 0px;
+}

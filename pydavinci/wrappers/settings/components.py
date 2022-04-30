@@ -76,7 +76,7 @@ CaptureCodecs = Literal[
 
 
 class Audio(BaseConfig):
-    capture_num_channels: int = Field(alias="audioCaptureNumChannels", ge=2, le=16, multiple_of=2, validate=False)
+    capture_num_channels: int = Field(alias="audioCaptureNumChannels", ge=2, le=16, multiple_of=2)
     output_has_timecode: bool = Field(alias="audioOutputHasTimecode")
     playout_num_channels: int = Field(alias="audioPlayoutNumChannels", ge=2, le=16, multiple_of=2)
     limit_meter_align_level: int = Field(alias="limitAudioMeterAlignLevel", ge=-30, le=0)

@@ -7,6 +7,8 @@
 </h3>
 ::: pydavinci.wrappers.marker.MarkerInterface.all
 
+::: pydavinci.wrappers.settings.constructor.TimelineSettings
+
 ## TimelineItem
 
 ::: pydavinci.wrappers.timelineitem.TimelineItem

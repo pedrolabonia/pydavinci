@@ -1,6 +1,6 @@
 {{ log.debug("Rendering " + attribute.path) }}
 {% if config.show_if_no_docstring or attribute.has_docstrings %}
-
+{% if not attribute.path.split('.')[-1].startswith("_")  %}
 <div class="doc doc-object doc-attribute">
   {% with html_id = attribute.path %}
 
@@ -23,21 +23,55 @@
   toc_label=attribute.name) %}
 
   {% if config.separate_signature %}
-  {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-  {% else %}
-  {% filter highlight(language="python", inline=True) %}
-  {% set smaller_name = attribute.path.split('.') %}
-  {% set smaller_str = smaller_name[-2] + "." + smaller_name[-1] %}
-  {% if show_full_path %}{{ smaller_str }}{% else %}{{ attribute.name }}{% endif %}
-  {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
-  {% if attribute.value %} = {{ attribute.value }}{% endif %}
-  {% endfilter %}
-  {% endif %}
+    {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
+    {% else %}
 
+    {% if "Field" not in attribute.value %}
+      {% filter highlight(language="python", inline=True) %}
+        {% set smaller_name = attribute.path.split('.') %}
+        {% set smaller_str = smaller_name[-2] + "." + smaller_name[-1] %}
+        {% if show_full_path %}{{ smaller_str }}{% else %}{{ attribute.name }}{% endif %}
+        {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+        {% if attribute.value %} = {{ attribute.value }}{% endif %}
+      {% endfilter %}
+   
+    {% else %}
+        {% filter highlight(language="python", inline=True) %}
+          {% set smaller_name = attribute.path.split('.') %}
+          {% set smaller_str = smaller_name[-2] + "." + smaller_name[-1] %}
+          {% if show_full_path %}{{ smaller_str|lower }}{% else %}{{ attribute.name }}{% endif %}
+          {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+        {% endfilter %}
+        <h4 class="pydantic-field">
+        
+          {% set list = attribute.value.split(",") %}
+          {% set len = list|length %}
+          {# {% if len >1 %} {{ "".join(attribute.value.split(',')[-(len-1):])|trim(")") }} {% endif %} #}
+          {% if len >2 %}
+            {% set params = attribute.value.split(',')[-(len-1):] %}
+            <h5 class="validvalues">Valid numbers:<code>
+            {% for param in params %}
+            {% set splitlist = param.split("=") %}
+            {% if splitlist[0]|trim == 'ge' %}{{ splitlist[1]|trim(")") }} to {% endif %}
+            {% if splitlist[0]|trim == 'le'%}{{splitlist[1]|trim(")")}}{% endif %}
+            {% if splitlist[0]|trim == 'multiple_of'%} | {{ param|trim(")") }}{% endif %}
+            {# {% if attribute.value %}{{ attribute.value }}{% endif %} #}
+          {%endfor%}</code></h5>
+          {% endif %}
+      </h4>
+
+   
+    {% endif %}
+
+
+
+
+{% endif %}
+  {% if "Field" not in attribute.value %}
   {% with labels = attribute.labels %}
   {% include "labels.html" with context %}
   {% endwith %}
-
+  {% endif %}
   {% endfilter %}
 
   {% if config.separate_signature %}
@@ -70,5 +104,5 @@
 
   {% endwith %}
 </div>
-
+{% endif %}
 {% endif %}
