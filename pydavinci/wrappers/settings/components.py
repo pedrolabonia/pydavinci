@@ -2,12 +2,12 @@
 #   filename:  settings.py
 #   timestamp: 2022-04-27T02:50:45+00:00
 
-from pydantic import BaseModel, validator, DirectoryPath
-from pydantic import Field
-from typing_extensions import Literal
-from typing import Optional, Any
 from pathlib import Path
+from typing import Any, Optional, Type, Union
 
+from pydantic import BaseModel, DirectoryPath, Field, validator
+from pydantic.fields import ModelField
+from typing_extensions import Literal
 
 import pydavinci.wrappers.settings.map as map
 from pydavinci.wrappers.settings.validator import BaseConfig
@@ -85,8 +85,8 @@ class Audio(BaseConfig):
     limit_meter_lufs: str = Field(alias="limitAudioMeterLUFS")
     limit_meter_loudness_scale: Literal["ebu_18_scale", "ebu_9_scale"] = Field(alias="limitAudioMeterLoudnessScale")
     limit_meter_low_level: int = Field(alias="limitAudioMeterLowLevel", ge=-30, le=0)
-    
-    
+
+
     # Putting all of them here also to avoid them going to the top of the list when calling settings.audio
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
@@ -99,7 +99,7 @@ class Color(BaseConfig):
     aces_idt: str = Field(alias="colorAcesIDT")
     aces_node_lut_processing_space: Literal["acesAp0Linear", "acesccAp1"] = Field(alias="colorAcesNodeLUTProcessingSpace")
     aces_odt: str = Field(alias="colorAcesODT")
-    gallery_stills_location: DirectoryPath = Field(alias="colorGalleryStillsLocation")
+    gallery_stills_location: Optional[Union[DirectoryPath, str]] = Field(alias="colorGalleryStillsLocation")
     gallery_stills_naming_custom_pattern: Optional[str] = Field(alias="colorGalleryStillsNamingCustomPattern")
     gallery_stills_naming_enabled: bool = Field(alias="colorGalleryStillsNamingEnabled")
     gallery_stills_naming_pattern: StillsNamingPattern = Field(alias="colorGalleryStillsNamingPattern")
@@ -109,34 +109,34 @@ class Color(BaseConfig):
     color_luminance_mixer_default_zero: bool = Field(alias="colorLuminanceMixerDefaultZero")
     color_science_mode: ColorScienceMode = Field(alias="colorScienceMode")
     color_space_input: str = Field(alias="colorSpaceInput")
-    color_space_input_gamma: str = Field(alias="colorSpaceInputGamma")
+    color_space_input_gamma: Optional[str] = Field(alias="colorSpaceInputGamma")
     color_space_output: str = Field(alias="colorSpaceOutput")
-    color_space_output_gamma: str = Field(alias="colorSpaceOutputGamma")
+    color_space_output_gamma: Optional[str] = Field(alias="colorSpaceOutputGamma")
     color_space_output_gamut_mapping: Optional[str] = Field(alias="colorSpaceOutputGamutMapping")
     color_space_output_gamut_saturation_knee: float = Field(alias="colorSpaceOutputGamutSaturationKnee")
     color_space_output_gamut_saturation_max: str = Field(alias="colorSpaceOutputGamutSaturationMax")
     color_space_output_tone_luminance_max: int = Field(alias="colorSpaceOutputToneLuminanceMax")
     color_space_output_tone_mapping: Optional[str] = Field(alias="colorSpaceOutputToneMapping")
     color_space_timeline: str = Field(alias="colorSpaceTimeline")
-    color_space_timeline_gamma: str = Field(alias="colorSpaceTimelineGamma")
+    color_space_timeline_gamma: Optional[str] = Field(alias="colorSpaceTimelineGamma")
     use_bgr_pixel_order_for_dpx: bool = Field(alias="colorUseBGRPixelOrderForDPX")
     use_contrast_s_curve: bool = Field(alias="colorUseContrastSCurve")
     use_legacy_log_grades: int = Field(alias="colorUseLegacyLogGrades", ge=1, le=2)
     use_local_versions_as_default: bool = Field(alias="colorUseLocalVersionsAsDefault")
     use_stereo_convergence_for_effects: bool = Field(alias="colorUseStereoConvergenceForEffects")
-    version1_name: str = Field(alias="colorVersion1Name")
-    version2_name: str = Field(alias="colorVersion2Name")
-    version3_name: str = Field(alias="colorVersion3Name")
-    version4_name: str = Field(alias="colorVersion4Name")
-    version5_name: str = Field(alias="colorVersion5Name")
-    version6_name: str = Field(alias="colorVersion6Name")
-    version7_name: str = Field(alias="colorVersion7Name")
-    version8_name: str = Field(alias="colorVersion8Name")
-    version9_name: str = Field(alias="colorVersion9Name")
-    version10_name: str = Field(alias="colorVersion10Name")
+    version1_name: Optional[str] = Field(alias="colorVersion1Name")
+    version2_name: Optional[str] = Field(alias="colorVersion2Name")
+    version3_name: Optional[str] = Field(alias="colorVersion3Name")
+    version4_name: Optional[str] = Field(alias="colorVersion4Name")
+    version5_name: Optional[str] = Field(alias="colorVersion5Name")
+    version6_name: Optional[str] = Field(alias="colorVersion6Name")
+    version7_name: Optional[str] = Field(alias="colorVersion7Name")
+    version8_name: Optional[str] = Field(alias="colorVersion8Name")
+    version9_name: Optional[str] = Field(alias="colorVersion9Name")
+    version10_name: Optional[str] = Field(alias="colorVersion10Name")
     hdr10_plus_controls_on: bool = Field(alias="hdr10PlusControlsOn")
     hdr_dolby_controls_on: bool = Field(alias="hdrDolbyControlsOn")
-    hdr_dolby_master_display: str = Field(alias="hdrDolbyMasterDisplay")
+    hdr_dolby_master_display: Optional[str] = Field(alias="hdrDolbyMasterDisplay")
     hdr_dolby_version: Literal["4.0", "2.9"] = Field(alias="hdrDolbyVersion")
     hdr_mastering_luminance_max: int = Field(alias="hdrMasteringLuminanceMax", ge=100, le=10000)
     hdr_mastering_on: bool = Field(alias="hdrMasteringOn")
@@ -165,7 +165,7 @@ class Perf(BaseConfig):
     auto_render_cache_enable: bool = Field(alias="perfAutoRenderCacheEnable")
     auto_render_cache_fu_effect: bool = Field(alias="perfAutoRenderCacheFuEffect")
     auto_render_cache_transition: bool = Field(alias="perfAutoRenderCacheTransition")
-    cache_clips_location: Path = Field(alias="perfCacheClipsLocation")
+    cache_clips_location: Optional[Union[Path, str]] = Field(alias="perfCacheClipsLocation")
     optimised_codec: OptimizedCodecs = Field(alias="perfOptimisedCodec")
     optimised_media_on: bool = Field(alias="perfOptimisedMediaOn")
     optimized_resolution_ratio: Literal["original", "half", "quarter", "one_eighth", "one_sixteenth", "auto"] = Field(alias="perfOptimizedResolutionRatio")
@@ -173,7 +173,7 @@ class Perf(BaseConfig):
     proxy_resolution_ratio: Literal["original", "half", "quarter"] = Field(alias="perfProxyResolutionRatio")
     render_cache_codec: OptimizedCodecs = Field(alias="perfRenderCacheCodec")
     render_cache_mode: Literal["user", "smart", "none"] = Field(alias="perfRenderCacheMode")
-    
+
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
 
@@ -188,29 +188,29 @@ class Deck(BaseConfig):
     use444_sdi: bool = Field(alias="videoDeckUse444SDI")
     use_auto_edit: bool = Field(alias="videoDeckUseAudoEdit")
     use_stereo_sdi: bool = Field(alias="videoDeckUseStereoSDI")
-    
+
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
 
 class Capture(BaseConfig):
-    codec: CaptureCodecs = Field(alias="videoCaptureCodec")
-    format: Literal["mov", "dpx"] = Field(alias="videoCaptureFormat")
+    codec: Optional[CaptureCodecs] = Field(alias="videoCaptureCodec")
+    format: Optional[Literal["mov", "dpx"]] = Field(alias="videoCaptureFormat")
     ingest_handles: int = Field(alias="videoCaptureIngestHandles", ge=0, le=9999)
-    location: Path = Field(alias="videoCaptureLocation")
+    location: Optional[Union[Path, str]] = Field(alias="videoCaptureLocation")
     mode: Literal["video_only", "video_audio"] = Field(alias="videoCaptureMode")
-    
+
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
 
 class Playout(BaseConfig):
     audio_frames_offset: int = Field(alias="videoPlayoutAudioFramesOffset", ge=0, le=99)
-    batch_head_duration: int = Field( alias="videoPlayoutBatchHeadDuration", ge=0, le=99)
-    batch_tail_duration: int = Field(alias="videoPlayoutBatchTailDuration",ge=0, le=99)
+    batch_head_duration: int = Field(alias="videoPlayoutBatchHeadDuration", ge=0, le=99)
+    batch_tail_duration: int = Field(alias="videoPlayoutBatchTailDuration", ge=0, le=99)
     ltc_frames_offset: int = Field(alias="videoPlayoutLTCFramesOffset", ge=0, le=20)
     mode: Literal["video_only", "audio_only", "video_audio"] = Field(alias="videoPlayoutMode")
     show_ltc: bool = Field(alias="videoPlayoutShowLTC")
     show_source_timecode: bool = Field(alias="videoPlayoutShowSourceTimecode")
-    
+
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
 
@@ -237,7 +237,7 @@ class ProjectUniqueSettings(BaseConfig):
     timeline_save_thumbs_in_project: bool = Field(alias="timelineSaveThumbsInProject")
     timeline_working_luminance: int = Field(alias="timelineWorkingLuminance")
     timeline_working_luminance_mode: str = Field(alias="timelineWorkingLuminanceMode")
-    
+
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
 
@@ -267,14 +267,14 @@ class CommonMonitor(BaseConfig):
     monitor_bit_depth: int = Field(alias="videoMonitorBitDepth")
     monitor_format: str = Field(alias="videoMonitorFormat")
     monitor_matrix_override_for422_sdi: Literal["Rec.2020", "Rec.709", "Rec.601"] = Field(alias="videoMonitorMatrixOverrideFor422SDI")
-    monitor_sdi_configuration: Literal["quad_link", "dual_link", "single_link"] = Field(alias="videoMonitorSDIConfiguration")   
-    monitor_scaling: Literal["bilinear", "basic", "Bilinear", "Basic"] = Field(alias="videoMonitorScaling") # dirty fix, when setting on timeline it capitalizes first letter, when on project it doesn't... davinci things
+    monitor_sdi_configuration: Literal["quad_link", "dual_link", "single_link"] = Field(alias="videoMonitorSDIConfiguration")
+    monitor_scaling: Literal["bilinear", "basic", "Bilinear", "Basic"] = Field(alias="videoMonitorScaling")  # dirty fix, when setting on timeline it capitalizes first letter, when on project it doesn't... davinci things
     monitor_use444_sdi: bool = Field(alias="videoMonitorUse444SDI")
     monitor_use_hdr_over_hdmi: bool = Field(alias="videoMonitorUseHDROverHDMI")
     monitor_use_level_a: bool = Field(alias="videoMonitorUseLevelA")
     monitor_use_matrix_override_for422_sdi: bool = Field(alias="videoMonitorUseMatrixOverrideFor422SDI")
     monitor_use_stereo_sdi: bool = Field(alias="videoMonitorUseStereoSDI")
-    
+
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
 
@@ -285,11 +285,11 @@ class CommonSettings(BaseConfig):
     video_data_levels: Literal["Video", "Full"] = Field(alias="videoDataLevels")
     video_data_levels_retain_subblock_and_super_white_data: bool = Field(alias="videoDataLevelsRetainSubblockAndSuperWhiteData")
 
-    
-    @validator('super_scale')
-    def superscale_validator(cls, value, field):
+
+    @validator('super_scale')  # type: ignore
+    def superscale_validator(cls: Type["BaseModel"], value: Union[int, str], field: 'ModelField') -> Optional[Union[str, int]]:  # type: ignore
         return map.super_scale_transform(value)
-    
+
 class TimelineUniqueSettings(BaseConfig):
 
     use_custom_settings: bool = Field(alias="useCustomSettings")

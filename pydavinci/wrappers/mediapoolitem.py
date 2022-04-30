@@ -4,7 +4,7 @@ from pydavinci.utils import is_resolve_obj
 from pydavinci.wrappers.marker import MarkerInterface
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteMediaPoolItem  # type: ignore
+    from pydavinci.wrappers._resolve_stubs import PyRemoteMediaPoolItem
 
 
 class MediaPoolItem(object):

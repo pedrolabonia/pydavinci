@@ -1,13 +1,11 @@
 from typing import TYPE_CHECKING, Any, Dict, List
 
 from pydavinci.utils import is_resolve_obj
-from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 from pydavinci.wrappers.marker import MarkerInterface
-
+from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimelineItem
-    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 
 class TimelineItem(object):

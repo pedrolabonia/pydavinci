@@ -1,9 +1,25 @@
+from pathlib import Path
 from typing import Optional, Union
-from pydavinci.main import resolve_obj
+
+from pydantic import DirectoryPath
 
 
 def bool_to_intstr(bool: bool) -> str:
     return str(int(bool))
+
+
+def none_to_str(value: None = None) -> str:
+    if value is None:
+        return ""
+    return value
+
+
+def path_to_str(value: Union[Path, DirectoryPath, str]) -> Optional[str]:
+    if isinstance(value, Path) or isinstance(value, DirectoryPath):
+        return str(value)
+    elif value == "":
+        return None
+    return value
 
 
 def super_scale_transform(scale: Union[int, str]) -> Optional[Union[str, int]]:
@@ -51,8 +67,8 @@ SETTINGS_MAP = {
     "colorAcesIDT": str,
     "colorAcesNodeLUTProcessingSpace": str,
     "colorAcesODT": str,
-    "colorGalleryStillsLocation": str,
-    "colorGalleryStillsNamingCustomPattern": str,
+    "colorGalleryStillsLocation": path_to_str,
+    "colorGalleryStillsNamingCustomPattern": none_to_str,
     "colorGalleryStillsNamingEnabled": bool_to_intstr,
     "colorGalleryStillsNamingPattern": str,
     "colorGalleryStillsNamingWithStillNumber": str,
@@ -61,35 +77,35 @@ SETTINGS_MAP = {
     "colorLuminanceMixerDefaultZero": bool_to_intstr,
     "colorScienceMode": str,
     "colorSpaceInput": str,
-    "colorSpaceInputGamma": str,
+    "colorSpaceInputGamma": none_to_str,
     "colorSpaceOutput": str,
-    "colorSpaceOutputGamma": str,
+    "colorSpaceOutputGamma": none_to_str,
     "colorSpaceOutputGamutMapping": str,
     "colorSpaceOutputGamutSaturationKnee": str,
     "colorSpaceOutputGamutSaturationMax": str,
     "colorSpaceOutputToneLuminanceMax": str,
     "colorSpaceOutputToneMapping": str,
     "colorSpaceTimeline": str,
-    "colorSpaceTimelineGamma": str,
+    "colorSpaceTimelineGamma": none_to_str,
     "colorUseBGRPixelOrderForDPX": bool_to_intstr,
     "colorUseContrastSCurve": bool_to_intstr,
     "colorUseLegacyLogGrades": str,
     "colorUseLocalVersionsAsDefault": bool_to_intstr,
     "colorUseStereoConvergenceForEffects": bool_to_intstr,
-    "colorVersion10Name": str,
-    "colorVersion1Name": str,
-    "colorVersion2Name": str,
-    "colorVersion3Name": str,
-    "colorVersion4Name": str,
-    "colorVersion5Name": str,
-    "colorVersion6Name": str,
-    "colorVersion7Name": str,
-    "colorVersion8Name": str,
-    "colorVersion9Name": str,
+    "colorVersion10Name": none_to_str,
+    "colorVersion1Name": none_to_str,
+    "colorVersion2Name": none_to_str,
+    "colorVersion3Name": none_to_str,
+    "colorVersion4Name": none_to_str,
+    "colorVersion5Name": none_to_str,
+    "colorVersion6Name": none_to_str,
+    "colorVersion7Name": none_to_str,
+    "colorVersion8Name": none_to_str,
+    "colorVersion9Name": none_to_str,
     "graphicsWhiteLevel": str,
     "hdr10PlusControlsOn": bool_to_intstr,
     "hdrDolbyControlsOn": bool_to_intstr,
-    "hdrDolbyMasterDisplay": str,
+    "hdrDolbyMasterDisplay": none_to_str,
     "hdrDolbyVersion": str,
     "hdrMasteringLuminanceMax": str,
     "hdrMasteringOn": bool_to_intstr,
@@ -122,7 +138,7 @@ SETTINGS_MAP = {
     "perfAutoRenderCacheEnable": bool_to_intstr,
     "perfAutoRenderCacheFuEffect": bool_to_intstr,
     "perfAutoRenderCacheTransition": str,
-    "perfCacheClipsLocation": str,
+    "perfCacheClipsLocation": path_to_str,
     "perfOptimisedCodec": str,
     "perfOptimisedMediaOn": bool_to_intstr,  # Menu: Playback -> Use Optimized media if Available
     "perfOptimizedResolutionRatio": str,
@@ -135,7 +151,7 @@ SETTINGS_MAP = {
     "superScaleNoiseReduction": str,
     "superScaleSharpness": str,
     "timelineDropFrameTimecode": bool_to_intstr,
-    "timelineFrameRate": str,
+    "timelineFrameRate": str,  # only allows setting in str and if there's no media already in the project, otherwise need to use custom timeline settings for it to work, and there's a lot of weird stuff where you can't set the timeline settings.... Probably best to, before importing media, set the timeline framerate you want...
     "timelineFrameRateMismatchBehavior": str,
     "timelineInputResMismatchBehavior": str,
     "timelineInputResMismatchCustomPreset": str,  # It has to be in Image Scaling -> Resize Filter: Custom, but can't seem to be able to set any custom presets.
@@ -149,7 +165,7 @@ SETTINGS_MAP = {
     "timelineOutputResolutionHeight": str,
     "timelineOutputResolutionWidth": str,
     "timelinePixelAspectRatio": str,
-    "timelinePlaybackFrameRate": str,
+    "timelinePlaybackFrameRate": str,  # don't know why, but I can't seem to set this using either str or float
     "timelineResolutionHeight": str,
     "timelineResolutionWidth": str,
     "timelineSaveThumbsInProject": bool_to_intstr,
@@ -158,10 +174,10 @@ SETTINGS_MAP = {
     "useCATransform": bool_to_intstr,
     "useColorSpaceAwareGradingTools": bool_to_intstr,
     "useInverseDRT": bool_to_intstr,
-    "videoCaptureCodec": str,
-    "videoCaptureFormat": str,
+    "videoCaptureCodec": none_to_str,
+    "videoCaptureFormat": none_to_str,
     "videoCaptureIngestHandles": str,
-    "videoCaptureLocation": str,
+    "videoCaptureLocation": path_to_str,
     "videoCaptureMode": str,
     "videoDataLevels": str,  # BUG: Apparently doesn't work.. doesn't change the setting
     "videoDataLevelsRetainSubblockAndSuperWhiteData": bool_to_intstr,

@@ -14,9 +14,6 @@ ocf_folder = media_pool.add_subfolder("OCF", media_pool.root_folder)
 media_pool.set_current_folder(ocf_folder)
 
 
-project.settings.audio.limit_audio_meter_display_mode = "abnc"
-
-
 def generate_premiere_proxies(input_dir, output_dir, proxyfactor):
 
     media_pool.import_media(input_dir)

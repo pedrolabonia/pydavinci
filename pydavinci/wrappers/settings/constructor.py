@@ -1,19 +1,26 @@
+from typing import TYPE_CHECKING, Any, Dict, Optional, Type, TypeVar
+
 from pydavinci.wrappers.settings.components import (
     Audio,
+    Capture,
+    Color,
+    CommonMonitor,
+    CommonSettings,
     Deck,
     Perf,
     Playout,
-    Capture,
+    ProjectUniqueSettings,
     TimelineMeta,
     TimelineUniqueSettings,
-    Color,
-    CommonSettings,
-    ProjectUniqueSettings,
-    CommonMonitor,
 )
-
 from pydavinci.wrappers.settings.map import super_scale_transform
-from typing import Optional, Any
+
+if TYPE_CHECKING:
+    from pydavinci.wrappers.project import Project
+    from pydavinci.wrappers.settings.validator import BaseConfig
+    from pydavinci.wrappers.timeline import Timeline
+
+    AnyModel = TypeVar("AnyModel", bound=BaseConfig)
 
 
 class _ProjectMeta(ProjectUniqueSettings, CommonMonitor, CommonSettings):
@@ -42,13 +49,13 @@ class ProjectSettings(_ProjectMeta, _ProjectSettings):
     _obj: Optional[Any]
 
 
-def get_appropriate_keys(pydantic_model, data):
+def get_appropriate_keys(pydantic_model: Type["AnyModel"], data: Dict[Any, Any]) -> Dict[Any, Any]:
 
     # Since our base pydantic model is set to not allow extra keys,
     # we need to filter them since from the Davinci API they are all
     # together
 
-    _ret = {}
+    _ret: Dict[str, str] = {}
     data = data
     model = pydantic_model.__fields__
     for value in model.values():
@@ -58,7 +65,7 @@ def get_appropriate_keys(pydantic_model, data):
     return _ret
 
 
-def get_prj_settings(obj):
+def get_prj_settings(obj: "Project") -> ProjectSettings:
 
     data = obj._obj.GetSetting()
 
@@ -118,19 +125,19 @@ def get_prj_settings(obj):
     # We assemble everything and then pass it to the main ProjectSettings class
     # using pydantic's construct so we don't need to infer the types again
 
-    _ret = ProjectSettings.construct(**const)
+    _ret = ProjectSettings.construct(_fields_set=None, **const)
     _ret._obj = obj._obj
     _ret._selfvalidate = True
 
     return _ret
 
 
-def get_tl_settings(obj):
+def get_tl_settings(obj: "Timeline") -> TimelineSettings:
 
     # Same thing as above, but way easier since we don't need complex
     # nesting like ProjectSettings.color.setting
 
-    data = obj.get_setting()
+    data: Dict[Any, Any] = obj.get_setting()  # type: ignore
     data["superScale"] = super_scale_transform(data["superScale"])
 
     _ret = TimelineSettings(**data)

@@ -1,5 +1,7 @@
-from loguru import logger
 import sys
+from typing import Any
+
+from loguru import logger
 
 logger.remove()
 
@@ -13,7 +15,7 @@ STR_FORMAT = (
 logger.add(sink=sys.stderr, backtrace=True, format=STR_FORMAT)
 
 
-def info(message: str, depth: int = 2):
+def info(message: str, depth: int = 2) -> None:
     return logger.opt(record=True, depth=depth).info(message)
 
 
@@ -29,8 +31,8 @@ def error(message: str, depth: int = 2) -> None:
     return logger.opt(depth=depth).error(message)
 
 
-def raise_exception(exception, message, depth=2):
+def raise_exception(exception: Any, message: str, depth: int = 2) -> None:
     try:
         raise exception
     except exception:
-        logger.opt(exception=exception, depth=depth).info(message)
+        return logger.opt(exception=exception, depth=depth).info(message)

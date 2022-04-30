@@ -1,16 +1,16 @@
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
-from pydavinci.main import resolve_obj
-from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
-from pydavinci.wrappers.settings.constructor import get_tl_settings
-from pydavinci.wrappers.timelineitem import TimelineItem
-from pydavinci.wrappers.marker import MarkerInterface
 import pydavinci.logger as log
 from pydavinci.exceptions import TimelineNotFound
+from pydavinci.main import resolve_obj
+from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
+from pydavinci.wrappers.marker import MarkerInterface
+from pydavinci.wrappers.settings.constructor import get_tl_settings
+from pydavinci.wrappers.timelineitem import TimelineItem
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers.settings.constructor import TimelineSettings
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
+    from pydavinci.wrappers.settings.constructor import TimelineSettings
 
 
 class Timeline(object):
@@ -33,25 +33,25 @@ class Timeline(object):
         self.markers = MarkerInterface(self)
         self._settings: Optional[TimelineSettings] = None
 
-    def custom_settings(self, use: bool):
+    def custom_settings(self, use: bool) -> bool:
         # Davinci only allows setting timeline settings if "useCustomSettings" is true, otherwise it returns False every time.
         if use:
-            self.set_setting("useCustomSettings", "1")
+            return self.set_setting("useCustomSettings", "1")
         else:
-            self.set_setting("useCustomSettings", "0")
+            return self.set_setting("useCustomSettings", "0")
 
     @property
-    def settings(self) -> "TimelineSettings":
+    def settings(self) -> Optional["TimelineSettings"]:
         if self.get_setting("useCustomSettings") == "0":
             # doing the check here again in case user uses self.set_setting("useCustomSettings")
             # need to be compatible with that too
 
             log.error(
                 "Can't create timeline settings. Timeline not configured for custom settings. "
-                + "Use Timeline.custom_settings(True) and then call Timeline.settings again."
+                + "Use Timeline.custom_settings(True) and then call Timeline.settings again."  # noqa: W503
             )
 
-            return  # type: ignore
+            return None
 
         if self._settings:
             return self._settings

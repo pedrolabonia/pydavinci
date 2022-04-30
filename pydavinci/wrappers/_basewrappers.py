@@ -28,7 +28,7 @@ class BaseResolveWrapper(object):
 
         self.load_fusionscript()
 
-        import fusionscript as dvr_script  # type: ignore
+        import fusionscript as dvr_script
 
         self._obj = dvr_script.scriptapp("Resolve")
         # print(self._obj.GetProjectManager())

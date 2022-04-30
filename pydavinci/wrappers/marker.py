@@ -1,17 +1,18 @@
-from typing_extensions import TypeAlias, TypedDict, Literal
-from typing import TYPE_CHECKING, Union, Dict, Any, Optional, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
+
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 import pydavinci.logger as log
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers.timelineitem import TimelineItem
-    from pydavinci.wrappers.timeline import Timeline
-    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
     from pydavinci.wrappers._resolve_stubs import (
         PyRemoteMediaPoolItem,
         PyRemoteTimeline,
         PyRemoteTimelineItem,
     )
+    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+    from pydavinci.wrappers.timeline import Timeline
+    from pydavinci.wrappers.timelineitem import TimelineItem
 
     PydavinciParent: TypeAlias = Union[TimelineItem, Timeline, MediaPoolItem]
 
@@ -127,7 +128,7 @@ class MarkerInterface(object):
                 log.info(
                     f"Marker at {frameid} already exists. Skipping... If you want to overwrite, use overwrite = True"
                 )
-                return
+                return None
             else:
                 log.warn(f"Marker at frame {frameid} already exists. Overwriting ...")
                 f = frameid
@@ -152,13 +153,14 @@ class MarkerInterface(object):
             log.error(
                 "Couldn't add marker. Make sure the frameid is correct and the duration isn't bigger than the clips' length."
             )
+            return None
 
-    def find(self, needle: str):
+    def find(self, needle: str) -> Optional["Marker"]:
         for marker in self._cache.values():
             if needle == marker.note or needle == marker.name or needle == marker.customdata:
                 return marker
 
-        return
+        return None
 
     def find_all(self, needle: str) -> List["Marker"]:
         _ret: List[Marker] = []
@@ -234,7 +236,7 @@ class MarkerInterface(object):
 
         raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
 
-    def delete_all(self):
+    def delete_all(self) -> None:
         for marker in self.all:
             marker.delete()
 
@@ -257,13 +259,13 @@ class MarkerInterface(object):
     def __repr__(self) -> str:
         markers = [str(x.frameid) for x in self.all]
         if len(markers) <= 4:
-            display = ", ".join(markers)
-            return f"Markers(frames: {display})"
+            displaystr = ", ".join(markers)
+            return f"Markers(frames: {displaystr})"
         else:
-            display = markers[:2] + markers[-2:]
+            display: List[str] = markers[:2] + markers[-2:]
             display.insert(2, "...")
-            display = ", ".join(display)
-            return f"Markers(Frames: {display})"
+            displaystr = ", ".join(display)
+            return f"Markers(Frames: {displaystr})"
 
 
 class Marker(object):

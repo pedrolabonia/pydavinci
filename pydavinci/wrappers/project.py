@@ -5,10 +5,10 @@ from pydavinci.main import resolve_obj
 from pydavinci.utils import is_resolve_obj
 from pydavinci.wrappers.settings.constructor import get_prj_settings
 
-
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteProject
     from pydavinci.wrappers.mediapool import MediaPool
+    from pydavinci.wrappers.settings.constructor import ProjectSettings
     from pydavinci.wrappers.timeline import Timeline
 
 
@@ -21,14 +21,17 @@ class Project(object):
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:
             self._obj = resolve_obj.GetProjectManager().GetCurrentProject()
-        self._settings = None
+
+        self._settings: Optional["ProjectSettings"] = None
 
     @property
-    def settings(self):
-        if self._settings:
-            return self._settings
-        else:
+    def settings(self) -> "ProjectSettings":
+
+        if self._settings is None:
             self._settings = get_prj_settings(self)
+            return self._settings
+
+        else:
             return self._settings
 
     @property

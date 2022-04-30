@@ -1,10 +1,10 @@
 # flake8: noqa
 # type: ignore
+import random
 from pathlib import Path
 from typing import List
 
 import pytest
-import random
 
 import pydavinci.wrappers.resolve as davinci
 from pydavinci.wrappers.folder import Folder
