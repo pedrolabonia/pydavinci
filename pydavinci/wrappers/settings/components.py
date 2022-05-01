@@ -50,6 +50,7 @@ OptimizedCodecs = Literal[
     "dnxhd_lb",
     "CFHDb64a",
     "CFHDv210",
+    "acph",
 ]
 
 
@@ -69,6 +70,7 @@ CaptureCodecs = Literal[
     "r210",
     "yuv",
     "v210 ",
+    "acph",
 ]
 
 
