@@ -63,34 +63,12 @@ COLORS = Literal[
 ]
 
 
-class MarkerInterface(object):
+class MarkerCollection(object):
     def __init__(self, obj: "PydavinciParent") -> None:
         self._obj: "PydavinciParent" = obj
         self._parent_obj: "RemoteMarkerParent" = obj._obj
         self._cache: Dict[int, Marker] = {}
         self.fetch()
-
-    def fetch(self) -> None:
-        """
-        Gets markers
-
-        Returns:
-            dict: markers
-        """
-        markers: RemoteMarkerData = self._parent_obj.GetMarkers()
-        if markers:
-            for frameid in markers:
-                marker: MarkerData = {
-                    "frameid": frameid,
-                    "color": markers[frameid]["color"],
-                    "duration": markers[frameid]["duration"],
-                    "name": markers[frameid]["name"],
-                    "customdata": markers[frameid]["customData"],
-                    "note": markers[frameid]["note"],
-                }
-                self._cache_add(Marker(self, self._parent_obj, marker, frameid))
-
-        return
 
     def add(
         self,
@@ -119,7 +97,7 @@ class MarkerInterface(object):
             overwrite (bool, optional): set to `True` if you want to overwrite an existing marker at that frameid.
 
         Returns:
-            bool: (Marker) if successful
+            bool: `Marker` if successful
         """
         # return self._parent_obj.AddMarker(frameid, color, name, note, duration, customdata)
 
@@ -156,20 +134,31 @@ class MarkerInterface(object):
             return None
 
     def find(self, needle: str) -> Optional["Marker"]:
+        """Finds the first marker that matches `needle` for the `Marker's` `note`, `name` or `customdata`
+
+        Returns:
+            (Marker): first marker found with matching query
+        """
+
         for marker in self._cache.values():
             if needle == marker.note or needle == marker.name or needle == marker.customdata:
                 return marker
 
         return None
 
-    def find_all(self, needle: str) -> List["Marker"]:
+    def find_all(self, needle: str) -> Optional[List["Marker"]]:
+        """Finds all markers that match `needle` for the `Marker's` `note`, `name` or `customdata`
+
+        Returns:
+            (Optional[List[Marker]]): all markers found or if none found, returns `None`
+        """
         _ret: List[Marker] = []
 
         for marker in self._cache.values():
             if needle == marker.note or needle == marker.name or needle == marker.customdata:
                 _ret.append(marker)
 
-        return _ret
+        return _ret if _ret else None
 
     def get_custom(self, customdata: str) -> Dict[Any, Any]:
         """
@@ -237,11 +226,17 @@ class MarkerInterface(object):
         raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
 
     def delete_all(self) -> None:
+        """Deletes all markers"""
         for marker in self.all:
             marker.delete()
 
     @property
     def all(self) -> List["Marker"]:
+        """Returns a list with all `Marker`'s
+
+        Returns:
+            (List[Marker])
+        """
         self.fetch()
         return [x for x in self._cache.values()]
 
@@ -267,11 +262,35 @@ class MarkerInterface(object):
             displaystr = ", ".join(display)
             return f"Markers(Frames: {displaystr})"
 
+    def fetch(self) -> None:
+        """
+        Fetch all markers from Davinci Resolve and updates `MarkerCollection`s internal cache. You probably won't need to use this.
+
+        Why not:
+            You would only use this if during the middle of the script execution a user manually added a marker. Otherwise, a `MarkerCollection` knows about all the markers
+            it has deleted, added or updated, and `.fetch() ` is run on the class initialization.
+
+        """
+        markers: RemoteMarkerData = self._parent_obj.GetMarkers()
+        if markers:
+            for frameid in markers:
+                marker: MarkerData = {
+                    "frameid": frameid,
+                    "color": markers[frameid]["color"],
+                    "duration": markers[frameid]["duration"],
+                    "name": markers[frameid]["name"],
+                    "customdata": markers[frameid]["customData"],
+                    "note": markers[frameid]["note"],
+                }
+                self._cache_add(Marker(self, self._parent_obj, marker, frameid))
+
+        return
+
 
 class Marker(object):
     def __init__(
         self,
-        interface: "MarkerInterface",
+        interface: "MarkerCollection",
         parent: "RemoteMarkerParent",
         data: "MarkerData",
         frameid: int,
@@ -283,11 +302,13 @@ class Marker(object):
         self._interface = interface
 
     def delete(self) -> None:
+        """Deletes this `Marker`"""
         self._interface.delete(frameid=self._frameid)
         return
 
     @property
     def frameid(self) -> int:
+        """Gets or changes this `Marker`'s `frameid`"""
         return self._data["frameid"]
 
     @frameid.setter
@@ -298,6 +319,7 @@ class Marker(object):
 
     @property
     def customdata(self) -> str:
+        """Gets or changes this `Marker`'s `customdata`"""
         return self._data["customdata"]
 
     @customdata.setter
@@ -308,6 +330,7 @@ class Marker(object):
 
     @property
     def name(self) -> str:
+        """Gets or changes this `Marker`'s `name`"""
         return self._data["name"]
 
     @name.setter
@@ -317,6 +340,7 @@ class Marker(object):
 
     @property
     def color(self) -> str:
+        """Gets or changes this `Marker`'s `color`"""
         return self._data["color"]
 
     @color.setter
@@ -325,12 +349,12 @@ class Marker(object):
         # TODO update when support Davinci v18 and Python > 3.7
         if color not in COLORS.__values__:  # type: ignore
             return
-
         self.delete()
         self._update("color", color)
 
     @property
     def duration(self) -> int:
+        """Gets or changes this `Marker`'s `duration`"""
         return self._data["duration"]
 
     @duration.setter
@@ -340,6 +364,7 @@ class Marker(object):
 
     @property
     def note(self) -> str:
+        """Gets or changes this `Marker`'s `note`"""
         return self._data["note"]
 
     @note.setter

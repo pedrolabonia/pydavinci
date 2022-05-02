@@ -272,3 +272,7 @@ h5.validvalues code {
   padding: 5px;
   padding-left: 0px;
 }
+
+.manual-docstring {
+  font-size: smaller;
+}

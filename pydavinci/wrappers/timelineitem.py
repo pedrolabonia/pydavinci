@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any, Dict, List
-
+from typing_extensions import Literal
 from pydavinci.utils import is_resolve_obj
-from pydavinci.wrappers.marker import MarkerInterface
+from pydavinci.wrappers.marker import MarkerCollection
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 if TYPE_CHECKING:
@@ -16,7 +16,7 @@ class TimelineItem(object):
         else:
             raise TypeError(f"{type(obj)} is not a valid {self.__class__.__name__} type")
 
-        self.markers = MarkerInterface(self)
+        self.markers = MarkerCollection(self)
 
     @property
     def name(self) -> str:
@@ -149,17 +149,74 @@ class TimelineItem(object):
 
         # TODO: Document these
 
-    def add_color_version(self, name: str, type: int = 0) -> bool:
-        return self._obj.AddVersion(name, type)
+    def add_color_version(self, name: str, type: Literal["local", "remote"]) -> bool:
+        """Adds color version to this `TimelineItem`
 
-    def delete_color_version(self, name: str, type: int = 0) -> bool:
-        return self._obj.DeleteVersionByName(name, type)
+        Args:
+            name (str): version name
+            type (Literal['local', 'remote']): whether to add a local or remote color version
 
-    def load_color_version(self, name: str, type: int = 0) -> bool:
-        return self._obj.LoadVersionByName(name, type)
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.AddVersion(name, 0)
+        elif type == "remote":
+            return self._obj.AddVersion(name, 1)
+        else:
+            return False
 
-    def rename_version(self, oldname: str, newname: str, type: int = 0) -> bool:
-        return self._obj.RenameVersionByName(oldname, newname, type)
+    def delete_color_version(self, name: str, type: Literal["local", "remote"]) -> bool:
+        """Adds color version from this `TimelineItem`
+
+        Args:
+            name (str): version name
+            type (Literal['local', 'remote']): whether to delete a local or remote color version
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.DeleteVersionByName(name, 0)
+        elif type == "remote":
+            return self._obj.DeleteVersionByName(name, 1)
+        else:
+            return False
+
+    def load_color_version(self, name: str, type: Literal["local", "remote"]) -> bool:
+        """Loads color version from `TimelineItem` named `name`
+
+        Args:
+            name (str): version name
+            type (Literal['local', 'remote']): whether to load a local or remote color version
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.LoadVersionByName(name, 0)
+        elif type == "remote":
+            return self._obj.LoadVersionByName(name, 1)
+        else:
+            return False
+
+    def rename_version(self, oldname: str, newname: str, type: Literal["local", "remote"]) -> bool:
+        """Renames a color version named `oldname` to `newname` on this `TimelineItem`
+
+        Args:
+            oldname (str): current version name
+            newname (str): new version name
+            type (Literal['local', 'remote']): whether to rename a local or remote color version
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.RenameVersionByName(oldname, newname, 0)
+        elif type == "remote":
+            return self._obj.RenameVersionByName(oldname, newname, 1)
+        else:
+            return False
 
     @property
     def mediapoolitem(self) -> "MediaPoolItem":

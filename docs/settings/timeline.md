@@ -7,7 +7,7 @@
         show_root_toc_entry: false
         show_root_heading: false
         show_if_no_docstring: true
-        show_object_full_path: true
+        show_object_full_path: false
         show_root_members_full_path: false
         group_by_category: false
         show_category_heading: false
@@ -24,7 +24,7 @@
         show_root_toc_entry: false
         show_root_heading: false
         show_if_no_docstring: true
-        show_object_full_path: true
+        show_object_full_path: false
         show_root_members_full_path: false
         group_by_category: false
         show_category_heading: false
@@ -41,7 +41,7 @@
         show_root_toc_entry: false
         show_root_heading: false
         show_if_no_docstring: true
-        show_object_full_path: true
+        show_object_full_path: false
         show_root_members_full_path: false
         group_by_category: false
         show_category_heading: false

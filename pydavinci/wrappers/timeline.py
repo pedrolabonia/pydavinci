@@ -4,9 +4,10 @@ import pydavinci.logger as log
 from pydavinci.exceptions import TimelineNotFound
 from pydavinci.main import resolve_obj
 from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
-from pydavinci.wrappers.marker import MarkerInterface
+from pydavinci.wrappers.marker import MarkerCollection
 from pydavinci.wrappers.settings.constructor import get_tl_settings
 from pydavinci.wrappers.timelineitem import TimelineItem
+
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
@@ -30,18 +31,26 @@ class Timeline(object):
                     extra="Couldn't find any active timeline. Are you sure there's any timeline in the project?"
                 )
 
-        self.markers = MarkerInterface(self)
+        self.markers = MarkerCollection(self)
         self._settings: Optional[TimelineSettings] = None
 
     def custom_settings(self, use: bool) -> bool:
         # Davinci only allows setting timeline settings if "useCustomSettings" is true, otherwise it returns False every time.
+        """Allows this timeline to have settings independent from the project settings. See [Quickstart on Settings](../settings#project-vs-timeline-settings) for more details.
+
+        Args:
+            use (bool): ``True`` to use independent settings, ``False`` to follow project settings.
+
+        """
         if use:
             return self.set_setting("useCustomSettings", "1")
         else:
             return self.set_setting("useCustomSettings", "0")
 
     @property
-    def settings(self) -> Optional["TimelineSettings"]:
+    def settings(self) -> "TimelineSettings":
+        """Returns the [`TimelineSettings`](../settings/timeline) interface.
+        [`Timeline.custom_settings(True)`](./#pydavinci.wrappers.timeline.Timeline.custom_settings) must be called first."""
         if self.get_setting("useCustomSettings") == "0":
             # doing the check here again in case user uses self.set_setting("useCustomSettings")
             # need to be compatible with that too
@@ -51,7 +60,7 @@ class Timeline(object):
                 + "Use Timeline.custom_settings(True) and then call Timeline.settings again."  # noqa: W503
             )
 
-            return None
+            return  # type: ignore
 
         if self._settings:
             return self._settings
@@ -327,47 +336,47 @@ class Timeline(object):
             return self._obj.ImportIntoTimeline(file_path)
         return self._obj.ImportIntoTimeline(file_path, import_options)
 
-    def export(self, file_name: str, export_type: str, export_subtype: str) -> bool:
+    def export(
+        self, file_name: str, export_type: str, export_subtype: Optional[str] = None
+    ) -> bool:
         """
         Exports timeline file ``(.aaf, .xml, etc)``
         Supported ``export_type``:
-        ```python
-        resolve.EXPORT_AAF
-        resolve.EXPORT_DRT
-        resolve.EXPORT_EDL
-        resolve.EXPORT_FCP_7_XML
-        resolve.EXPORT_FCPXML_1_3
-        resolve.EXPORT_FCPXML_1_4
-        resolve.EXPORT_FCPXML_1_5
-        resolve.EXPORT_FCPXML_1_6
-        resolve.EXPORT_FCPXML_1_7
-        resolve.EXPORT_FCPXML_1_8
-        resolve.EXPORT_HDR_10_PROFILE_A
-        resolve.EXPORT_HDR_10_PROFILE_B
-        resolve.EXPORT_TEXT_CSV
-        resolve.EXPORT_TEXT_TAB
-        resolve.EXPORT_DOLBY_VISION_VER_2_9
-        resolve.EXPORT_DOLBY_VISION_VER_4_0
+        ```
+        "AAF"
+        "DRT"
+        "EDL"
+        "FCP_7_XML"
+        "FCPXML_1_3"
+        "FCPXML_1_4"
+        "FCPXML_1_5"
+        "FCPXML_1_6"
+        "FCPXML_1_7"
+        "FCPXML_1_8"
+        "HDR_10_PROFILE_A"
+        "HDR_10_PROFILE_B"
+        "TEXT_CSV"
+        "TEXT_TAB"
+        "DOLBY_VISION_VER_2_9"
+        "DOLBY_VISION_VER_4_0"
         ```
 
         Supported ``export_subtype``:
         ```python
-        resolve.EXPORT_NONE
-        resolve.EXPORT_AAF_NEW
-        resolve.EXPORT_AAF_EXISTING
-        resolve.EXPORT_CDL
-        resolve.EXPORT_SDL
-        resolve.EXPORT_MISSING_CLIPS
+        "NONE"
+        "AAF_NEW"
+        "AAF_EXISTING"
+        "CDL"
+        "SDL"
+        "MISSING_CLIPS"
         ```
 
         Export types and subtypes:
-            Please note that ``export_subtype`` is a required parameter for ``resolve.EXPORT_AAF`` and ``resolve.EXPORT_EDL``. For rest of the ``export_type``, ``export_subtype`` is ignored.
+            Please note that ``export_subtype`` is a required parameter for ``AAF`` and ``EDL``. For rest of the ``export_type``, ``export_subtype`` is ignored.
 
-            When ``exportType`` is ``resolve.EXPORT_AAF``, valid ``export_subtype`` values are ``resolve.EXPORT_AAF_NEW`` and ``resolve.EXPORT_AAF_EXISTING``.
+            When ``export_type`` is ``AAF``, valid ``export_subtype`` values are ``AAF_NEW`` and ``AAF_EXISTING``.
 
-            When ``exportType`` is ``resolve.EXPORT_EDL``, valid exportSubtype values are ``resolve.EXPORT_CDL``, ``resolve.EXPORT_SDL``, ``resolve.EXPORT_MISSING_CLIPS`` and ``resolve.EXPORT_NONE``.
-
-            Note: Replace ``resolve.`` when using the constants above, if a different ``Resolve`` class instance name is used.
+            When ``export_type`` is ``EXPORT_EDL``, valid export_dubtype values are ``EXPORT_CDL``, ``EXPORT_SDL``, ``EXPORT_MISSING_CLIPS`` and ``EXPORT_NONE``.
 
         Args:
             file_name (str): full filepath to export to including file name
@@ -377,11 +386,48 @@ class Timeline(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        # / TODO: Do the Enums here. For now we're just passing as-is.
-        return self._obj.Export(file_name, export_type, export_subtype)
+        export_type_map = {
+            "AAF": 0.0,
+            "DRT": 1.0,
+            "EDL": 2.0,
+            "FCP_7_XML": 3.0,
+            "FCPXML_1_3": 4.0,
+            "FCPXML_1_4": 5.0,
+            "FCPXML_1_5": 6.0,
+            "FCPXML_1_6": 7.0,
+            "FCPXML_1_7": 8.0,
+            "FCPXML_1_8": 9.0,
+            "HDR_10_PROFILE_A": 10.0,
+            "HDR_10_PROFILE_B": 11.0,
+            "TEXT_CSV": 12.0,
+            "TEXT_TAB": 13.0,
+            "DOLBY_VISION_VER_2_9": 14.0,
+            "DOLBY_VISION_VER_4_0": 15.0,
+        }
 
-    def get_setting(self, settingname: Optional[str] = None) -> Union[str, Dict[Any, Any]]:
+        export_subtype_map = {
+            "NONE": -1.0,
+            "AAF_NEW": 0.0,
+            "AAF_EXISTING": 1.0,
+            "CDL": 2.0,
+            "SDL": 3.0,
+            "MISSING_CLIPS": 4.0,
+        }
+
+        if export_subtype:
+
+            return self._obj.Export(
+                file_name, export_type_map[export_type], export_subtype_map[export_subtype]
+            )
+        else:
+            return self._obj.Export(file_name, export_type_map[export_type])
+
+    def get_setting(
+        self, settingname: Optional[str] = None
+    ) -> Union[str, int, float, Dict[Any, Any]]:
         """
+        _This function is a fallback if using [`Timeline.settings`][pydavinci.wrappers.timeline.Timeline.settings] doesn't work._
+
         Get timeline setting. If no setting provided, returns a dict with all settings.
 
         Args:
@@ -394,9 +440,11 @@ class Timeline(object):
             return self._obj.GetSetting(settingname)
         return self._obj.GetSetting()
 
-    def set_setting(self, setting_name: str, value: Union[str, int, Dict[Any, Any]]) -> bool:
+    def set_setting(self, setting_name: str, value: Union[str, int, float, Dict[Any, Any]]) -> bool:
         """
-        Set setting
+        _This function is a fallback if using [`Timeline.settings`][pydavinci.wrappers.timeline.Timeline.settings] doesn't work._
+
+        Sets `Timeline` setting ``seting_name`` to ``value``
 
         Args:
             setting_name (str): setting name

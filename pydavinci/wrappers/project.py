@@ -26,6 +26,7 @@ class Project(object):
 
     @property
     def settings(self) -> "ProjectSettings":
+        """Returns the [`ProjectSettings`](../settings/project) interface."""
 
         if self._settings is None:
             self._settings = get_prj_settings(self)
@@ -297,7 +298,7 @@ class Project(object):
             codec (str): render codec
 
         Returns:
-            List[Dict[Any, Any]]: _description_
+            List of available resolutions
         """
         if format and codec is None:
             return self._obj.GetRenderResolutions()

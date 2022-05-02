@@ -1,108 +1,117 @@
 {{ log.debug("Rendering " + attribute.path) }}
 {% if config.show_if_no_docstring or attribute.has_docstrings %}
-{% if not attribute.path.split('.')[-1].startswith("_")  %}
-<div class="doc doc-object doc-attribute">
-  {% with html_id = attribute.path %}
-
-  {% if not root or config.show_root_heading %}
-
-  {% if root %}
-  {% set show_full_path = config.show_root_full_path %}
-  {% set root_members = True %}
-  {% elif root_members %}
-  {% set show_full_path = config.show_root_members_full_path or config.show_object_full_path %}
-  {% set root_members = False %}
-  {% else %}
-  {% set show_full_path = config.show_object_full_path %}
-  {% endif %}
-
-  {% filter heading(heading_level,
-  role="data" if attribute.parent.kind.value == "module" else "attr",
-  id=html_id,
-  class="doc doc-heading",
-  toc_label=attribute.name) %}
-
-  {% if config.separate_signature %}
-    {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-    {% else %}
-
-    {% if "Field" not in attribute.value %}
-      {% filter highlight(language="python", inline=True) %}
-        {% set smaller_name = attribute.path.split('.') %}
-        {% set smaller_str = smaller_name[-2] + "." + smaller_name[-1] %}
-        {% if show_full_path %}{{ smaller_str }}{% else %}{{ attribute.name }}{% endif %}
-        {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
-        {% if attribute.value %} = {{ attribute.value }}{% endif %}
-      {% endfilter %}
-   
-    {% else %}
-        {% filter highlight(language="python", inline=True) %}
-          {% set smaller_name = attribute.path.split('.') %}
-          {% set smaller_str = smaller_name[-2] + "." + smaller_name[-1] %}
-          {% if show_full_path %}{{ smaller_str|lower }}{% else %}{{ attribute.name }}{% endif %}
-          {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
-        {% endfilter %}
-        <h4 class="pydantic-field">
-        
-          {% set list = attribute.value.split(",") %}
-          {% set len = list|length %}
-          {# {% if len >1 %} {{ "".join(attribute.value.split(',')[-(len-1):])|trim(")") }} {% endif %} #}
-          {% if len >2 %}
-            {% set params = attribute.value.split(',')[-(len-1):] %}
-            <h5 class="validvalues">Valid numbers:<code>
-            {% for param in params %}
-            {% set splitlist = param.split("=") %}
-            {% if splitlist[0]|trim == 'ge' %}{{ splitlist[1]|trim(")") }} to {% endif %}
-            {% if splitlist[0]|trim == 'le'%}{{splitlist[1]|trim(")")}}{% endif %}
-            {% if splitlist[0]|trim == 'multiple_of'%} | {{ param|trim(")") }}{% endif %}
-            {# {% if attribute.value %}{{ attribute.value }}{% endif %} #}
-          {%endfor%}</code></h5>
-          {% endif %}
-      </h4>
-
-   
-    {% endif %}
-
-
-
-
-{% endif %}
-  {% if "Field" not in attribute.value %}
-  {% with labels = attribute.labels %}
-  {% include "labels.html" with context %}
-  {% endwith %}
-  {% endif %}
-  {% endfilter %}
-
-  {% if config.separate_signature %}
-  {% filter highlight(language="python", inline=False) %}
-  {% filter format_code(config.line_length) %}
-  {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-  {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
-  {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
-  {% endfilter %}
-  {% endfilter %}
-  {% endif %}
-
-  {% else %}
-  {% if config.show_root_toc_entry %}
-  {% filter heading(heading_level,
-  role="data" if attribute.parent.kind.value == "module" else "attr",
-  id=html_id,
-  toc_label=attribute.path,
-  hidden=True) %}
-  {% endfilter %}
-  {% endif %}
-  {% set heading_level = heading_level - 1 %}
-  {% endif %}
-
-  <div class="doc doc-contents {% if root %}first{% endif %}">
-    {% with docstring_sections = attribute.docstring.parsed %}
-    {% include "docstring.html" with context %}
-    {% endwith %}
-  </div>
-
-  {% endwith %}
-</div>
+    {% if not attribute.path.split('.')[-1].startswith("_") %}
+        <div class="doc doc-object doc-attribute">
+            {% with html_id = attribute.path %}
+                {% if not root or config.show_root_heading %}
+                    {% if root %}
+                        {% set show_full_path = config.show_root_full_path %}
+                        {% set root_members = True %}
+                    {% elif root_members %}
+                        {% set show_full_path = config.show_root_members_full_path or config.show_object_full_path %}
+                        {% set root_members = False %}
+                    {% else %}
+                        {% set show_full_path = config.show_object_full_path %}
+                    {% endif %}
+                    {% filter heading(heading_level,
+                        role="data" if attribute.parent.kind.value == "module" else "attr",
+                        id=html_id,
+                        class="doc doc-heading",
+                        toc_label=attribute.name) %}
+                        {% if config.separate_signature %}
+                            {% if show_full_path %}
+                                {{ attribute.path }}
+                            {% else %}
+                                {{ attribute.name }}
+                            {% endif %}
+                        {% else %}
+                            {% if "Field" not in attribute.value %}
+                                {% filter highlight(language="python", inline=True) %}
+                                    {% set smaller_name = attribute.path.split('.') %}
+                                    {% set smaller_str = smaller_name[-2] + "." + smaller_name[-1] %}
+                                    {% if show_full_path %}{{ smaller_str }}{% else %}{{ attribute.name }}{% endif %}
+                                    {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+                                    {% if attribute.value %} = {{ attribute.value }}{% endif %}
+                                {% endfilter %}
+                            {% else %}
+                                {% filter highlight(language="python", inline=True) %}
+                                    {% set smaller_name = attribute.path.split('.') %}
+                                    {% if smaller_name[-3]|lower == 'components' %}
+                                        {% if smaller_name[-2] == 'ProjectUniqueSettings' or smaller_name[-2] == "CommonSettings" or smaller_name[-2] == 'CommonMonitor' %}
+                                            {% set smaller_str = "settings" + "." + smaller_name[-1] %}
+                                        {% elif smaller_name[-2] == 'TimelineMeta' %}
+                                            {% set smaller_str = "settings.timeline." + smaller_name[-1] %}
+                                        {% elif smaller_name[-2] == "TimelineUniqueSettings" %}
+                                            {% set smaller_str = "settings." %}
+                                        {% else %}
+                                            {% set smaller_str = "settings." + smaller_name[-2] + "." + smaller_name[-1] %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if show_full_path %}{{ smaller_str|lower }}
+                                    {% else %}
+                                        {% if smaller_name[-2] in ["TimelineUniqueSettings", "TimelineMeta", "CommonSettings", "CommonMonitor"] %}
+                                            settings.{{ smaller_name[-1] }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+                                {% endfilter %}
+                                <h4 class="pydantic-field">
+                                    {% set list = attribute.value.split(",") %}
+                                    {% set len = list|length %}
+                                    {# {% if len >1 %} {{ "".join(attribute.value.split(',')[-(len-1):])|trim(")") }}{% endif %} #}
+                                    {% if len >2 %}
+                                        {% set params = attribute.value.split(',')[-(len-1):] %}
+                                        <h5 class="validvalues">
+                                            Valid numbers:<code>
+                                            {% for param in params %}
+                                                {% set splitlist = param.split("=") %}
+                                                {% if splitlist[0]|trim == 'ge' %}{{ splitlist[1]|trim(")") }} to {% endif %}
+                                                {% if splitlist[0]|trim == 'le' %}{{ splitlist[1]|trim(")")}}{% endif %}
+                                                {% if splitlist[0]|trim == 'multiple_of' %} | {{ param|trim(")") }}{% endif %}
+                                                {# {% if attribute.value %}{{ attribute.value }}{% endif %} #}
+                                            {% endfor %}
+                                        </code>
+                                    </h5>
+                                {% endif %}
+                            </h4>
+                        {% endif %}
+                    {% endif %}
+                    {% if "Field" not in attribute.value %}
+                        {% with labels = attribute.labels %}
+                            {% include "labels.html" with context %}
+                        {% endwith %}
+                    {% endif %}
+                {% endfilter %}
+                {% if config.separate_signature %}
+                    {% filter highlight(language="python", inline=False) %}
+                        {% filter format_code(config.line_length) %}
+                            {% if show_full_path %}
+                                {{ attribute.path }}
+                            {% else %}
+                                {{ attribute.name }}
+                            {% endif %}
+                            {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
+                            {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
+                        {% endfilter %}
+                    {% endfilter %}
+                {% endif %}
+            {% else %}
+                {% if config.show_root_toc_entry %}
+                    {% filter heading(heading_level,
+                        role="data" if attribute.parent.kind.value == "module" else "attr",
+                        id=html_id,
+                        toc_label=attribute.path,
+                        hidden=True) %}
+                    {% endfilter %}
+                {% endif %}
+                {% set heading_level = heading_level - 1 %}
+            {% endif %}
+            <div class="doc doc-contents {% if root %}first{% endif %}">
+                {% with docstring_sections = attribute.docstring.parsed %}
+                    {% include "docstring.html" with context %}
+                {% endwith %}
+            </div>
+        {% endwith %}
+    </div>
 {% endif %}
 {% endif %}

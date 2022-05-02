@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from pydavinci.utils import is_resolve_obj
-from pydavinci.wrappers.marker import MarkerInterface
+from pydavinci.wrappers.marker import MarkerCollection
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteMediaPoolItem
@@ -19,7 +19,7 @@ class MediaPoolItem(object):
         else:
             raise TypeError(f"{type(obj)} is not a valid {self.__class__.__name__} type")
 
-        self.markers = MarkerInterface(self)
+        self.markers = MarkerCollection(self)
 
     @property
     def name(self) -> str:
