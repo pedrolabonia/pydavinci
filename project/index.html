@@ -34,8 +34,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
       
     
     
@@ -281,6 +281,82 @@
 
   
   
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Project and Timeline Settings
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project and Timeline Settings" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Project and Timeline Settings
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/" class="md-nav__link">
+        Quickstart on settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/project/" class="md-nav__link">
+        Project settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/timeline/" class="md-nav__link">
+        Timeline settings
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -288,18 +364,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -375,6 +451,13 @@
   
     <nav class="md-nav" aria-label="Attributes">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.settings" class="md-nav__link">
+    settings
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#pydavinci.wrappers.project.Project.mediapool" class="md-nav__link">
@@ -697,6 +780,34 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markercollection/" class="md-nav__link">
+        Marker Collection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../marker/" class="md-nav__link">
+        Marker
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -734,6 +845,13 @@
   
     <nav class="md-nav" aria-label="Attributes">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.project.Project.settings" class="md-nav__link">
+    settings
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#pydavinci.wrappers.project.Project.mediapool" class="md-nav__link">
@@ -987,8 +1105,6 @@
 
 
     <div class="doc doc-contents first">
-        <p class="doc doc-class-bases">
-          Bases: <code>object</code></p>
 
 
 
@@ -1004,21 +1120,23 @@
 <h2 id="pydavinci.wrappers.project.Project-attributes">Attributes</h2>
 
 
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.mediapool" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">mediapool</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.settings" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">settings</span> <span class="o">-&gt;</span> <span class="s1">&#39;ProjectSettings&#39;</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
+</h3>                        <div class="doc doc-contents ">
 
+<div class="docstring"><p>Returns the <a href="../settings/project"><code>ProjectSettings</code></a> interface.</p></div>
+                        </div>
+                </div>
 
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.mediapool" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">mediapool</span> <span class="o">-&gt;</span> <span class="s1">&#39;MediaPool&#39;</span></code>
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns the
 <a class="autorefs autorefs-internal" href="../mediapool/#pydavinci.wrappers.mediapool.MediaPool-attributes"><code>MediaPool</code></a> object.</p></div>
@@ -1040,28 +1158,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.timeline_count" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">timeline_count</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.timeline_count" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">timeline_count</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Get total timeline count on current project</p></div>
 
@@ -1082,29 +1187,16 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.name" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">name</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.name" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">name</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets or sets current project name</p></div>
 
@@ -1125,28 +1217,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.presets" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">presets</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.presets" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">presets</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets a list of available project presets</p></div>
 
@@ -1167,28 +1246,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.render_jobs" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_jobs</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.render_jobs" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_jobs</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets current list of render jobs</p></div>
 
@@ -1209,28 +1275,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.render_presets" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_presets</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.render_presets" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_presets</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets available <strong>render</strong> presets list</p></div>
 
@@ -1251,28 +1304,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.render_formats" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_formats</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.render_formats" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_formats</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets all possible render formats.</p></div>
 
@@ -1293,28 +1333,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.current_render_format_and_codec" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">current_render_format_and_codec</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.current_render_format_and_codec" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">current_render_format_and_codec</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets current render format and codec.</p></div>
 
@@ -1335,29 +1362,16 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.render_mode" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_mode</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.render_mode" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets or sets current render mode. <code>single</code> for single clip and <code>individual</code> for individual clips.</p></div>
 
@@ -1378,28 +1392,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.timeline" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">timeline</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.project.Project.timeline" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">timeline</span> <span class="o">-&gt;</span> <span class="s1">&#39;Timeline&#39;</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns current <a class="autorefs autorefs-internal" href="../timeline/#pydavinci.wrappers.timeline.Timeline-attributes"><code>Timeline</code></a> object</p></div>
 
@@ -1420,28 +1421,14 @@
     </tr>
   </tbody>
 </table>
-
-    </div>
-
-  </div>
-
+                        </div>
+                </div>
 
 
 <h2 id="pydavinci.wrappers.project.Project-functions">Functions</h2>
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.set_preset" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_preset</span><span class="p">(</span><span class="n">preset_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.set_preset" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_preset</span><span class="p">(</span><span class="n">preset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Activates <code>preset_name</code></p></div>
 
@@ -1486,26 +1473,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.add_renderjob" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">add_renderjob</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.add_renderjob" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">add_renderjob</span><span class="p">(</span><span class="n">block</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Adds current render settings to a render job.</p>
 <p>If there are already rendered jobs in the render queue and you're executing a lot of commands, there's a bug on
@@ -1529,26 +1502,12 @@ the Davinci API that there's a chance it will return an empty string instead of 
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.delete_renderjob" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">delete_renderjob</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.delete_renderjob" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">delete_renderjob</span><span class="p">(</span><span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Deletes render job <code>job_id</code></p></div>
 
@@ -1593,26 +1552,12 @@ the Davinci API that there's a chance it will return an empty string instead of 
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.delete_all_renderjobs" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">delete_all_renderjobs</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.delete_all_renderjobs" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">delete_all_renderjobs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Deletes all renderjobs</p></div>
 
@@ -1633,26 +1578,12 @@ the Davinci API that there's a chance it will return an empty string instead of 
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.render" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">job_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.render" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">job_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Render jobs</p></div>
 
@@ -1707,26 +1638,12 @@ the Davinci API that there's a chance it will return an empty string instead of 
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.stop_render" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">stop_render</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.stop_render" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">stop_render</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Stops all rendering.</p></div>
 
@@ -1747,26 +1664,12 @@ the Davinci API that there's a chance it will return an empty string instead of 
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.render_status" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_status</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.render_status" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">render_status</span><span class="p">(</span><span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets render status on <code>job_id</code></p></div>
 
@@ -1824,26 +1727,12 @@ And like this when the render on the provided job id is complete:
 <span class="s1">&#39;CompletionPercentage&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
 <span class="s1">&#39;TimeTakenToRenderInMs&#39;</span><span class="p">:</span> <span class="mi">25991</span><span class="p">}</span>
 </code></pre></div></p>
-</details>
-    </div>
+</details>                        </div>
+                </div>
 
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.get_render_codecs" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">get_render_codecs</span><span class="p">(</span><span class="n">render_format</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.get_render_codecs" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">get_render_codecs</span><span class="p">(</span><span class="n">render_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns all possible render codecs.</p></div>
 
@@ -1888,26 +1777,12 @@ And like this when the render on the provided job id is complete:
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.set_render_format_and_codec" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_render_format_and_codec</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">codec</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.set_render_format_and_codec" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_render_format_and_codec</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">codec</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Sets current <code>format</code> and <code>codec</code></p></div>
 
@@ -1962,26 +1837,12 @@ And like this when the render on the provided job id is complete:
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.available_resolutions" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">available_resolutions</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.available_resolutions" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">available_resolutions</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">codec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns list of resolutions applicable for the given render <code>format</code> and render <code>codec</code>.</p>
 <p>Returns full list of resolutions if no argument is provided.
@@ -2034,30 +1895,16 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
       <td>
         <code><span title="typing.List">List</span>[<span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Any">Any</span>]]</code>
       </td>
-      <td><p>List[Dict[Any, Any]]: <em>description</em></p></td>
+      <td><p>List of available resolutions</p></td>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.is_rendering" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">is_rendering</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.is_rendering" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">is_rendering</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Checks if DaVinci Resolve is rendering.</p></div>
 
@@ -2078,26 +1925,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.load_render_preset" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">load_render_preset</span><span class="p">(</span><span class="n">preset_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.load_render_preset" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">load_render_preset</span><span class="p">(</span><span class="n">preset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Loads render preset <code>preset_name</code>.</p></div>
 
@@ -2142,26 +1975,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.save_render_preset_as" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">save_render_preset_as</span><span class="p">(</span><span class="n">preset_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.save_render_preset_as" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">save_render_preset_as</span><span class="p">(</span><span class="n">preset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Save current preset as <code>preset_name</code>.</p></div>
 
@@ -2206,26 +2025,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.set_render_settings" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_render_settings</span><span class="p">(</span><span class="n">render_settings</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.set_render_settings" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_render_settings</span><span class="p">(</span><span class="n">render_settings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Set render settings.</p>
 <p>Render Settings:
@@ -2300,28 +2105,14 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.get_setting" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">get_setting</span><span class="p">(</span><span class="n">settingname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span></code>
+</h3>                        <div class="doc doc-contents ">
 
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.get_setting" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">get_setting</span><span class="p">(</span><span class="n">setting</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
-
-      <div class="docstring"><p>Get project setting. If setting is <code>None</code> or an empty string <code>""</code>, returns all available project settings.</p></div>
+<div class="docstring"><p>Get project setting. If no setting provided, returns a dict with all settings.</p></div>
 
 <p class="parameters"><strong>Parameters:</strong></p>
 <table>
@@ -2364,26 +2155,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.set_setting" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_setting</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.set_setting" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">set_setting</span><span class="p">(</span><span class="n">setting</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Set project setting.</p></div>
 
@@ -2438,26 +2215,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.save" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.save" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">save</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Saves project.</p></div>
 
@@ -2478,26 +2241,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.close" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.close" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Closes current project.</p></div>
 
@@ -2518,26 +2267,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.open_timeline" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">open_timeline</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.open_timeline" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">open_timeline</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Opens timeline named <code>name</code>.</p></div>
 
@@ -2582,26 +2317,12 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.project.Project.refresh_luts" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">refresh_luts</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.project.Project.refresh_luts" class="doc doc-heading"><code class="highlight language-python"><span class="n">Project</span><span class="o">.</span><span class="n">refresh_luts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Refresh luts.</p></div>
 
@@ -2622,11 +2343,8 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     </tr>
   </tbody>
 </table>
-
-    </div>
-
-  </div>
-
+                        </div>
+                </div>
 
 
 
@@ -2702,7 +2420,7 @@ Each element in the list is a dictionary with 2 keys "Width" and "Height".</p></
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.follow", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>

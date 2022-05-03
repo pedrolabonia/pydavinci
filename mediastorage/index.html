@@ -34,8 +34,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
       
     
     
@@ -281,6 +281,82 @@
 
   
   
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Project and Timeline Settings
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project and Timeline Settings" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Project and Timeline Settings
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/" class="md-nav__link">
+        Quickstart on settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/project/" class="md-nav__link">
+        Project settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/timeline/" class="md-nav__link">
+        Timeline settings
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -288,18 +364,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -536,6 +612,34 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markercollection/" class="md-nav__link">
+        Marker Collection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../marker/" class="md-nav__link">
+        Marker
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -665,8 +769,6 @@
 
 
     <div class="doc doc-contents first">
-        <p class="doc doc-class-bases">
-          Bases: <code>object</code></p>
 
 
 
@@ -681,22 +783,12 @@
 
 <h2 id="pydavinci.wrappers.mediastorage.MediaStorage-attributes">Attributes</h2>
 
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.mounted_volumes" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">mounted_volumes</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.mounted_volumes" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">mounted_volumes</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets list of OS mounted volumes</p></div>
 
@@ -717,28 +809,14 @@
     </tr>
   </tbody>
 </table>
-
-    </div>
-
-  </div>
-
+                        </div>
+                </div>
 
 
 <h2 id="pydavinci.wrappers.mediastorage.MediaStorage-functions">Functions</h2>
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.get_subfolders" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">get_subfolders</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.get_subfolders" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">get_subfolders</span><span class="p">(</span><span class="n">folder_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets subfolders on <code>folder_path</code></p></div>
 
@@ -783,26 +861,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.get_file_list" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">get_file_list</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.get_file_list" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">get_file_list</span><span class="p">(</span><span class="n">folder_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets list of file on <code>folder_path</code></p></div>
 
@@ -847,26 +911,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.reveal_in_storage" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">reveal_in_storage</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.reveal_in_storage" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">reveal_in_storage</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Opens <code>path</code> in media storage</p></div>
 
@@ -911,26 +961,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.add_clip_mattes" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">add_clip_mattes</span><span class="p">(</span><span class="n">mediapool_item</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">stereo_eye</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.add_clip_mattes" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">add_clip_mattes</span><span class="p">(</span><span class="n">mediapool_item</span><span class="p">:</span> <span class="s1">&#39;MediaPoolItem&#39;</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">stereo_eye</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Adds clip mattes from <code>path</code> in <code>mediapool_item</code></p></div>
 
@@ -985,26 +1021,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.add_timelilne_mattes" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">add_timelilne_mattes</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.add_timelilne_mattes" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">add_timelilne_mattes</span><span class="p">(</span><span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;MediaPoolItem&#39;</span><span class="p">]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Adds timeline mattes into media pool</p></div>
 
@@ -1049,26 +1071,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.addclips_to_mediapool" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">addclips_to_mediapool</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.mediastorage.MediaStorage.addclips_to_mediapool" class="doc doc-heading"><code class="highlight language-python"><span class="n">MediaStorage</span><span class="o">.</span><span class="n">addclips_to_mediapool</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;MediaPoolItem&#39;</span><span class="p">]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Adds clips to media pool</p></div>
 
@@ -1117,11 +1125,8 @@
 <details class="info">
   <summary>Info</summary>
   <p>Even if you only added one clip, the returned <code>MediaPoolItem</code> will be inside a list. Access it directly by slicing it with the <code>0</code> index.</p>
-</details>
-    </div>
-
-  </div>
-
+</details>                        </div>
+                </div>
 
 
 
@@ -1196,7 +1201,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.follow", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>

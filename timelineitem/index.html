@@ -34,8 +34,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
       
     
     
@@ -281,6 +281,82 @@
 
   
   
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Project and Timeline Settings
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project and Timeline Settings" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Project and Timeline Settings
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/" class="md-nav__link">
+        Quickstart on settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/project/" class="md-nav__link">
+        Project settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/timeline/" class="md-nav__link">
+        Timeline settings
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -288,18 +364,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -503,8 +579,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.markers" class="md-nav__link">
-    markers
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.properties" class="md-nav__link">
+    properties
   </a>
   
 </li>
@@ -558,36 +634,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.add_marker" class="md-nav__link">
-    add_marker()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.get_custom_marker" class="md-nav__link">
-    get_custom_marker()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.update_custom_marker" class="md-nav__link">
-    update_custom_marker()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.get_marker_custom_data" class="md-nav__link">
-    get_marker_custom_data()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.delete_marker" class="md-nav__link">
-    delete_marker()
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.set_property" class="md-nav__link">
+    set_property()
   </a>
   
 </li>
@@ -609,6 +657,34 @@
           <li class="md-nav__item">
   <a href="#pydavinci.wrappers.timelineitem.TimelineItem.clear_color" class="md-nav__link">
     clear_color()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.add_color_version" class="md-nav__link">
+    add_color_version()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.delete_color_version" class="md-nav__link">
+    delete_color_version()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.load_color_version" class="md-nav__link">
+    load_color_version()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.rename_version" class="md-nav__link">
+    rename_version()
   </a>
   
 </li>
@@ -671,6 +747,34 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markercollection/" class="md-nav__link">
+        Marker Collection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../marker/" class="md-nav__link">
+        Marker
+      </a>
     </li>
   
 
@@ -757,8 +861,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.markers" class="md-nav__link">
-    markers
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.properties" class="md-nav__link">
+    properties
   </a>
   
 </li>
@@ -812,36 +916,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.add_marker" class="md-nav__link">
-    add_marker()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.get_custom_marker" class="md-nav__link">
-    get_custom_marker()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.update_custom_marker" class="md-nav__link">
-    update_custom_marker()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.get_marker_custom_data" class="md-nav__link">
-    get_marker_custom_data()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.delete_marker" class="md-nav__link">
-    delete_marker()
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.set_property" class="md-nav__link">
+    set_property()
   </a>
   
 </li>
@@ -863,6 +939,34 @@
           <li class="md-nav__item">
   <a href="#pydavinci.wrappers.timelineitem.TimelineItem.clear_color" class="md-nav__link">
     clear_color()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.add_color_version" class="md-nav__link">
+    add_color_version()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.delete_color_version" class="md-nav__link">
+    delete_color_version()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.load_color_version" class="md-nav__link">
+    load_color_version()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydavinci.wrappers.timelineitem.TimelineItem.rename_version" class="md-nav__link">
+    rename_version()
   </a>
   
 </li>
@@ -941,12 +1045,33 @@
 
   <h1>TimelineItem</h1>
 
-<div class="doc doc-object doc-class">
+<!-- ## Markers -->
+
+<div class="doc doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.markers" class="doc doc-heading">
+<code class="highlight language-python">
+<span class="n">TimelineItem</span><span class="o">.</span><span class="n">markers</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+  <div class="doc doc-contents">
+  <div class="docstring">
+    <p class="manual-docstring">Returns the <code><a href="../markercollection">Marker Collection</a></code> for this <code>TimelineItem</code>.</p>
+  </div>
+  </div>
+</h3>
+</div>
+<!-- 
+::: pydavinci.wrappers.marker.MarkerCollection.add -->
+
+
+
+
+  <div class="doc doc-object doc-class">
 
 
     <div class="doc doc-contents first">
-        <p class="doc doc-class-bases">
-          Bases: <code>object</code></p>
 
 
 
@@ -962,21 +1087,12 @@
 <h2 id="pydavinci.wrappers.timelineitem.TimelineItem-attributes">Attributes</h2>
 
 
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.name" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">name</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.name" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">name</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets name of <code>TimelineItem</code></p></div>
 
@@ -997,28 +1113,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.duration" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">duration</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.duration" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">duration</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Get duration in frames</p></div>
 
@@ -1039,28 +1142,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.start" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">start</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.start" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">start</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns the start frame position on the timeline.</p></div>
 
@@ -1081,28 +1171,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.end" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">end</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.end" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">end</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns the start frame position on the timeline.</p></div>
 
@@ -1123,28 +1200,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.left_offset" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">left_offset</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.left_offset" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">left_offset</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns the maximum extension by frame for clip from left side.</p></div>
 
@@ -1165,28 +1229,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.right_offset" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">right_offset</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.right_offset" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">right_offset</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns the maximum extension by frame for clip from right side.</p></div>
 
@@ -1207,30 +1258,17 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.markers" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">markers</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.properties" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">properties</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
+</h3>                        <div class="doc doc-contents ">
 
-
-    <div class="doc doc-contents ">
-
-<div class="docstring"><p>Gets markers</p></div>
+<div class="docstring"><p>Gets all clip properties</p></div>
 
 <p class="returns"><strong>Returns:</strong></p>
 <table>
@@ -1245,32 +1283,19 @@
 <td><code>dict</code></td>      <td>
         <code><span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Any">Any</span>]</code>
       </td>
-      <td><p>markers</p></td>
+      <td><p>dict with clip properties</p></td>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.flags" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">flags</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.flags" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">flags</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets flag list</p></div>
 
@@ -1291,29 +1316,16 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.color" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">color</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.color" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">color</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets or sets clip color</p></div>
 
@@ -1358,28 +1370,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.mediapoolitem" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">mediapoolitem</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.mediapoolitem" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">mediapoolitem</span> <span class="o">-&gt;</span> <span class="s1">&#39;MediaPoolItem&#39;</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns the corresponding <code>MediaPoolItem</code> for this <code>TimelineItem</code></p></div>
 
@@ -1400,29 +1399,16 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.take" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">take</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.take" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">take</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets or sets current take</p></div>
 
@@ -1449,28 +1435,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.takes" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">takes</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.takes" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">takes</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Get total number of takes</p></div>
 
@@ -1491,32 +1464,16 @@
     </tr>
   </tbody>
 </table>
-
-    </div>
-
-  </div>
-
+                        </div>
+                </div>
 
 
 <h2 id="pydavinci.wrappers.timelineitem.TimelineItem-functions">Functions</h2>
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.set_property" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.add_marker" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">frameid</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">note</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">customdata</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
-
-<div class="docstring"><p>Adds a marker.</p>
-<p><code>customdata</code> is a <code>str</code> that can be used for programatically
-setting and searching for markers. It's not exposed to the GUI.</p></div>
+<div class="docstring"><p>Sets property</p></div>
 
 <p class="parameters"><strong>Parameters:</strong></p>
 <table>
@@ -1529,200 +1486,22 @@ setting and searching for markers. It's not exposed to the GUI.</p></div>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><code>frameid</code></td>
-      <td>
-        <code>int</code>
-      </td>
-      <td><p>frame for marker to be inserted at</p></td>
-      <td>
-        <em>required</em>
-      </td>
-    </tr>
-    <tr>
-      <td><code>color</code></td>
-      <td>
-        <code>str</code>
-      </td>
-      <td><p>marker color</p></td>
-      <td>
-        <em>required</em>
-      </td>
-    </tr>
     <tr>
       <td><code>name</code></td>
       <td>
         <code>str</code>
       </td>
-      <td><p>marker name</p></td>
+      <td><p>property name</p></td>
       <td>
         <em>required</em>
       </td>
     </tr>
     <tr>
-      <td><code>note</code></td>
+      <td><code>value</code></td>
       <td>
-        <code>str</code>
+        <code><span title="typing.Union">Union</span>[str, int, float]</code>
       </td>
-      <td><p>marker note. Defaults to empty.</p></td>
-      <td>
-        <code>&#39;&#39;</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>duration</code></td>
-      <td>
-        <code>int</code>
-      </td>
-      <td><p>marker duration. Defaults to 1 frame.</p></td>
-      <td>
-        <code>1</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>customdata</code></td>
-      <td>
-        <code>str</code>
-      </td>
-      <td><p>custom user data. Defaults to empty.</p></td>
-      <td>
-        <code>&#39;&#39;</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p class="returns"><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-<th>Name</th>      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-<td><code>bool</code></td>      <td>
-        <code>bool</code>
-      </td>
-      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
-    </tr>
-  </tbody>
-</table>
-
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.get_custom_marker" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">get_custom_marker</span><span class="p">(</span><span class="n">customdata</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
-
-<div class="docstring"><p>Gets custom marker by <code>customdata</code></p></div>
-
-<p class="parameters"><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>customdata</code></td>
-      <td>
-        <code>str</code>
-      </td>
-      <td><p>custom data string</p></td>
-      <td>
-        <em>required</em>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p class="returns"><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-<th>Name</th>      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-<td><code>dict</code></td>      <td>
-        <code><span title="typing.Dict">Dict</span>[<span title="typing.Any">Any</span>, <span title="typing.Any">Any</span>]</code>
-      </td>
-      <td><p>dict with marker data</p></td>
-    </tr>
-  </tbody>
-</table>
-
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.update_custom_marker" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">update_custom_marker</span><span class="p">(</span><span class="n">frameid</span><span class="p">,</span> <span class="n">customdata</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
-
-<div class="docstring"><p>Updates marker at <code>frameid</code> with new <code>customdata</code></p></div>
-
-<p class="parameters"><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>frameid</code></td>
-      <td>
-        <code>int</code>
-      </td>
-      <td><p>marker frame</p></td>
-      <td>
-        <em>required</em>
-      </td>
-    </tr>
-    <tr>
-      <td><code>customdata</code></td>
-      <td>
-        <code>str</code>
-      </td>
-      <td><p>new customdata</p></td>
+      <td><p>property value</p></td>
       <td>
         <em>required</em>
       </td>
@@ -1747,198 +1526,12 @@ setting and searching for markers. It's not exposed to the GUI.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.get_marker_custom_data" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">get_marker_custom_data</span><span class="p">(</span><span class="n">frameid</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
-
-<div class="docstring"><p>Gets marker <code>customdata</code> at <code>frameid</code></p></div>
-
-<p class="parameters"><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>frameid</code></td>
-      <td>
-        <code>int</code>
-      </td>
-      <td><p>marker frame</p></td>
-      <td>
-        <em>required</em>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p class="returns"><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>str</code>
-      </td>
-      <td><p><code>customdata</code></p></td>
-    </tr>
-  </tbody>
-</table>
-
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.delete_marker" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">delete_marker</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">frameid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">customdata</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
-
-<div class="docstring"><p>Deletes marker using <code>frameid</code>, <code>color</code> or <code>customdata</code></p></div>
-
-<p class="parameters"><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>frameid</code></td>
-      <td>
-        <code>int</code>
-      </td>
-      <td><p>frameid to use for choosing which markers to delete</p></td>
-      <td>
-        <code>0</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>color</code></td>
-      <td>
-        <code>str</code>
-      </td>
-      <td><p>color to use for choosing which markers to delete</p></td>
-      <td>
-        <code>&#39;&#39;</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>customdata</code></td>
-      <td>
-        <code>str</code>
-      </td>
-      <td><p>custom data to use for choosing which markers to delete</p></td>
-      <td>
-        <code>&#39;&#39;</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p class="raises"><strong>Raises:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>ValueError</code>
-      </td>
-      <td><p>no valid params provided</p></td>
-    </tr>
-  </tbody>
-</table>
-
-<p class="returns"><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-<th>Name</th>      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-<td><code>bool</code></td>      <td>
-        <code>bool</code>
-      </td>
-      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
-    </tr>
-  </tbody>
-</table>
-
-<details class="deleting-markers">
-  <summary>Deleting Markers</summary>
-  <p>When selecting by <code>frameid</code>, will delete single marker</p>
-<p>When selecting by <code>color</code>, will delete <em>all</em> markers with provided color</p>
-<p>When selecting by <code>customdata</code>, will delete first marker with matching custom data</p>
-</details>
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.add_flag" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">add_flag</span><span class="p">(</span><span class="n">color</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.add_flag" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">add_flag</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Adds flag</p></div>
 
@@ -1983,26 +1576,12 @@ setting and searching for markers. It's not exposed to the GUI.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.clear_flags" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">clear_flags</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;All&#39;</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.clear_flags" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">clear_flags</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;All&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Clears all flags</p></div>
 
@@ -2047,26 +1626,12 @@ setting and searching for markers. It's not exposed to the GUI.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.clear_color" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">clear_color</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.clear_color" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">clear_color</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Clears clip color</p></div>
 
@@ -2087,30 +1652,262 @@ setting and searching for markers. It's not exposed to the GUI.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.add_color_version" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">add_color_version</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="s1">&#39;remote&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
-  </div>
+<div class="docstring"><p>Adds color version to this <code>TimelineItem</code></p></div>
 
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>version name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td>
+        <code><span title="typing_extensions.Literal">Literal</span>[&#39;local&#39;, &#39;remote&#39;]</code>
+      </td>
+      <td><p>whether to add a local or remote color version</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+                        </div>
+                </div>
 
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.delete_color_version" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">delete_color_version</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="s1">&#39;remote&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
+<div class="docstring"><p>Adds color version from this <code>TimelineItem</code></p></div>
 
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>version name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td>
+        <code><span title="typing_extensions.Literal">Literal</span>[&#39;local&#39;, &#39;remote&#39;]</code>
+      </td>
+      <td><p>whether to delete a local or remote color version</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+                        </div>
+                </div>
 
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.load_color_version" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">load_color_version</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="s1">&#39;remote&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
-  <div class="doc doc-object doc-function">
+<div class="docstring"><p>Loads color version from <code>TimelineItem</code> named <code>name</code></p></div>
 
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>version name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td>
+        <code><span title="typing_extensions.Literal">Literal</span>[&#39;local&#39;, &#39;remote&#39;]</code>
+      </td>
+      <td><p>whether to load a local or remote color version</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+                        </div>
+                </div>
 
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.rename_version" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">rename_version</span><span class="p">(</span><span class="n">oldname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">newname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="s1">&#39;remote&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.set_lut" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">set_lut</span><span class="p">(</span><span class="n">node_index</span><span class="p">,</span> <span class="n">lut_path</span><span class="p">)</span></code>
+<div class="docstring"><p>Renames a color version named <code>oldname</code> to <code>newname</code> on this <code>TimelineItem</code></p></div>
 
+<p class="parameters"><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>oldname</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>current version name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>newname</code></td>
+      <td>
+        <code>str</code>
+      </td>
+      <td><p>new version name</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td>
+        <code><span title="typing_extensions.Literal">Literal</span>[&#39;local&#39;, &#39;remote&#39;]</code>
+      </td>
+      <td><p>whether to rename a local or remote color version</p></td>
+      <td>
+        <em>required</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-</h3>
+<p class="returns"><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+<th>Name</th>      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><code>bool</code></td>      <td>
+        <code>bool</code>
+      </td>
+      <td><p><code>True</code> if successful, <code>False</code> otherwise</p></td>
+    </tr>
+  </tbody>
+</table>
+                        </div>
+                </div>
 
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.set_lut" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">set_lut</span><span class="p">(</span><span class="n">node_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">lut_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Sets lut located on <code>lut_path</code> at <code>node_index</code></p></div>
 
@@ -2165,26 +1962,12 @@ setting and searching for markers. It's not exposed to the GUI.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.set_cdl" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">set_cdl</span><span class="p">(</span><span class="n">cdl</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.set_cdl" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">set_cdl</span><span class="p">(</span><span class="n">cdl</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Sets CDL</p></div>
 
@@ -2238,26 +2021,12 @@ setting and searching for markers. It's not exposed to the GUI.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.add_take" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">add_take</span><span class="p">(</span><span class="n">mediapool_item</span><span class="p">,</span> <span class="n">startframe</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">endframe</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.add_take" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">add_take</span><span class="p">(</span><span class="n">mediapool_item</span><span class="p">:</span> <span class="s1">&#39;MediaPoolItem&#39;</span><span class="p">,</span> <span class="n">startframe</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">endframe</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Adds <code>mediapool_item</code> as a new take. Initializes a take selector for the timeline item if needed.
 By default, the full clip extents is added. <code>startframe</code> and <code>endFrame</code> are
@@ -2324,26 +2093,12 @@ optional arguments used to specify the extents.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.take_info" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">take_info</span><span class="p">(</span><span class="n">takeindex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.take_info" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">take_info</span><span class="p">(</span><span class="n">takeindex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets take info. If no <code>takeindex</code> provided, uses current selected take.</p></div>
 
@@ -2388,26 +2143,12 @@ optional arguments used to specify the extents.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.delete_take" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">delete_take</span><span class="p">(</span><span class="n">takeindex</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.delete_take" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">delete_take</span><span class="p">(</span><span class="n">takeindex</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Deletes take index with index <code>takeindex</code></p></div>
 
@@ -2452,26 +2193,12 @@ optional arguments used to specify the extents.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.finalize_take" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">finalize_take</span><span class="p">(</span><span class="n">takeindex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.finalize_take" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">finalize_take</span><span class="p">(</span><span class="n">takeindex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Finalizes take at <code>takeindex</code>. If no <code>takeindex</code> provided, finalizes current take.</p></div>
 
@@ -2516,26 +2243,12 @@ optional arguments used to specify the extents.</p></div>
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.copy_grade_to" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">copy_grade_to</span><span class="p">(</span><span class="n">timeline_items</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.timelineitem.TimelineItem.copy_grade_to" class="doc doc-heading"><code class="highlight language-python"><span class="n">TimelineItem</span><span class="o">.</span><span class="n">copy_grade_to</span><span class="p">(</span><span class="n">timeline_items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;TimelineItem&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Copies the current grade to all the items in <code>timneline_items</code> list</p></div>
 
@@ -2580,11 +2293,8 @@ optional arguments used to specify the extents.</p></div>
     </tr>
   </tbody>
 </table>
-
-    </div>
-
-  </div>
-
+                        </div>
+                </div>
 
 
 
@@ -2623,6 +2333,21 @@ optional arguments used to specify the extents.</p></div>
         </a>
       
       
+        
+        <a href="../markercollection/" class="md-footer__link md-footer__link--next" aria-label="Next: Marker Collection" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Marker Collection
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
     </nav>
   
   <div class="md-footer-meta md-typeset">
@@ -2645,7 +2370,7 @@ optional arguments used to specify the extents.</p></div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.follow", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>

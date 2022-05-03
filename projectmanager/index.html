@@ -34,8 +34,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
       
     
     
@@ -281,6 +281,82 @@
 
   
   
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Project and Timeline Settings
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project and Timeline Settings" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Project and Timeline Settings
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/" class="md-nav__link">
+        Quickstart on settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/project/" class="md-nav__link">
+        Project settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/timeline/" class="md-nav__link">
+        Timeline settings
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -288,18 +364,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -606,6 +682,34 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markercollection/" class="md-nav__link">
+        Marker Collection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../marker/" class="md-nav__link">
+        Marker
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -805,8 +909,6 @@
 
 
     <div class="doc doc-contents first">
-        <p class="doc doc-class-bases">
-          Bases: <code>object</code></p>
 
 
 
@@ -821,22 +923,12 @@
 
 <h2 id="pydavinci.wrappers.projectmanager.ProjectManager-attributes">Attributes</h2>
 
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.projects" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">projects</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.projects" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">projects</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns a list with project names in current project manager folder</p></div>
 
@@ -857,28 +949,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.folders" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">folders</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.folders" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">folders</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns a list with project manager folder names</p></div>
 
@@ -899,28 +978,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.folder" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">folder</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.folder" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">folder</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns current folder name</p></div>
 
@@ -941,29 +1007,16 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.db" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">db</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.db" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">db</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Gets or sets current database.</p></div>
 
@@ -1025,28 +1078,15 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.db_list" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">db_list</span></code>
-
+                <div class="doc doc-object doc-attribute">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.db_list" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">db_list</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span></code>
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
-</h3>
-
-
-    <div class="doc doc-contents ">
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Returns list of all databases</p></div>
 
@@ -1067,28 +1107,14 @@
     </tr>
   </tbody>
 </table>
-
-    </div>
-
-  </div>
-
+                        </div>
+                </div>
 
 
 <h2 id="pydavinci.wrappers.projectmanager.ProjectManager-functions">Functions</h2>
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.create_project" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">create_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.create_project" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">create_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Creates a project with <code>project_name</code></p></div>
 
@@ -1133,26 +1159,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.delete_project" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">delete_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.delete_project" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">delete_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Deletes project <code>project_name</code></p></div>
 
@@ -1197,26 +1209,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.load_project" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">load_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.load_project" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">load_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Loads project <code>project_name</code></p></div>
 
@@ -1261,26 +1259,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.close_project" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">close_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.close_project" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">close_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Closes project <code>project_name</code></p></div>
 
@@ -1325,26 +1309,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.create_folder" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">create_folder</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.create_folder" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">create_folder</span><span class="p">(</span><span class="n">folder_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Creates project manager folder <code>folder_name</code></p></div>
 
@@ -1389,26 +1359,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.delete_folder" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">delete_folder</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.delete_folder" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">delete_folder</span><span class="p">(</span><span class="n">folder_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Deletes project manager folder <code>folder_name</code></p></div>
 
@@ -1453,26 +1409,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.goto_root_folder" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">goto_root_folder</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.goto_root_folder" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">goto_root_folder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Goes to root project manager folder</p></div>
 
@@ -1493,26 +1435,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.goto_parent_folder" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">goto_parent_folder</span><span class="p">()</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.goto_parent_folder" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">goto_parent_folder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Goes to parent of current project manager folder</p></div>
 
@@ -1533,26 +1461,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.open_folder" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">open_folder</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.open_folder" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">open_folder</span><span class="p">(</span><span class="n">folder_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Open folder named <code>folder_name</code></p></div>
 
@@ -1597,26 +1511,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.import_project" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">import_project</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.import_project" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">import_project</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Imports <code>.drp</code> project located at <code>path</code></p></div>
 
@@ -1661,26 +1561,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.export_project" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">export_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">stills_and_luts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.export_project" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">export_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stills_and_luts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Exports project</p></div>
 
@@ -1745,26 +1631,12 @@
     </tr>
   </tbody>
 </table>
+                        </div>
+                </div>
 
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-
-<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.restore_project" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">restore_project</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
-
-
-</h3>
-
-    <div class="doc doc-contents ">
+                <div class="doc doc-object doc-function">
+<h3 id="pydavinci.wrappers.projectmanager.ProjectManager.restore_project" class="doc doc-heading"><code class="highlight language-python"><span class="n">ProjectManager</span><span class="o">.</span><span class="n">restore_project</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+</h3>                        <div class="doc doc-contents ">
 
 <div class="docstring"><p>Restore project from <code>path</code></p></div>
 
@@ -1809,11 +1681,8 @@
     </tr>
   </tbody>
 </table>
-
-    </div>
-
-  </div>
-
+                        </div>
+                </div>
 
 
 
@@ -1888,7 +1757,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.follow", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>
