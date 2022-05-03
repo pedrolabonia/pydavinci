@@ -67,9 +67,6 @@ plugins:
         - pydavinci
         - docs/css
         - docs/templates/
-  - mkdocs-video:
-      is_video: true
-      video_autoplay: true
   
 
 extra_css:
