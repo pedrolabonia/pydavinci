@@ -207,7 +207,7 @@ class Perf(BaseConfig):
         "dnxhd_lb",
         "CFHDb64a",
         "CFHDv210",
-        "acph",
+        "apch",
     ] = Field(alias="perfOptimisedCodec")
     optimised_media_on: bool = Field(alias="perfOptimisedMediaOn")
     optimized_resolution_ratio: Literal[
@@ -226,7 +226,7 @@ class Perf(BaseConfig):
         "dnxhd_lb",
         "CFHDb64a",
         "CFHDv210",
-        "acph",
+        "apch",
     ] = Field(alias="perfRenderCacheCodec")
     render_cache_mode: Literal["user", "smart", "none"] = Field(alias="perfRenderCacheMode")
 
@@ -268,7 +268,7 @@ class Capture(BaseConfig):
             "r210",
             "yuv",
             "v210 ",
-            "acph",
+            "apch",
         ]
     ] = Field(alias="videoCaptureCodec")
     format: Optional[Literal["mov", "dpx"]] = Field(alias="videoCaptureFormat")

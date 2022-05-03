@@ -1,11 +1,11 @@
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List, Union
 from typing_extensions import Literal
 from pydavinci.utils import is_resolve_obj
 from pydavinci.wrappers.marker import MarkerCollection
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteTimelineItem
+    from pydavinci.wrappers._resolve_stubs import PyRemoteTimelineItem  # type: ignore
 
 
 class TimelineItem(object):
@@ -77,6 +77,31 @@ class TimelineItem(object):
             int: right offset frame count
         """
         return self._obj.GetRightOffset()
+
+    @property
+    def properties(self) -> Dict[Any, Any]:
+        """
+        Gets all clip properties
+
+        Returns:
+            dict: dict with clip properties
+        """
+
+        return self._obj.GetProperty()
+
+    def set_property(self, key: str, value: Union[str, int, float]) -> bool:
+        """
+        Sets property
+
+        Args:
+            name (str): property name
+            value (Union[str, int, float]): property value
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+
+        return self._obj.SetProperty(key, value)
 
     def add_flag(self, color: str) -> bool:
         """

@@ -153,13 +153,13 @@ class MediaPoolItem(object):
         """
         return self._obj.GetClipProperty()
 
-    def set_property(self, name: str, value: str) -> bool:
+    def set_property(self, name: str, value: Union[str, int, float]) -> bool:
         """
         Sets property
 
         Args:
             name (str): property name
-            value (str): property value
+            value (Union[str, int, float]): property value
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
