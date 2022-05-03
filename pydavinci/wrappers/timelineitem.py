@@ -1,19 +1,22 @@
-from typing import TYPE_CHECKING, Any, Dict, List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Union
+from typing_extensions import Literal
 from pydavinci.utils import is_resolve_obj
+from pydavinci.wrappers.marker import MarkerCollection
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteTimelineItem
-    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+    from pydavinci.wrappers._resolve_stubs import PyRemoteTimelineItem  # type: ignore
 
 
 class TimelineItem(object):
     def __init__(self, obj: "PyRemoteTimelineItem") -> None:
+
         if is_resolve_obj(obj):
             self._obj: "PyRemoteTimelineItem" = obj
         else:
             raise TypeError(f"{type(obj)} is not a valid {self.__class__.__name__} type")
+
+        self.markers = MarkerCollection(self)
 
     @property
     def name(self) -> str:
@@ -75,113 +78,30 @@ class TimelineItem(object):
         """
         return self._obj.GetRightOffset()
 
-    def add_marker(
-        self,
-        frameid: int,
-        color: str,
-        name: str,
-        *,
-        note: str = "",
-        duration: int = 1,
-        customdata: str = "",
-    ) -> bool:
-        """
-        Adds a marker.
-
-        ``customdata`` is a ``str`` that can be used for programatically
-        setting and searching for markers. It's not exposed to the GUI.
-
-        Args:
-            frameid (int): frame for marker to be inserted at
-            color (str): marker color
-            name (str): marker name
-            note (str, optional): marker note. Defaults to empty.
-            duration (int, optional): marker duration. Defaults to 1 frame.
-            customdata (str, optional): custom user data. Defaults to empty.
-
-        Returns:
-            bool: ``True`` if successful, ``False`` otherwise
-        """
-        return self._obj.AddMarker(frameid, color, name, note, duration, customdata)
-
-    def get_custom_marker(self, customdata: str) -> Dict[Any, Any]:
-        """
-        Gets custom marker by ``customdata``
-
-        Args:
-            customdata (str): custom data string
-
-        Returns:
-            dict: dict with marker data
-        """
-        return self._obj.GetMarkerByCustomData(customdata)
-
-    def update_custom_marker(self, frameid: int, customdata: str) -> bool:
-        """
-        Updates marker at ``frameid`` with new ``customdata``
-
-        Args:
-            frameid (int): marker frame
-            customdata (str): new customdata
-
-        Returns:
-            bool: ``True`` if successful, ``False`` otherwise
-
-        """
-        return self._obj.UpdateMarkerCustomData(frameid, customdata)
-
-    def get_marker_custom_data(self, frameid: int) -> str:
-        """
-        Gets marker ``customdata`` at ``frameid``
-
-        Args:
-            frameid (int): marker frame
-
-        Returns:
-            ``customdata``
-
-        """
-        return self._obj.GetMarkerCustomData(frameid)
-
-    def delete_marker(self, *, frameid: int = 0, color: str = "", customdata: str = "") -> bool:
-        """
-        Deletes marker using ``frameid``, ``color`` or ``customdata``
-
-        Args:
-            frameid (int, optional): frameid to use for choosing which markers to delete
-            color (str, optional): color to use for choosing which markers to delete
-            customdata (str, optional): custom data to use for choosing which markers to delete
-
-        Raises:
-            ValueError: no valid params provided
-
-        Returns:
-            bool: ``True`` if successful, ``False`` otherwise
-
-        Deleting Markers:
-            When selecting by ``frameid``, will delete single marker
-
-            When selecting by ``color``, will delete _all_ markers with provided color
-
-            When selecting by ``customdata``, will delete first marker with matching custom data
-        """
-        if frameid:
-            return self._obj.DeleteMarkerAtFrame(frameid)
-        if color:
-            return self._obj.DeleteMarkersByColor(color)
-        if customdata:
-            return self._obj.DeleteMarkerByCustomData(customdata)
-        raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
-
     @property
-    def markers(self) -> Dict[Any, Any]:
+    def properties(self) -> Dict[Any, Any]:
         """
-        Gets markers
+        Gets all clip properties
 
         Returns:
-            dict: markers
+            dict: dict with clip properties
         """
-        return self._obj.GetMarkers()
+
+        return self._obj.GetProperty()
+
+    def set_property(self, key: str, value: Union[str, int, float]) -> bool:
+        """
+        Sets property
+
+        Args:
+            name (str): property name
+            value (Union[str, int, float]): property value
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+
+        return self._obj.SetProperty(key, value)
 
     def add_flag(self, color: str) -> bool:
         """
@@ -254,17 +174,74 @@ class TimelineItem(object):
 
         # TODO: Document these
 
-    def add_color_version(self, name: str, type: int = 0) -> bool:
-        return self._obj.AddVersion(name, type)
+    def add_color_version(self, name: str, type: Literal["local", "remote"]) -> bool:
+        """Adds color version to this `TimelineItem`
 
-    def delete_color_version(self, name: str, type: int = 0) -> bool:
-        return self._obj.DeleteVersionByName(name, type)
+        Args:
+            name (str): version name
+            type (Literal['local', 'remote']): whether to add a local or remote color version
 
-    def load_color_version(self, name: str, type: int = 0) -> bool:
-        return self._obj.LoadVersionByName(name, type)
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.AddVersion(name, 0)
+        elif type == "remote":
+            return self._obj.AddVersion(name, 1)
+        else:
+            return False
 
-    def rename_version(self, oldname: str, newname: str, type: int = 0) -> bool:
-        return self._obj.RenameVersionByName(oldname, newname, type)
+    def delete_color_version(self, name: str, type: Literal["local", "remote"]) -> bool:
+        """Adds color version from this `TimelineItem`
+
+        Args:
+            name (str): version name
+            type (Literal['local', 'remote']): whether to delete a local or remote color version
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.DeleteVersionByName(name, 0)
+        elif type == "remote":
+            return self._obj.DeleteVersionByName(name, 1)
+        else:
+            return False
+
+    def load_color_version(self, name: str, type: Literal["local", "remote"]) -> bool:
+        """Loads color version from `TimelineItem` named `name`
+
+        Args:
+            name (str): version name
+            type (Literal['local', 'remote']): whether to load a local or remote color version
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.LoadVersionByName(name, 0)
+        elif type == "remote":
+            return self._obj.LoadVersionByName(name, 1)
+        else:
+            return False
+
+    def rename_version(self, oldname: str, newname: str, type: Literal["local", "remote"]) -> bool:
+        """Renames a color version named `oldname` to `newname` on this `TimelineItem`
+
+        Args:
+            oldname (str): current version name
+            newname (str): new version name
+            type (Literal['local', 'remote']): whether to rename a local or remote color version
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if type == "local":
+            return self._obj.RenameVersionByName(oldname, newname, 0)
+        elif type == "remote":
+            return self._obj.RenameVersionByName(oldname, newname, 1)
+        else:
+            return False
 
     @property
     def mediapoolitem(self) -> "MediaPoolItem":

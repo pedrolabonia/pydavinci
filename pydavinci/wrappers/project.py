@@ -3,10 +3,12 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from pydavinci.exceptions import ObjectNotFound
 from pydavinci.main import resolve_obj
 from pydavinci.utils import is_resolve_obj
+from pydavinci.wrappers.settings.constructor import get_prj_settings
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteProject
     from pydavinci.wrappers.mediapool import MediaPool
+    from pydavinci.wrappers.settings.constructor import ProjectSettings
     from pydavinci.wrappers.timeline import Timeline
 
 
@@ -19,6 +21,19 @@ class Project(object):
                 raise TypeError(f"{type(args[0])} is not a valid {self.__class__.__name__} type")
         else:
             self._obj = resolve_obj.GetProjectManager().GetCurrentProject()
+
+        self._settings: Optional["ProjectSettings"] = None
+
+    @property
+    def settings(self) -> "ProjectSettings":
+        """Returns the [`ProjectSettings`](../settings/project) interface."""
+
+        if self._settings is None:
+            self._settings = get_prj_settings(self)
+            return self._settings
+
+        else:
+            return self._settings
 
     @property
     def mediapool(self) -> "MediaPool":
@@ -283,7 +298,7 @@ class Project(object):
             codec (str): render codec
 
         Returns:
-            List[Dict[Any, Any]]: _description_
+            List of available resolutions
         """
         if format and codec is None:
             return self._obj.GetRenderResolutions()

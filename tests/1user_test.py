@@ -1,5 +1,6 @@
 # flake8: noqa
 # type: ignore
+import random
 from pathlib import Path
 from typing import List
 
@@ -129,52 +130,58 @@ def test_timeline_name():
     assert resolve.active_timeline.name == "Test Timeline"
 
 
-def test_media_pool_markers():
+def test_media_pool_markers(subtests):
     mp_clips = resolve.active_timeline.items("video", 1)
 
     if len(mp_clips) < 8:
         pytest.fail("Need to use at least 8 clips for the tests to work.")
 
     for i, clip in enumerate(mp_clips):
-        clip.add_flag("Cyan")
-        clip.add_marker(
-            1,
-            "Blue",
-            f"marker name {i}",
-            customdata=f"custom data {i}",
-            duration=5,
-            note=f"marker note {i}",
-        )
 
-        assert clip.flags[0] == "Cyan"
-        marker = clip.get_custom_marker(f"custom data {i}")
-        assert marker is not None
-        clip.update_custom_marker(1, f"2custom data {i}")
-        marker = clip.get_custom_marker(f"2custom data {i}")
-        assert marker is not None
-        assert marker["color"] == "Blue"
-        assert marker["duration"] == 5
-        assert marker["customData"] == f"2custom data {i}"
-        assert marker["note"] == f"marker note {i}"
-        assert marker["name"] == f"marker name {i}"
+        with subtests.test(msg="Loop iteration", i=i):
+            rnd = random.randint(1, 30)
+            rnd2 = random.randint(1, 5)
+            rnd3 = random.randint(1, 45)
+            print(f"I: {i} RND1: {rnd} | RND2: {rnd2} | RND3: {rnd3}")
+            clip.add_flag("Cyan")
+            a = clip.markers.add(
+                rnd,
+                "Blue",
+                f"marker name {i}",
+                customdata=f"custom data {rnd3}",
+                duration=rnd2,
+                note=f"marker note {i}",
+            )
+            print(a.customdata)
+            assert clip.flags[0] == "Cyan"
+            marker = clip.markers.find(f"custom data {rnd3}")
+            # print([x.customdata for x in clip.markers._cache.values()])
+            assert marker is not None
+            marker.customdata = f"2custom data {rnd3}"
+            marker = clip.markers.find(f"2custom data {rnd3}")
+            assert marker is not None
+            assert marker.color == "Blue"
+            assert marker.duration == rnd2
+            assert marker.customdata == f"2custom data {rnd3}"
+            assert marker.note == f"marker note {i}"
+            assert marker.name == f"marker name {i}"
 
-        assert clip.markers == {
-            1: {
+            assert clip.markers.all[0]._data == {
+                "frameid": rnd,
                 "color": "Blue",
-                "duration": 5,
+                "duration": rnd2,
                 "note": f"marker note {i}",
                 "name": f"marker name {i}",
-                "customData": f"2custom data {i}",
+                "customdata": f"2custom data {rnd3}",
             }
-        }
-        if i < 3:
-            clip.delete_marker(frameid=1)
-        elif i > 6:
-            clip.delete_marker(color="Blue")
-        else:
-            clip.delete_marker(customdata=f"2custom data {i}")
+            if i < 3:
+                assert clip.markers.delete(frameid=rnd)
+            elif i > 6:
+                assert clip.markers.delete(color="Blue")
+            else:
+                assert clip.markers.delete(customdata=f"2custom data {rnd3}")
 
-        assert clip.markers == {}
+            assert clip.markers.all == []
 
 
 def test_grab_mediapoolitems_from_timeline():

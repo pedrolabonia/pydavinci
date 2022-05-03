@@ -7,6 +7,10 @@ nav:
   # - Quickstart: quickstart.md
   - Examples:
     - "Create Premiere Proxies": "examples/premiereproxies.md"
+  - Project and Timeline Settings:
+    - "Quickstart on settings": "settings/index.md"
+    - "Project settings": "settings/project.md"
+    - "Timeline settings": "settings/timeline.md"
   - API Reference:
     - "Resolve": resolve.md
     - "ProjectManager": projectmanager.md
@@ -17,6 +21,8 @@ nav:
     - "Folder": folder.md
     - "Timeline": timeline.md
     - "TimelineItem": timelineitem.md
+    - "Marker Collection": markercollection.md
+    - "Marker": marker.md
 
 theme:
   name: "material"
@@ -24,18 +30,23 @@ theme:
     primary: purple
     scheme: slate
   features:
+    - toc.follow
     - content.code.annotate
+  font:
+    code: Fira Code
 
 
 
 plugins:
   - search
+  - autorefs
   - mkdocstrings:
       handlers:
         python:
           selection:
             docstring_style: google
           rendering:
+            show_bases: false
             members_order: source
             heading_level: 2
             show_root_toc_entry: false
@@ -49,14 +60,13 @@ plugins:
             merge_init_into_class: true
             separate_signature: false
             docstring_section_style: table
-            show_signature_annotations: false
+            show_signature_annotations: true
       custom_templates: docs/templates
 
       watch:
         - pydavinci
         - docs/css
         - docs/templates/
-  - autorefs
   
 
 extra_css:
