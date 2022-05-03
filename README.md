@@ -65,8 +65,8 @@ For `pydavinci` to work by launching scripts outside the embedded console, make 
 
 Contributors are always welcome! I currently have a few things I want to change, some of them are:
 - [X] ~~Document all possible values of `get_setting` and `set_setting`~~ _New in 0.2.0!_
-- [X] ~~Add a better way of interfacing with the whole `get_setting` and `set_setting` methods using a proxy class or something to that effect~~ _New in 0.2.0!
-- [X] ~~Deal with markers in a better way~~ New in 0.2.0!
+- [X] ~~Add a better way of interfacing with the whole `get_setting` and `set_setting` methods using a proxy class or something to that effect~~ _New in 0.2.0!_
+- [X] ~~Deal with markers in a better way~~ _New in 0.2.0!_
 - [ ] Auto launch Resolve when it's not open - I've ran into some issues while trying to connect to the C extension right after launching it, a dirty way to do it is to just implement a `time.sleep` before trying to import the fusionscript module, otherwise we'll need to create another entrypoint to the api for launching the process and then signaling when it's ready 
 - [ ] Do the same wrapper made for settings to Metadata and Properties
 
