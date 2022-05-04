@@ -73,14 +73,14 @@ class MarkerCollection(object):
     def add(
         self,
         frameid: int,
-        color: str,
+        color: COLORS,
         name: str,
         *,
         note: str = "",
         duration: int = 1,
         customdata: str = "",
         overwrite: bool = False,
-    ) -> Optional["Marker"]:
+    ) -> "Marker":
         """
         Adds a marker.
 
@@ -106,7 +106,7 @@ class MarkerCollection(object):
                 log.info(
                     f"Marker at {frameid} already exists. Skipping... If you want to overwrite, use overwrite = True"
                 )
-                return None
+                return None  # type: ignore
             else:
                 log.warn(f"Marker at frame {frameid} already exists. Overwriting ...")
                 f = frameid
@@ -131,7 +131,7 @@ class MarkerCollection(object):
             log.error(
                 "Couldn't add marker. Make sure the frameid is correct and the duration isn't bigger than the clips' length."
             )
-            return None
+            return None  # type: ignore
 
     def find(self, needle: str) -> Optional["Marker"]:
         """Finds the first marker that matches `needle` for the `Marker's` `note`, `name` or `customdata`
@@ -176,7 +176,7 @@ class MarkerCollection(object):
         self,
         *,
         frameid: int = 0,
-        color: str = "",
+        color: COLORS = "",  # type: ignore
         customdata: str = "",
     ) -> bool:
         """
@@ -376,7 +376,7 @@ class Marker(object):
         self._data[key] = value  # type: ignore
         self._interface.add(
             frameid=self._data["frameid"],
-            color=self._data["color"],
+            color=self._data["color"],  # type: ignore
             name=self._data["name"],
             note=self._data["note"],
             duration=self._data["duration"],
