@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydavinci",
-    version="0.2.1",
+    version="0.2.2",
     author="Pedro Labonia",
     author_email="pedromslabonia@gmail.com",
     description="A Davinci Resolve API Wrapper",
