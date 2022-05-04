@@ -12,7 +12,7 @@ STR_FORMAT = (
     "<cyan>{module}</cyan>:<cyan>{line}</cyan> | <level>{message}</level> |"
 )
 
-logger.add(sink=sys.stderr, backtrace=True, format=STR_FORMAT)
+logger.add(sink=sys.stderr, backtrace=True, format=STR_FORMAT, level="INFO")
 
 
 def info(message: str, depth: int = 2) -> None:
