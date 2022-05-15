@@ -732,14 +732,14 @@
 </ul>
 <hr />
 <h3 id="installation-requirements-and-guidelines">Installation requirements and guidelines</h3>
-<p>pydavinci <strong>only works with <code>Python 3.6.*</code></strong>, as that's a requirement on DaVinci Resolve's part. </p>
+<p>pydavinci <strong>only works with <code>Python 3.6.*</code></strong>, as that's a requirement on DaVinci Resolve's part.</p>
 <p>For launching scripts externally, you also need the <strong>Studio</strong> version.</p>
 <p>If you're working with the built-in Davinci Resolve Python console, you need to install <code>pydavinci</code> for the Python interpreter that's used by Davinci's console.</p>
 <p>For avoiding conflicts when using inside the embedded console, don't use <code>resolve</code> as the entry point variable, as that's reserved by the console. Example of suggested usage:</p>
 <p><img src=https://user-images.githubusercontent.com/4316044/164998485-8a4e6fa7-3f8c-436c-b9ab-43350a3e6766.png /></p>
 <hr />
 <h4 id="davinci-resolve-v18-beta">Davinci Resolve v18 beta</h4>
-<p>For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported. </p>
+<p>For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported.</p>
 <p>If you want to try out <code>pydavinci</code> with new Python versions for Resolve v18, use pip with the <code>--ignore-requires-python</code> flag.</p>
 <p>Note that while I did some quick tests, I can't guarantee everything works on Resolve v18 beta. Full testing will become available as further betas come through, and will be supported fully on the official release.</p>
 <hr />
@@ -755,7 +755,7 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Document all possible values of <code>get_setting</code> and <code>set_setting</code></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add a better way of interfacing with the whole <code>get_setting</code> and <code>set_setting</code> methods using a proxy class or something to that effect</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Deal with markers in a better way</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Auto launch Resolve when it's not open - I've ran into some issues while trying to connect to the C extension right after launching it, a dirty way to do it is to just implement a <code>time.sleep</code> before trying to import the fusionscript module, otherwise we'll need to create another entrypoint to the api for launching the process and then signaling when it's ready </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Auto launch Resolve when it's not open - I've ran into some issues while trying to connect to the C extension right after launching it, a dirty way to do it is to just implement a <code>time.sleep</code> before trying to import the fusionscript module, otherwise we'll need to create another entrypoint to the api for launching the process and then signaling when it's ready</li>
 </ul>
 <p>If you want to contribute feel free to open a pull request!</p>
 
