@@ -278,7 +278,7 @@ class TimelineItem(object):
             node_index (int): node index
 
         Returns:
-            str: LUT name. Example: ``Sony/SLog3SGamut3.CineToLC-709TypeA.cube``
+            str: LUT name. Example: ``'Sony/SLog3SGamut3.CineToLC-709TypeA.cube'``
         """
         return self._obj.GetLUT(node_index)
 
