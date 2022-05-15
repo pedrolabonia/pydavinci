@@ -1,5 +1,7 @@
 from typing import TYPE_CHECKING, Any, Dict, List, Union
+
 from typing_extensions import Literal
+
 from pydavinci.utils import is_resolve_obj
 from pydavinci.wrappers.marker import MarkerCollection
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
@@ -257,7 +259,7 @@ class TimelineItem(object):
 
     def set_lut(self, node_index: int, lut_path: str) -> bool:
         """
-        Sets lut located on ``lut_path`` at ``node_index``
+        Sets LUT located on ``lut_path`` at ``node_index``
 
         Args:
             node_index (int): node index
@@ -267,6 +269,18 @@ class TimelineItem(object):
             bool: ``True`` if successful, ``False`` otherwise
         """
         return self._obj.SetLUT(node_index, lut_path)
+
+    def get_lut(self, node_index: int) -> "str":
+        """
+        Gets LUT at ``node_index``
+
+        Args:
+            node_index (int): node index
+
+        Returns:
+            str: LUT name. Example: ``'Sony/SLog3SGamut3.CineToLC-709TypeA.cube'``
+        """
+        return self._obj.GetLUT(node_index)
 
     def set_cdl(self, cdl: Dict[Any, Any]) -> bool:
         """
