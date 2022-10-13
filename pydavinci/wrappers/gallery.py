@@ -43,12 +43,12 @@ class Gallery(object):
         return self._obj.SetAlbumName(gallery_still_album, name)
 
     @property
-    def album(self) -> bool:
+    def album(self) -> "GalleryStillAlbum":
         """
         Returns current album as a ``GalleryStillAlbum`` object.
 
         Returns:
-            bool: ``True`` if successful, ``False`` otherwise
+            GalleryStillAlbum: ``GalleryStillAlbum`` object
         """
         return self._obj.GetCurrentStillAlbum()
  
