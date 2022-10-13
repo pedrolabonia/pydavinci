@@ -58,7 +58,7 @@ class Project(object):
         return self._obj.GetTimelineCount()
     
     @property
-    def timelines(self) -> list:
+    def timelines(self) -> List["Timeline"]:
         """
         Returns all timelines
         
