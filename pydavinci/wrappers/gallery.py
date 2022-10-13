@@ -71,7 +71,3 @@ class Gallery(object):
             (List[GalleryStill]): List of ``GalleryStillAlbum`` objects
         """
         return self._obj.GetGalleryStillAlbums()
-    
-def __repr__(self) -> str:
-    current_album = self._obj.GetCurrentStillAlbum()
-    return f"Gallery(Current album name: {self._obj.GetAlbumName(current_album)})"
