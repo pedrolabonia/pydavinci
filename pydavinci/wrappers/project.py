@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from pydavinci.wrappers.mediapool import MediaPool
     from pydavinci.wrappers.settings.constructor import ProjectSettings
     from pydavinci.wrappers.timeline import Timeline
+    from pydavinci.wrappers.gallery import Gallery
 
 
 class Project(object):
@@ -489,5 +490,15 @@ class Project(object):
         """
         return self._obj.RefreshLUTList()
 
+    @property
+    def gallery(self) -> "Gallery":
+        """
+        Returns the ``Gallery`` object.
+
+        Returns:
+            Gallery: The ``Gallery`` object
+        """
+        return self._obj.GetGallery()
+    
     def __repr__(self) -> str:
         return f'Project(Name: "{self.name})"'
