@@ -147,7 +147,7 @@ class MarkerCollection(object):
         return None
 
     def find_all(self, needle: str) -> Optional[List["Marker"]]:
-        """Finds all markers that match `needle` for the `Marker's` `note`, `name` or `customdata`
+        """Finds all markers that match `needle` for the `Marker's` `note`, `name`, `customdata` or `color`. 
 
         Returns:
             (Optional[List[Marker]]): all markers found or if none found, returns `None`
@@ -155,7 +155,7 @@ class MarkerCollection(object):
         _ret: List[Marker] = []
 
         for marker in self._cache.values():
-            if needle == marker.note or needle == marker.name or needle == marker.customdata:
+            if needle == marker.note or needle == marker.name or needle == marker.customdata or needle == marker.color:
                 _ret.append(marker)
 
         return _ret if _ret else None
