@@ -134,14 +134,14 @@ class MarkerCollection(object):
             return None  # type: ignore
 
     def find(self, needle: str) -> Optional["Marker"]:
-        """Finds the first marker that matches `needle` for the `Marker's` `note`, `name` or `customdata`
+        """Finds the first marker that matches `needle` for the `Marker's` `note`, `name`, `customdata` or `color`.
 
         Returns:
             (Marker): first marker found with matching query
         """
 
         for marker in self._cache.values():
-            if needle == marker.note or needle == marker.name or needle == marker.customdata:
+            if needle == marker.note or needle == marker.name or needle == marker.customdata or needle == marker.color:
                 return marker
 
         return None
