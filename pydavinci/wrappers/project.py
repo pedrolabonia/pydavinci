@@ -55,6 +55,24 @@ class Project(object):
             timeline count
         """
         return self._obj.GetTimelineCount()
+    
+    @property
+    def timelines(self) -> Union[list["Timeline"], None]:
+        """
+        Returns all timelines
+        
+        Returns:
+            list[Timeline]: timelines
+        """
+        
+        from pydavinci.wrappers.timeline import Timeline
+
+        timelines = []
+        count = self._obj.GetTimelineCount()
+        for i in range(count):
+            timelines.append(Timeline(self._obj.GetTimelineByIndex(i + 1)))
+        
+        return timelines if timelines else None
 
     @property
     def name(self) -> str:
