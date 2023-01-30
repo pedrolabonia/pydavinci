@@ -20,6 +20,6 @@ setuptools.setup(
     ),
     packages=setuptools.find_packages(),
     package_data={"pydavinci": ["py.typed"]},
-    python_requires=">=3.6.*",
+    python_requires=">==3.6.*",
     install_requires=["loguru==0.6.0", "pydantic==1.9.0", "typing_extensions==4.1.1"],
 )
