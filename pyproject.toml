@@ -25,6 +25,9 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/pedrolabonia/pydavinci"
+Source = "https://github.com/pedrolabonia/pydavinci"
+Documentation = "https://pedrolabonia.github.io/pydavinci/resolve"
+Changelog = "https://github.com/pedrolabonia/pydavinci/tags"
 
 [tool.hatch.version]
 path = "src/pydavinci/__init__.py"
