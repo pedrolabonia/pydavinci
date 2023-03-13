@@ -1,4 +1,5 @@
 repos:
+
 # Standard hooks
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.2.0
@@ -12,12 +13,14 @@ repos:
   - id: mixed-line-ending
   - id: requirements-txt-fixer
   - id: trailing-whitespace
+
 # Black, the code formatter, natively supports pre-commit
 - repo: https://github.com/psf/black
   rev: 22.3.0
   hooks:
   - id: black
     # By default, this ignores pyi files, though black supports them
+
 # Ruff supports flake8, bugbear rules
 - repo: https://github.com/charliermarsh/ruff-pre-commit
   rev: 'v0.0.254'
