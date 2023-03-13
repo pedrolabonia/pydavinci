@@ -1,0 +1,34 @@
+
+# Enable flake8-bugbear (`B`) rules.
+select = [
+    "B",
+    "C",
+    "F",
+    "W",
+    "TCH",
+    "B9",
+]
+
+# Never enforce `E501` (line length violations).
+ignore = [
+    "E501",
+    "F403",
+    "E501",
+    "F403",
+    "E501",
+    "N805",
+    "N804",
+    "W293",
+]
+
+src = ["src"]
+
+# Avoid trying to fix flake8-bugbear (`B`) violations.
+unfixable = ["B"]
+
+[mccabe]
+max-complexity = 18
+
+# Ignore `E402` (import violations) in all `__init__.py` files.
+[per-file-ignores]
+"__init__.py" = ["E402"]

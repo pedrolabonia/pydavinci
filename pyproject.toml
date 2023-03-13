@@ -23,6 +23,13 @@ dependencies = [
     "typing_extensions>=4.1.1",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "black",
+    "flake8",
+    "pre-commit",
+]
 [project.urls]
 Homepage = "https://github.com/pedrolabonia/pydavinci"
 Source = "https://github.com/pedrolabonia/pydavinci"
