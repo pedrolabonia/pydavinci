@@ -30,6 +30,15 @@ dev = [
     "flake8",
     "pre-commit",
 ]
+docs = [
+    "pydavinci[dev]",
+    "mkdocs",
+    "mkdocs-autorefs",
+    "mkdocs-material-extensions",
+    "mkdocstrings",
+    "mkdocstrings-python",
+]
+
 [project.urls]
 Homepage = "https://github.com/pedrolabonia/pydavinci"
 Source = "https://github.com/pedrolabonia/pydavinci"
@@ -38,6 +47,12 @@ Changelog = "https://github.com/pedrolabonia/pydavinci/tags"
 
 [tool.hatch.version]
 path = "src/pydavinci/__init__.py"
+
+[tool.hatch.envs.docs]
+detached = true
+dependencies = [
+    "pydavinci[docs]"
+]
 
 [tool.hatch.build.targets.sdist]
 include = [
