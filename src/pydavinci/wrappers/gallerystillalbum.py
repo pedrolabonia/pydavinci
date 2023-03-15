@@ -1,12 +1,12 @@
 from typing import TYPE_CHECKING, List
 from pydavinci.utils import is_resolve_obj
+
 from pydavinci.wrappers.gallerystill import GalleryStill
 
 if TYPE_CHECKING:
+    from pydavinci.wrappers._resolve_stubs import PyRemoteGallery  # type: ignore
     from pydavinci.wrappers._resolve_stubs import PyRemoteGalleryStillAlbum  # type: ignore
-    
-class GalleryStillAlbum(object):
-    def __init__(self, obj: "PyRemoteGalleryStillAlbum") -> None:
+
 
         if is_resolve_obj(obj):
             self._obj: "PyRemoteGalleryStillAlbum" = obj

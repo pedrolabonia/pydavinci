@@ -3,14 +3,16 @@
 #   timestamp: 2022-04-27T02:50:45+00:00
 
 from pathlib import Path
-from typing import Any, Optional, Type, Union
+from typing import TYPE_CHECKING, Any, Optional, Type, Union
 
 from pydantic import BaseModel, DirectoryPath, Field, validator
-from pydantic.fields import ModelField
 from typing_extensions import Literal
 
 import pydavinci.wrappers.settings.map as map
 from pydavinci.wrappers.settings.validator import BaseConfig
+
+if TYPE_CHECKING:
+    from pydantic.fields import ModelField
 
 ## Not using the aliases because mkdocs/mkdocstrings/griffe can't infer them to build the documentation
 

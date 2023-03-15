@@ -3,9 +3,9 @@ from pydavinci.utils import is_resolve_obj
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteGalleryStill  # type: ignore
+    from pydavinci.wrappers._resolve_stubs import PyRemoteGalleryStillAlbum  # type: ignore
 
-class GalleryStill(object):
-    def __init__(self, obj: "PyRemoteGalleryStill") -> None:
+
 
         if is_resolve_obj(obj):
             self._obj: "PyRemoteGalleryStill" = obj

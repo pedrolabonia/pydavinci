@@ -1,15 +1,15 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Union
+from typing import TYPE_CHECKING, List
 
-from typing_extensions import Literal
 
 from pydavinci.utils import is_resolve_obj
+
 from pydavinci.wrappers.gallerystillalbum import GalleryStillAlbum
-from pydavinci.wrappers.timeline import Timeline
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteGallery  # type: ignore
-    
-class Gallery(object):
+    from pydavinci.wrappers._resolve_stubs import PyRemoteGallery
+
+
+class Gallery:
     def __init__(self, obj: "PyRemoteGallery") -> None:
 
         if is_resolve_obj(obj):

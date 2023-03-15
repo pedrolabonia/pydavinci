@@ -63,7 +63,7 @@ COLORS = Literal[
 ]
 
 
-class MarkerCollection(object):
+class MarkerCollection:
     def __init__(self, obj: "PydavinciParent") -> None:
         self._obj: "PydavinciParent" = obj
         self._parent_obj: "RemoteMarkerParent" = obj._obj
@@ -141,13 +141,18 @@ class MarkerCollection(object):
         """
 
         for marker in self._cache.values():
-            if needle == marker.note or needle == marker.name or needle == marker.customdata or needle == marker.color:
+            if (
+                needle == marker.note
+                or needle == marker.name
+                or needle == marker.customdata
+                or needle == marker.color
+            ):
                 return marker
 
         return None
 
     def find_all(self, needle: str) -> Optional[List["Marker"]]:
-        """Finds all markers that match `needle` for the `Marker's` `note`, `name`, `customdata` or `color`. 
+        """Finds all markers that match `needle` for the `Marker's` `note`, `name`, `customdata` or `color`.
 
         Returns:
             (Optional[List[Marker]]): all markers found or if none found, returns `None`
@@ -155,7 +160,12 @@ class MarkerCollection(object):
         _ret: List[Marker] = []
 
         for marker in self._cache.values():
-            if needle == marker.note or needle == marker.name or needle == marker.customdata or needle == marker.color:
+            if (
+                needle == marker.note
+                or needle == marker.name
+                or needle == marker.customdata
+                or needle == marker.color
+            ):
                 _ret.append(marker)
 
         return _ret if _ret else None
@@ -238,7 +248,7 @@ class MarkerCollection(object):
             (List[Marker])
         """
         self.fetch()
-        return [x for x in self._cache.values()]
+        return list(self._cache.values())
 
     def _cache_add(self, marker: "Marker") -> None:
         self._cache.update({marker._frameid: marker})
@@ -287,7 +297,7 @@ class MarkerCollection(object):
         return
 
 
-class Marker(object):
+class Marker:
     def __init__(
         self,
         interface: "MarkerCollection",
