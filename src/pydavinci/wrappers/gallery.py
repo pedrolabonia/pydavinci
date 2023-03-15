@@ -17,31 +17,8 @@ class Gallery:
         else:
             raise TypeError(f"{type(obj)} is not a valid {self.__class__.__name__} type")
 
-    # TODO: make get/set_album_name properties of "GalleryStillAlbum" instead of "Gallery"
-    # Not sure how to go about this. Seems unnatural having to pass the album back to the
-    # parent object just to get and set the album name. --in03
-    
-    def get_album_name(self, gallery_still_album: "GalleryStillAlbum") -> str:
-        """
-        Gets name of ``GalleryStillAlbum``
-
-        Returns:
-            str: name
-        """
-        return self._obj.GetAlbumName(gallery_still_album)
-    
-    def set_album_name(self, gallery_still_album: "GalleryStillAlbum", name: str) -> bool:
-        """
-        Changes ``GalleryStillAlbum`` name to ``name``
-
-        Args:
-            name (str): new ``GalleryStillAlbum`` name
-
-        Returns:
-            bool: ``True`` if successful, ``False`` otherwise
-        """
-        return self._obj.SetAlbumName(gallery_still_album, name)
-
+    # TODO: Does "Album" adequately imply current album?
+    # Not sure if I should follow "active_timeline" convention here.
     @property
     def album(self) -> "GalleryStillAlbum":
         """
@@ -50,10 +27,10 @@ class Gallery:
         Returns:
             GalleryStillAlbum: ``GalleryStillAlbum`` object
         """
-        return self._obj.GetCurrentStillAlbum()
- 
-    @album.setter  
-    def album(self, gallery_still_album: "GalleryStillAlbum") -> bool:
+        return GalleryStillAlbum(self._obj, self._obj.GetCurrentStillAlbum())
+
+    @album.setter
+    def album(self, gallery_still_album: str) -> bool:
         """
         Changes current album to ``GalleryStillAlbum`` object.
 
@@ -61,7 +38,7 @@ class Gallery:
             bool: ``True`` if successful, ``False`` otherwise
         """
         return self._obj.SetCurrentStillAlbum(gallery_still_album)
-    
+
     @property
     def albums(self) -> List["GalleryStillAlbum"]:
         """
@@ -70,4 +47,5 @@ class Gallery:
         Returns:
             (List[GalleryStill]): List of ``GalleryStillAlbum`` objects
         """
-        return self._obj.GetGalleryStillAlbums()
+
+        return [GalleryStillAlbum(self._obj, x) for x in self._obj.GetGalleryStillAlbums()]
