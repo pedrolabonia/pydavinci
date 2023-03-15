@@ -27,8 +27,9 @@ dependencies = [
 dev = [
     "mypy",
     "black",
-    "flake8",
+    "ruff",
     "pre-commit",
+    "pytest",
 ]
 docs = [
     "pydavinci[dev]",
