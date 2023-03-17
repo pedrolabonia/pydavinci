@@ -501,5 +501,15 @@ class Project:
         """
         return Gallery(self._obj.GetGallery())
 
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `Project` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()
+
     def __repr__(self) -> str:
         return f'Project(Name: "{self.name})"'

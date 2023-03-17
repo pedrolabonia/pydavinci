@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteMediaPool
 
 
-class MediaPool(object):
+class MediaPool:
     def __init__(self) -> None:
 
         self._obj: PyRemoteMediaPool = (
@@ -304,3 +304,13 @@ class MediaPool(object):
             return self._obj.ExportMetadata(file_name, get_resolveobjs(clips))
         else:
             return self._obj.ExportMetadata(file_name)
+
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `MediaPool` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()

@@ -536,5 +536,15 @@ class Timeline:
         """
         return TimelineItem(self._obj.InsertFusionTitleIntoTimeline(title_name))
 
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `Timeline` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()
+
     def __repr__(self) -> str:
         return f"Timeline(name: {self.name})"
