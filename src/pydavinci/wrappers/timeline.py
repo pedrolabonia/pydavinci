@@ -51,7 +51,8 @@ class Timeline:
     @property
     def settings(self) -> "TimelineSettings":
         """Returns the [`TimelineSettings`](../settings/timeline) interface.
-        [`Timeline.custom_settings(True)`](./#pydavinci.wrappers.timeline.Timeline.custom_settings) must be called first."""
+        [`Timeline.custom_settings(True)`](./#pydavinci.wrappers.timeline.Timeline.custom_settings) must be called first.
+        """
         if self.get_setting("useCustomSettings") == "0":
             # doing the check here again in case user uses self.set_setting("useCustomSettings")
             # need to be compatible with that too
@@ -201,12 +202,22 @@ class Timeline:
     @property
     def timecode(self) -> str:
         """
-        Gets current timecode
+        Gets current timecode (timecode at playhead)
 
         Returns:
             str: timecode
         """
         return self._obj.GetCurrentTimecode()
+
+    @timecode.setter
+    def timecode(self, timecode: str) -> bool:
+        """
+        Sets current timecode (moves playhead to timecode)
+
+        Returns:
+            str: timecode
+        """
+        return self._obj.SetCurrentTimecode(timecode)
 
     @property
     def current_video_item(self) -> "TimelineItem":
@@ -436,7 +447,6 @@ class Timeline:
         }
 
         if export_subtype:
-
             return self._obj.Export(
                 file_name, export_type_map[export_type], export_subtype_map[export_subtype]
             )
