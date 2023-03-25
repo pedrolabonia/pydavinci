@@ -11,10 +11,11 @@ from pydavinci.wrappers.timelineitem import TimelineItem
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
+    from pydavinci.wrappers.gallerystill import GalleryStill
     from pydavinci.wrappers.settings.constructor import TimelineSettings
 
 
-class Timeline(object):
+class Timeline:
     def __init__(self, *args: Any) -> None:
         if args:
             if is_resolve_obj(args[0]):
@@ -160,6 +161,26 @@ class Timeline(object):
             raise ValueError(TRACK_ERROR)
 
         return [TimelineItem(x) for x in self._obj.GetItemListInTrack(track_type, track_index)]
+
+    def grab_all_stills(self, still_frame_source: int) -> List["GalleryStill"]:
+        """
+        Grabs stills from all the clips of the timeline.
+        Args:
+            still_frame_source: (1 - First frame, 2 - Middle frame)
+
+        Returns:
+            (List[GalleryStill]): list of ``GalleryStill`` objects
+        """
+        # TODO: Validate still_frame_source range
+        return self._obj.GrabAllStills(still_frame_source)
+
+    def grab_still(self) -> "GalleryStill":
+        """
+        Grabs still from the current video clip.
+        Returns:
+            GalleryStill: ``GalleryStill`` object
+        """
+        return self._obj.GrabStill()
 
     def apply_grade_from_DRX(
         self, drx_path: str, grade_mode: int, timeline_items: List["TimelineItem"]
@@ -524,6 +545,16 @@ class Timeline(object):
             (TimelineItem): fusion title
         """
         return TimelineItem(self._obj.InsertFusionTitleIntoTimeline(title_name))
+
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `Timeline` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()
 
     def __repr__(self) -> str:
         return f"Timeline(name: {self.name})"

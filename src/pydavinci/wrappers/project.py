@@ -5,6 +5,8 @@ from pydavinci.main import resolve_obj
 from pydavinci.utils import is_resolve_obj
 from pydavinci.wrappers.settings.constructor import get_prj_settings
 
+from pydavinci.wrappers.gallery import Gallery
+
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteProject
     from pydavinci.wrappers.mediapool import MediaPool
@@ -12,7 +14,7 @@ if TYPE_CHECKING:
     from pydavinci.wrappers.timeline import Timeline
 
 
-class Project(object):
+class Project:
     def __init__(self, *args: Any) -> None:
         if args:
             if is_resolve_obj(args[0]):
@@ -55,23 +57,23 @@ class Project(object):
             timeline count
         """
         return self._obj.GetTimelineCount()
-    
+
     @property
     def timelines(self) -> Union[list["Timeline"], None]:
         """
         Returns all timelines
-        
+
         Returns:
             list[Timeline]: timelines
         """
-        
+
         from pydavinci.wrappers.timeline import Timeline
 
         timelines = []
         count = self._obj.GetTimelineCount()
         for i in range(count):
             timelines.append(Timeline(self._obj.GetTimelineByIndex(i + 1)))
-        
+
         return timelines if timelines else None
 
     @property
@@ -488,6 +490,26 @@ class Project(object):
             None: None
         """
         return self._obj.RefreshLUTList()
+
+    @property
+    def gallery(self) -> "Gallery":
+        """
+        Returns the ``Gallery`` object.
+
+        Returns:
+            Gallery: The ``Gallery`` object
+        """
+        return Gallery(self._obj.GetGallery())
+
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `Project` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()
 
     def __repr__(self) -> str:
         return f'Project(Name: "{self.name})"'

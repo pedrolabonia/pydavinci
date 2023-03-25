@@ -13,13 +13,13 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pedrolabonia/pydavinci",
-    classifiers=(
+    classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-    ),
+    ],
     packages=setuptools.find_packages(),
     package_data={"pydavinci": ["py.typed"]},
-    python_requires="==3.6.*",
-    install_requires=["loguru==0.6.0", "pydantic==1.9.0", "typing_extensions==4.1.1"],
+    python_requires=">=3.6.0,<4.0.0",
+    install_requires=["loguru>=0.6.0", "pydantic>=1.9.0", "typing_extensions>=4.1.1"],
 )

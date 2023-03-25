@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteTimelineItem  # type: ignore
 
 
-class TimelineItem(object):
+class TimelineItem:
     def __init__(self, obj: "PyRemoteTimelineItem") -> None:
 
         if is_resolve_obj(obj):
@@ -408,6 +408,16 @@ class TimelineItem(object):
             bool: ``True`` if successful, ``False`` otherwise
         """
         return self._obj.CopyGrades([x._obj for x in timeline_items])
+
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `TimelineItem` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()
 
     def __repr__(self) -> str:
         clip_repr = str(self.start) + "{| " + str(self.duration) + " |}" + str(self.end)

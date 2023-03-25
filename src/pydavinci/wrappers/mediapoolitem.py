@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteMediaPoolItem
 
 
-class MediaPoolItem(object):
+class MediaPoolItem:
     # TODO:
     # Implement a way to acess metadata such as mediapoolitem.metadata['Good Take'] = True
     # Meed to mess around with a private dict that uses
@@ -198,6 +198,16 @@ class MediaPoolItem(object):
             bool: ``True`` if successful, ``False`` otherwise
         """
         return self._obj.ReplaceClip(path)
+
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `MediaPoolItem` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()
 
     def __repr__(self) -> str:
         return f'MediaPoolItem(Name:"{self.name})"'
