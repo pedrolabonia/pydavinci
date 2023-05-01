@@ -151,7 +151,6 @@ class ProjectManager(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        print("entru open folder")
         return self._obj.OpenFolder(folder_name)
 
     def import_project(self, path: str) -> bool:
