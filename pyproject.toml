@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pydavinci18"
+name = "pydavinci-18"
 dynamic = ["version"]
 description = "Fork of PyDavinci supporting Resolve 18"
 readme = "README.md"
