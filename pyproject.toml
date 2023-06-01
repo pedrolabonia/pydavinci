@@ -3,14 +3,14 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pydavinci"
+name = "pydavinci18"
 dynamic = ["version"]
-description = "A Davinci Resolve API Wrapper"
+description = "Fork of PyDavinci supporting Resolve 18"
 readme = "README.md"
 license = ""
 requires-python = ">=3.10.0,<4.0.0"
 authors = [
-    { name = "Pedro Labonia", email = "pedromslabonia@gmail.com" },
+    { name = "Caleb Trevatt", email = "sk188okj@duck.com" },
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",
@@ -41,10 +41,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/pedrolabonia/pydavinci"
-Source = "https://github.com/pedrolabonia/pydavinci"
-Documentation = "https://pedrolabonia.github.io/pydavinci/resolve"
-Changelog = "https://github.com/pedrolabonia/pydavinci/tags"
+Homepage = "https://github.com/in03/pydavinci"
+Source = "https://github.com/in03/pydavinci"
+Documentation = "https://in03.github.io/pydavinci/resolve"
+Changelog = "https://github.com/in03/pydavinci/tags"
 
 [tool.hatch.version]
 path = "src/pydavinci/__init__.py"
