@@ -1,7 +1,7 @@
 <h1 align='center'>PyDavinci18 🍴</h1>
 
 
-> **Note: This project is a fork of Pydavinci!**
+> **Note**: **This project is a fork of Pydavinci!**
 > 
 > PyDavinci is developed by [Pedro Labonia](https://github.com/pedrolabonia) 
 > - [Original project](https://github.com/pedrolabonia/pydavinci)
@@ -22,7 +22,7 @@ I plan to service my needs here where the official project is lacking, but I'm m
 I personally think PyDavinci is the most comprehensive and intuitive API wrapper for DaVinci Resolve. I'd like to see it continue growing! It's very thorough and makes building Python apps for Resolve quick and easy.
 
 ### Anything else to note?
-- Although the package's name is `in03_pydavinci`, do not install this alongside the original, as installations will collide. The project uses the same namespace as `pydavinci`.
+- Although the package's name is `pydavinci18`, do not install this alongside the original, as installations will collide. The project uses the same namespace as `pydavinci`.
 - Documentation is still sparse as I find time to update it! For now go to the original [PyDavinci project](https://github.com/pedrolabonia/pydavinci)
 
 ---
