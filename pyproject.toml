@@ -54,10 +54,16 @@ detached = true
 dependencies = [
     "pydavinci[docs]"
 ]
+[tool.hatch.build]
+sources = ["src"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "/pydavinci",
+    "pydavinci",
+]
+[tool.hatch.build.targets.wheel]
+include = [
+    "pydavinci",
 ]
 
 [tool.mypy]
