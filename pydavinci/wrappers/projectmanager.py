@@ -67,7 +67,7 @@ class ProjectManager(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        return self._obj.CloseProject(project_name._obj)
+        return self._obj.CloseProject(project_name)
 
     def create_folder(self, folder_name: str) -> bool:
         """
