@@ -1,2 +1,2 @@
-class PyRemoteObject(object):
+class PyRemoteObject:
     pass

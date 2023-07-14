@@ -3,9 +3,8 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from pydavinci.exceptions import ObjectNotFound
 from pydavinci.main import resolve_obj
 from pydavinci.utils import is_resolve_obj
-from pydavinci.wrappers.settings.constructor import get_prj_settings
-
 from pydavinci.wrappers.gallery import Gallery
+from pydavinci.wrappers.settings.constructor import get_prj_settings
 
 if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteProject
@@ -135,7 +134,6 @@ class Project:
 
         if block and job_id == "":
             while job_id == "":
-
                 job_id = self._obj.AddRenderJob()
 
             return job_id

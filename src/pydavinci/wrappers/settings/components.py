@@ -215,7 +215,9 @@ class Perf(BaseConfig):
     optimized_resolution_ratio: Literal[
         "original", "half", "quarter", "one_eighth", "one_sixteenth", "auto"
     ] = Field(alias="perfOptimizedResolutionRatio")
-    proxy_media_on: bool = Field(alias="perfProxyMediaOn")
+    proxy_media_mode: Literal["disable", "prefer_proxies", "prefer_originals"] = Field(
+        alias="perfProxyMediaMode"
+    )
     proxy_resolution_ratio: Literal["original", "half", "quarter"] = Field(
         alias="perfProxyResolutionRatio"
     )
@@ -231,6 +233,10 @@ class Perf(BaseConfig):
         "apch",
     ] = Field(alias="perfRenderCacheCodec")
     render_cache_mode: Literal["user", "smart", "none"] = Field(alias="perfRenderCacheMode")
+
+    @validator("proxy_media_mode")  # type: ignore
+    def proxy_validator(cls: Type["BaseModel"], value: str, field: "ModelField") -> str | None:  # type: ignore
+        return map.perf_proxy_media_transform(value) if value else None
 
     _selfvalidate: Optional[bool]
     _obj: Optional[Any]
@@ -356,7 +362,6 @@ class ProjectUniqueSettings(BaseConfig):
 
 
 class TimelineMeta(BaseConfig):
-
     drop_frame_timecode: bool = Field(alias="timelineDropFrameTimecode")
     frame_rate: float = Field(alias="timelineFrameRate")
     input_res_mismatch_behavior: Literal[
@@ -381,7 +386,6 @@ class TimelineMeta(BaseConfig):
 
 
 class CommonMonitor(BaseConfig):
-
     monitor_bit_depth: int = Field(alias="videoMonitorBitDepth")
     monitor_format: str = Field(alias="videoMonitorFormat")
     monitor_matrix_override_for422_sdi: Literal["Rec.2020", "Rec.709", "Rec.601"] = Field(
@@ -406,7 +410,6 @@ class CommonMonitor(BaseConfig):
 
 
 class CommonSettings(BaseConfig):
-
     super_scale: Literal["auto", "no_scaling", "2x", "3x", "4x"] = Field(alias="superScale")
     video_data_levels: Literal["Video", "Full"] = Field(alias="videoDataLevels")
     video_data_levels_retain_subblock_and_super_white_data: bool = Field(
@@ -414,10 +417,9 @@ class CommonSettings(BaseConfig):
     )
 
     @validator("super_scale")  # type: ignore
-    def superscale_validator(cls: Type["BaseModel"], value: Union[int, str], field: "ModelField") -> Optional[Union[str, int]]:  # type: ignore
+    def superscale_validator(cls: Type["BaseModel"], value: int | str, field: "ModelField") -> str | int | None:  # type: ignore
         return map.super_scale_transform(value)
 
 
 class TimelineUniqueSettings(BaseConfig):
-
     use_custom_settings: bool = Field(alias="useCustomSettings")

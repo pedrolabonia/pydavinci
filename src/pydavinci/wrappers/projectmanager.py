@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 # import fusionscript as dvr_script
 
 
-class ProjectManager(object):
+class ProjectManager:
     # try:  ## this is for when we do auto-launch
     #     _obj = resolve_obj.GetProjectManager()  # if using this one here, everything fails
     # except AttributeError:

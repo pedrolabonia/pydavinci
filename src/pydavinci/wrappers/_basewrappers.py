@@ -15,7 +15,7 @@ from pydavinci.connect import load_fusionscript
 from pydavinci.utils import default_resolve_install
 
 
-class BaseResolveWrapper(object):
+class BaseResolveWrapper:
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None) -> None:
 
         self.gui_latency = 7  # seconds
@@ -196,7 +196,7 @@ class BaseResolveWrapper(object):
         return
 
 
-class DavinciMarker(object):
+class DavinciMarker:
     @property
     def markers(self) -> Dict:
         """Gets all markers

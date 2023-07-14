@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from pydavinci.wrappers.timeline import Timeline
 
 
-class Resolve(object):
+class Resolve:
     def __init__(self, headless: Optional[bool] = None, path: Optional[str] = None):
 
         # this check is slow AF, to be implemented when we have auto-launch resolve
