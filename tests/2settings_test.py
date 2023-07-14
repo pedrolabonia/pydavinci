@@ -20,7 +20,6 @@ from pydavinci.wrappers.timelineitem import TimelineItem
 
 @pytest.fixture(autouse=True)
 def load():
-
     global resolve
     resolve = davinci.Resolve()
     global settings
@@ -47,6 +46,20 @@ def test_all_initialized():
 def test_res():
     assert settings.timeline.resolution_height == 1080
     assert settings.timeline.resolution_width == 1920
+
+
+def test_proxies():
+    settings.perf.proxy_media_mode = "disable"
+    assert settings.perf.proxy_media_mode == "disable"
+    assert resolve.project._obj.GetSetting("perfProxyMediaMode") == "0"
+
+    settings.perf.proxy_media_mode = "prefer_proxies"
+    assert settings.perf.proxy_media_mode == "prefer_proxies"
+    assert resolve.project._obj.GetSetting("perfProxyMediaMode") == "1"
+
+    settings.perf.proxy_media_mode = "prefer_originals"
+    assert settings.perf.proxy_media_mode == "prefer_originals"
+    assert resolve.project._obj.GetSetting("perfProxyMediaMode") == "2"
 
 
 def test_set_res():
