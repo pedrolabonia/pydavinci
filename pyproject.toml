@@ -36,7 +36,6 @@ dev = [
     "pytest-subtests"
 ]
 docs = [
-    "pydavinci[dev]",
     "mkdocs",
     "mkdocs-autorefs",
     "mkdocs-material-extensions",
@@ -45,23 +44,22 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/in03/pydavinci"
-Source = "https://github.com/in03/pydavinci"
-Documentation = "https://in03.github.io/pydavinci/resolve"
-Changelog = "https://github.com/in03/pydavinci/tags"
+Homepage = "https://github.com/pedrolabonia/pydavinci"
+Source = "https://github.com/pedrolabonia/pydavinci"
+Documentation = "https://pedrolabonia.github.io/pydavinci/"
+Changelog = "https://github.com/pedrolabonia/pydavinci/tags"
 
 [tool.hatch.version]
 path = "src/pydavinci/__init__.py"
 
 [tool.hatch.envs.docs]
-detached = true
-dependencies = [
-    "pydavinci[docs]"
+features = [
+    "docs"
 ] 
 
 [tool.hatch.envs.dev]
-dependencies = [
-    "pydavinci[dev]"
+features = [
+    "dev"
 ]
 
 [tool.hatch.build]
