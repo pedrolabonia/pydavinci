@@ -56,7 +56,13 @@ path = "src/pydavinci/__init__.py"
 detached = true
 dependencies = [
     "pydavinci[docs]"
+] 
+
+[tool.hatch.envs.dev]
+dependencies = [
+    "pydavinci[dev]"
 ]
+
 [tool.hatch.build]
 sources = ["src"]
 
