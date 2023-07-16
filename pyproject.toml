@@ -3,14 +3,17 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pydavinci-18"
+name = "pydavinci"
 dynamic = ["version"]
-description = "Fork of PyDavinci supporting Resolve 18"
+description = "A Davinci Resolve API Wrapper"
 readme = "README.md"
 license = ""
 requires-python = ">=3.10.0,<4.0.0"
 authors = [
-    { name = "Caleb Trevatt", email = "sk188okj@duck.com" },
+    { name = "Pedro Labonia", email = "pedromslabonia@gmail.com" },
+]
+maintainers = [
+    { name = "Caleb Trevatt", email = "sk188okj@duck.com"},
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",
