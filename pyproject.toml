@@ -33,6 +33,7 @@ dev = [
     "ruff",
     "pre-commit",
     "pytest",
+    "pytest-subtests"
 ]
 docs = [
     "pydavinci[dev]",
