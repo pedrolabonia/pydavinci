@@ -40,7 +40,6 @@ resolve = davinci.Resolve()
 ---
 
 ### Installation requirements and guidelines
-pydavinci __only works with `Python 3.6.*`__, as that's a requirement on DaVinci Resolve's part. 
 
 For launching scripts externally, you also need the __Studio__ version.
 
@@ -52,19 +51,11 @@ For avoiding conflicts when using inside the embedded console, don't use `resolv
 
 ---
 
-#### Davinci Resolve v18 beta
-For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported. 
-
-If you want to try out ``pydavinci`` with new Python versions for Resolve v18, use pip with the ``--ignore-requires-python`` flag.
-
-Note that while I did some quick tests, I can't guarantee everything works on Resolve v18 beta. Full testing will become available as further betas come through, and will be supported fully on the official release.
-
----
-
 ### Launching scripts externally (Studio version)
 
 
 For `pydavinci` to work by launching scripts outside the embedded console, make sure external scripting is set to `Local` in `Settings -> System -> General`
+
 <img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
 
 ## To-do and contributing
