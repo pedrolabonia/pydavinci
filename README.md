@@ -12,7 +12,7 @@
 
 - PyDavinci requires Python 3.10 or higher
 - External scripting with PyDavinci requires Resolve Studio 18 (Free version does not allow API access)
-- There is currently no release version for the Resolve 18 branch. Install it with git.
+- The pip version currently works for Davinci Resolve Studio 17. For use with Resolve 18, install it with git.
 
 ```bash
 pip install git+https://github.com/pedrolabonia/pydavinci
@@ -65,6 +65,7 @@ Here's a quick list of changes and added API support not present in the [origina
 - Added [Gallery API wrapper](https://github.com/in03/pydavinci/commit/10e7be6b4a4f538c2dec948857a7e3b1af9181a0) (untested)
 - Added [timeline.settings.timecode](https://github.com/in03/pydavinci/commit/67bb10f07414df040c511ff781cacd5c1d2eda4c) setter
 - Support Resolve's [GetUniqueID](https://github.com/in03/pydavinci/commit/f7520595a3708a0ca2b64a151de014c9b61b7318) method
+
 
 
 
