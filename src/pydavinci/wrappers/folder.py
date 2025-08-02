@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 
-class Folder(object):
+class Folder:
     def __init__(self, obj: "PyRemoteFolder") -> None:
         if is_resolve_obj(obj):
             self._obj: "PyRemoteFolder" = obj
@@ -46,6 +46,16 @@ class Folder(object):
             subfolders(List[Folder]): subfolders
         """
         return [Folder(x) for x in self._obj.GetSubFolderList()]
+
+    @property
+    def id(self) -> str:
+        """
+        Returns a unique ID for the `Folder` item
+
+        Returns:
+            str: Unique ID
+        """
+        return self._obj.GetUniqueId()
 
     def __repr__(self) -> str:
         return f'Folder(Name:"{self.name})"'

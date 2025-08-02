@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from pydavinci.wrappers._resolve_stubs import PyRemoteMediaStorage
 
 
-class MediaStorage(object):
+class MediaStorage:
     def __init__(self) -> None:
         self._obj: "PyRemoteMediaStorage" = resolve_obj.GetMediaStorage()
 

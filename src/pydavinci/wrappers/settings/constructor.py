@@ -13,7 +13,10 @@ from pydavinci.wrappers.settings.components import (
     TimelineMeta,
     TimelineUniqueSettings,
 )
-from pydavinci.wrappers.settings.map import super_scale_transform
+from pydavinci.wrappers.settings.map import (
+    perf_proxy_media_transform,
+    super_scale_transform,
+)
 
 if TYPE_CHECKING:
     from pydavinci.wrappers.project import Project
@@ -50,7 +53,6 @@ class ProjectSettings(_ProjectMeta, _ProjectSettings):
 
 
 def get_appropriate_keys(pydantic_model: Type["AnyModel"], data: Dict[Any, Any]) -> Dict[Any, Any]:
-
     # Since our base pydantic model is set to not allow extra keys,
     # we need to filter them since from the Davinci API they are all
     # together
@@ -66,13 +68,13 @@ def get_appropriate_keys(pydantic_model: Type["AnyModel"], data: Dict[Any, Any])
 
 
 def get_prj_settings(obj: "Project") -> ProjectSettings:
-
     data = obj._obj.GetSetting()
 
     # First setting validation to off, we just want Pydantic to infer the types for now
     # such as transforming str: "1" into int: 1 or str: "1" to bool: True on a bool field
     data["_selfvalidate"] = False
-
+    data["perfProxyMediaMode"] = perf_proxy_media_transform(data["perfProxyMediaMode"])
+    data["superScale"] = super_scale_transform(data["superScale"])
     audio = Audio.parse_obj(get_appropriate_keys(Audio, data))
     color = Color.parse_obj(get_appropriate_keys(Color, data))
     perf = Perf.parse_obj(get_appropriate_keys(Perf, data))
@@ -80,8 +82,6 @@ def get_prj_settings(obj: "Project") -> ProjectSettings:
     capture = Capture.parse_obj(get_appropriate_keys(Capture, data))
     playout = Playout.parse_obj(get_appropriate_keys(Playout, data))
     timeline = TimelineMeta.parse_obj(get_appropriate_keys(TimelineMeta, data))
-
-    data["superScale"] = super_scale_transform(data["superScale"])
 
     _projectsettings = _ProjectSettings.parse_obj(
         get_appropriate_keys(_ProjectSettings, data)
@@ -133,7 +133,6 @@ def get_prj_settings(obj: "Project") -> ProjectSettings:
 
 
 def get_tl_settings(obj: "Timeline") -> TimelineSettings:
-
     # Same thing as above, but way easier since we don't need complex
     # nesting like ProjectSettings.color.setting
 

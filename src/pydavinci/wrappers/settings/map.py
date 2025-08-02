@@ -49,6 +49,23 @@ def super_scale_transform(scale: Union[int, str]) -> Optional[Union[str, int]]:
     return scale
 
 
+def perf_proxy_media_transform(mode: str) -> str | None:
+    if mode == "0":
+        return "disable"
+    if mode == "1":
+        return "prefer_proxies"
+    if mode == "2":
+        return "prefer_originals"
+
+    if mode == "disable":
+        return "0"
+    if mode == "prefer_proxies":
+        return "1"
+    if mode == "prefer_originals":
+        return "2"
+    return None
+
+
 # This is a map that's applied when going from pydantic to the Resolve API.
 # Bool to intstr for example gets the bool type from Python, and converts it
 # either to a string "1" or "0"
@@ -142,7 +159,8 @@ SETTINGS_MAP = {
     "perfOptimisedCodec": str,
     "perfOptimisedMediaOn": bool_to_intstr,  # Menu: Playback -> Use Optimized media if Available
     "perfOptimizedResolutionRatio": str,
-    "perfProxyMediaOn": bool_to_intstr,  # Menu: Playback -> Use Proxy Media NOTE: this might change with the new v18 - test
+    # "perfProxyMediaOn": bool_to_intstr, \\ Deprecated in Davinci Resolve 18
+    "perfProxyMediaMode": perf_proxy_media_transform,
     "perfProxyResolutionRatio": str,  # This is not on the project settings, it's on the menu Playback -> Timeline Proxy Mode
     "perfRenderCacheCodec": str,
     "perfRenderCacheMode": str,  # Menu: Playback -> Render cache mode

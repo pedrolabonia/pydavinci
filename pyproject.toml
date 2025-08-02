@@ -1,6 +1,78 @@
 [build-system]
-requires = ["setuptools>=42"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pydavinci"
+dynamic = ["version"]
+description = "A Davinci Resolve API Wrapper"
+readme = "README.md"
+license = ""
+requires-python = ">=3.10.0,<4.0.0"
+authors = [
+    { name = "Pedro Labonia", email = "pedromslabonia@gmail.com" },
+]
+maintainers = [
+    { name = "Caleb Trevatt", email = "sk188okj@duck.com"},
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "loguru>=0.6.0",
+    "pydantic==1.9.0",
+    "typing_extensions>=4.1.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "black",
+    "ruff",
+    "pre-commit",
+    "pytest",
+    "pytest-subtests"
+]
+docs = [
+    "mkdocs",
+    "mkdocs-autorefs",
+    "mkdocs-material-extensions",
+    "mkdocstrings",
+    "mkdocstrings-python",
+]
+
+[project.urls]
+Homepage = "https://github.com/pedrolabonia/pydavinci"
+Source = "https://github.com/pedrolabonia/pydavinci"
+Documentation = "https://pedrolabonia.github.io/pydavinci/"
+Changelog = "https://github.com/pedrolabonia/pydavinci/tags"
+
+[tool.hatch.version]
+path = "src/pydavinci/__init__.py"
+
+[tool.hatch.envs.docs]
+features = [
+    "docs"
+] 
+
+[tool.hatch.envs.dev]
+features = [
+    "dev"
+]
+
+[tool.hatch.build]
+sources = ["src"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "pydavinci",
+]
+[tool.hatch.build.targets.wheel]
+include = [
+    "pydavinci",
+]
 
 [tool.mypy]
 strict = true
@@ -30,3 +102,9 @@ exclude = '''
   | dist
 )/
 '''
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+pythonpath = "src"

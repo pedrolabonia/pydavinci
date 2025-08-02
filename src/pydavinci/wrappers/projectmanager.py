@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 # import fusionscript as dvr_script
 
 
-class ProjectManager(object):
+class ProjectManager:
     # try:  ## this is for when we do auto-launch
     #     _obj = resolve_obj.GetProjectManager()  # if using this one here, everything fails
     # except AttributeError:
@@ -151,7 +151,6 @@ class ProjectManager(object):
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        print("entru open folder")
         return self._obj.OpenFolder(folder_name)
 
     def import_project(self, path: str) -> bool:

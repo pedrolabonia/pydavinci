@@ -6,16 +6,22 @@
 
 <p align='center'><sup><i align='center'>I really just wanted auto completion in the IDE and to program transcoding RAW formats</i></sup></p>
 
+---
+
+> **Note**
+> This branch is for Resolve 18 only and is still in development.
+> Checkout the `main` branch if you are using Resolve 17
 
 ---
 
-### Install pydavinci
+## Install PyDavinci
 
-Install via pip using a __Python 3.6__ environment
+- PyDavinci requires Python 3.10 or higher
+- External scripting with PyDavinci requires Resolve Studio 18 (Free version does not allow API access)
+- There is currently no release version for the Resolve 18 branch. Install it with git.
 
 ```bash
-pip install pydavinci
-
+pip install git+https://github.com/pedrolabonia/pydavinci@resolve_18
 ```
 
 Now, with Davinci Resolve open, we just need to import it!
@@ -34,7 +40,6 @@ resolve = davinci.Resolve()
 ---
 
 ### Installation requirements and guidelines
-pydavinci __only works with `Python 3.6.*`__, as that's a requirement on DaVinci Resolve's part. 
 
 For launching scripts externally, you also need the __Studio__ version.
 
@@ -46,19 +51,11 @@ For avoiding conflicts when using inside the embedded console, don't use `resolv
 
 ---
 
-#### Davinci Resolve v18 beta
-For the newer DaVinci Resolve v18, currently in beta, newer Python installations are supported. 
-
-If you want to try out ``pydavinci`` with new Python versions for Resolve v18, use pip with the ``--ignore-requires-python`` flag.
-
-Note that while I did some quick tests, I can't guarantee everything works on Resolve v18 beta. Full testing will become available as further betas come through, and will be supported fully on the official release.
-
----
-
 ### Launching scripts externally (Studio version)
 
 
 For `pydavinci` to work by launching scripts outside the embedded console, make sure external scripting is set to `Local` in `Settings -> System -> General`
+
 <img src=https://user-images.githubusercontent.com/4316044/164954498-de350d02-0458-478d-a766-6404b7a8a75b.png />
 
 ## To-do and contributing
@@ -71,3 +68,15 @@ Contributors are always welcome! I currently have a few things I want to change,
 - [ ] Do the same wrapper made for settings to Metadata and Properties
 
 #### If you want to contribute feel free to open a pull request!
+
+## Documentation
+Up to date docs are still a work in progress. At some point expect to see the original API reference extended and some further examples included. For now go to the original [PyDavinci project](https://github.com/pedrolabonia/pydavinci)
+
+Here's a quick list of changes and added API support not present in the [original docs](https://pedrolabonia.github.io/pydavinci/resolve/):
+
+- Python 3.10 typing
+- Using [Hatch](https://hatch.pypa.io/latest/) for project management
+- Using [Ruff](https://github.com/charliermarsh/ruff) for linting
+- Added [Gallery API wrapper](https://github.com/in03/pydavinci/commit/10e7be6b4a4f538c2dec948857a7e3b1af9181a0) (untested)
+- Added [timeline.settings.timecode](https://github.com/in03/pydavinci/commit/67bb10f07414df040c511ff781cacd5c1d2eda4c) setter
+- Support Resolve's [GetUniqueID](https://github.com/in03/pydavinci/commit/f7520595a3708a0ca2b64a151de014c9b61b7318) method
