@@ -1,11 +1,49 @@
+import imp
+import os
+import sys
+import platform
+import configparser
+from tkinter import simpledialog
+
+CONFIG_FILE = 'config.ini'
+
+def save_config(script_api, script_lib, davinci_folder):
+    config = configparser.ConfigParser()
+    config['Paths'] = {
+        'script_api': script_api,
+        'script_lib': script_lib,
+        'davinci_folder': davinci_folder
+    }
+    with open(CONFIG_FILE, 'w') as configfile:
+        config.write(configfile)
+
+def load_config():
+    config = configparser.ConfigParser()
+    config.read(CONFIG_FILE)
+    if 'Paths' in config:
+        return config['Paths']['script_api'], config['Paths']['script_lib'], config['Paths']['davinci_folder']
+    return None, None, None
+
+def prompt_user_for_paths():
+    script_api = simpledialog.askstring("Input",
+                                        r"Enter Davinci Script Api Path (Default is: %PROGRAMDATA%\Blackmagic Design\DaVinciResolve\Support\Developer\Scripting): ")
+    script_lib = simpledialog.askstring("Input",
+                                        r"Enter Davinci Script Lib Path (Default is: C:\Program Files\Blackmagic Design\DaVinci Resolve\fusionscript.dll): ")
+    davinci_folder = simpledialog.askstring("Input",
+                                            r"Enter Davinci Path (Default is: C:\Program Files\Blackmagic Design\DaVinci Resolve\): ")
+    save_config(script_api, script_lib, davinci_folder)
+    return script_api, script_lib, davinci_folder
+
 def load_fusionscript():  # type: ignore
-    import imp
     import os
-    import sys
+    if platform.system() == "Windows":
+        script_api, script_lib, davinci_folder = load_config()
+        if not script_api or not script_lib or not davinci_folder:
+            script_api, script_lib, davinci_folder = prompt_user_for_paths()
 
     WIN_ENV_VARIABLES = {
-        "RESOLVE_SCRIPT_API": r"%PROGRAMDATA%\Blackmagic Design\DaVinciResolve\Support\Developer\Scripting",
-        "RESOLVE_SCRIPT_LIB": r"C:\Program Files\Blackmagic Design\DaVinciResolve\fusionscript.dll",
+        "RESOLVE_SCRIPT_API": fr"{script_api}",
+        "RESOLVE_SCRIPT_LIB": fr"{script_lib}",
         "PYTHONPATH": r"%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules\\",
     }
 
@@ -55,7 +93,7 @@ def load_fusionscript():  # type: ignore
                 )
             elif sys.platform.startswith("win") or sys.platform.startswith("cygwin"):
                 ext = ".dll"
-                path = "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\"
+                path = fr"{davinci_folder}"
             else:
                 path = "/opt/resolve/libs/Fusion/"
 
