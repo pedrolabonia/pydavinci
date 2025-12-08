@@ -7,7 +7,7 @@ name = "pydavinci"
 dynamic = ["version"]
 description = "A Davinci Resolve API Wrapper"
 readme = "README.md"
-license = ""
+license = "MIT"
 requires-python = ">=3.10.0,<4.0.0"
 authors = [
     { name = "Pedro Labonia", email = "pedromslabonia@gmail.com" },
