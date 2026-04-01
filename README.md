@@ -8,6 +8,8 @@
 
 ---
 
+### ⚠️ This project needs maintainers! Please see [this](https://github.com/pedrolabonia/pydavinci/issues/42) if you're interested.
+
 ## Install PyDavinci
 
 - PyDavinci requires Python 3.10 or higher
