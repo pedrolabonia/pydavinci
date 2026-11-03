@@ -3,16 +3,13 @@
 #   timestamp: 2022-04-27T02:50:45+00:00
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Optional, Type, Union
+from typing import Optional, Union
 
-from pydantic import BaseModel, DirectoryPath, Field, validator
+from pydantic import DirectoryPath, Field, field_validator
 from typing_extensions import Literal
 
 import pydavinci.wrappers.settings.map as map
 from pydavinci.wrappers.settings.validator import BaseConfig
-
-if TYPE_CHECKING:
-    from pydantic.fields import ModelField
 
 ## Not using the aliases because mkdocs/mkdocstrings/griffe can't infer them to build the documentation
 
@@ -93,13 +90,9 @@ class Audio(BaseConfig):
     )
     limit_meter_low_level: int = Field(alias="limitAudioMeterLowLevel", ge=-30, le=0)
 
-    # Putting all of them here also to avoid them going to the top of the list when calling settings.audio
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
-
 
 class Color(BaseConfig):
-    aces_gamut_compress_type: Optional[Literal["ACES reference gamut compress"]] = Field(
+    aces_gamut_compress_type: Optional[Literal["ACES reference gamut compress"]] = Field(default=None, 
         alias="colorAcesGamutCompressType"
     )
     aces_idt: str = Field(alias="colorAcesIDT")
@@ -107,10 +100,10 @@ class Color(BaseConfig):
         alias="colorAcesNodeLUTProcessingSpace"
     )
     aces_odt: str = Field(alias="colorAcesODT")
-    gallery_stills_location: Optional[Union[DirectoryPath, str]] = Field(
+    gallery_stills_location: Optional[Union[DirectoryPath, str]] = Field(default=None, 
         alias="colorGalleryStillsLocation"
     )
-    gallery_stills_naming_custom_pattern: Optional[str] = Field(
+    gallery_stills_naming_custom_pattern: Optional[str] = Field(default=None, 
         alias="colorGalleryStillsNamingCustomPattern"
     )
     gallery_stills_naming_enabled: bool = Field(alias="colorGalleryStillsNamingEnabled")
@@ -135,43 +128,43 @@ class Color(BaseConfig):
         "davinciYRGB", "davinciYRGBColorManagedv2", "acescc", "acescct"
     ] = Field(alias="colorScienceMode")
     color_space_input: str = Field(alias="colorSpaceInput")
-    color_space_input_gamma: Optional[str] = Field(alias="colorSpaceInputGamma")
+    color_space_input_gamma: Optional[str] = Field(default=None, alias="colorSpaceInputGamma")
     color_space_output: str = Field(alias="colorSpaceOutput")
-    color_space_output_gamma: Optional[str] = Field(alias="colorSpaceOutputGamma")
-    color_space_output_gamut_mapping: Optional[str] = Field(alias="colorSpaceOutputGamutMapping")
+    color_space_output_gamma: Optional[str] = Field(default=None, alias="colorSpaceOutputGamma")
+    color_space_output_gamut_mapping: Optional[str] = Field(default=None, alias="colorSpaceOutputGamutMapping")
     color_space_output_gamut_saturation_knee: float = Field(
         alias="colorSpaceOutputGamutSaturationKnee"
     )
     color_space_output_gamut_saturation_max: str = Field(alias="colorSpaceOutputGamutSaturationMax")
     color_space_output_tone_luminance_max: int = Field(alias="colorSpaceOutputToneLuminanceMax")
-    color_space_output_tone_mapping: Optional[str] = Field(alias="colorSpaceOutputToneMapping")
+    color_space_output_tone_mapping: Optional[str] = Field(default=None, alias="colorSpaceOutputToneMapping")
     color_space_timeline: str = Field(alias="colorSpaceTimeline")
-    color_space_timeline_gamma: Optional[str] = Field(alias="colorSpaceTimelineGamma")
+    color_space_timeline_gamma: Optional[str] = Field(default=None, alias="colorSpaceTimelineGamma")
     use_bgr_pixel_order_for_dpx: bool = Field(alias="colorUseBGRPixelOrderForDPX")
     use_contrast_s_curve: bool = Field(alias="colorUseContrastSCurve")
     use_legacy_log_grades: int = Field(alias="colorUseLegacyLogGrades", ge=1, le=2)
     use_local_versions_as_default: bool = Field(alias="colorUseLocalVersionsAsDefault")
     use_stereo_convergence_for_effects: bool = Field(alias="colorUseStereoConvergenceForEffects")
-    version1_name: Optional[str] = Field(alias="colorVersion1Name")
-    version2_name: Optional[str] = Field(alias="colorVersion2Name")
-    version3_name: Optional[str] = Field(alias="colorVersion3Name")
-    version4_name: Optional[str] = Field(alias="colorVersion4Name")
-    version5_name: Optional[str] = Field(alias="colorVersion5Name")
-    version6_name: Optional[str] = Field(alias="colorVersion6Name")
-    version7_name: Optional[str] = Field(alias="colorVersion7Name")
-    version8_name: Optional[str] = Field(alias="colorVersion8Name")
-    version9_name: Optional[str] = Field(alias="colorVersion9Name")
-    version10_name: Optional[str] = Field(alias="colorVersion10Name")
+    version1_name: Optional[str] = Field(default=None, alias="colorVersion1Name")
+    version2_name: Optional[str] = Field(default=None, alias="colorVersion2Name")
+    version3_name: Optional[str] = Field(default=None, alias="colorVersion3Name")
+    version4_name: Optional[str] = Field(default=None, alias="colorVersion4Name")
+    version5_name: Optional[str] = Field(default=None, alias="colorVersion5Name")
+    version6_name: Optional[str] = Field(default=None, alias="colorVersion6Name")
+    version7_name: Optional[str] = Field(default=None, alias="colorVersion7Name")
+    version8_name: Optional[str] = Field(default=None, alias="colorVersion8Name")
+    version9_name: Optional[str] = Field(default=None, alias="colorVersion9Name")
+    version10_name: Optional[str] = Field(default=None, alias="colorVersion10Name")
     hdr10_plus_controls_on: bool = Field(alias="hdr10PlusControlsOn")
     hdr_dolby_controls_on: bool = Field(alias="hdrDolbyControlsOn")
-    hdr_dolby_master_display: Optional[str] = Field(alias="hdrDolbyMasterDisplay")
+    hdr_dolby_master_display: Optional[str] = Field(default=None, alias="hdrDolbyMasterDisplay")
     hdr_dolby_version: Literal["4.0", "2.9"] = Field(alias="hdrDolbyVersion")
     hdr_mastering_luminance_max: int = Field(alias="hdrMasteringLuminanceMax", ge=100, le=10000)
     hdr_mastering_on: bool = Field(alias="hdrMasteringOn")
     use_ca_transform: bool = Field(alias="useCATransform")
     use_color_space_aware_grading_tools: bool = Field(alias="useColorSpaceAwareGradingTools")
     use_inverse_drt: bool = Field(alias="useInverseDRT")
-    output_drt: Optional[str] = Field(alias="outputDRT")
+    output_drt: Optional[str] = Field(default=None, alias="outputDRT")
     output_drt_sat_rolloff_limit: int = Field(alias="outputDRTSatRolloffLimit", ge=500, le=20000)
     output_drt_sat_rolloff_start: int = Field(alias="outputDRTSatRolloffStart", ge=1, le=500)
     rcm_preset_mode: Literal["HDR Rec.2020 Intermediate", "SDR Rec.709", "Custom"] = Field(
@@ -180,7 +173,7 @@ class Color(BaseConfig):
     separate_color_space_and_gamma: bool = Field(alias="separateColorSpaceAndGamma")
     input_drt: Optional[
         Literal["None", "Simple", "Luminance Mapping", "DaVinci", "Saturation Preserving"]
-    ] = Field(alias="inputDRT")
+    ] = Field(default=None, alias="inputDRT")
     input_drt_sat_rolloff_limit: int = Field(alias="inputDRTSatRolloffLimit", ge=500, le=20000)
     input_drt_sat_rolloff_start: int = Field(alias="inputDRTSatRolloffStart", ge=1, le=500)
     auto_color_manage: bool = Field(alias="isAutoColorManage")
@@ -189,9 +182,6 @@ class Color(BaseConfig):
     )
     limit_broadcast_safe: bool = Field(alias="limitBroadcastSafeOn")
 
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
-
 
 class Perf(BaseConfig):
     auto_render_cache_after_time: int = Field(alias="perfAutoRenderCacheAfterTime", ge=1, le=30)
@@ -199,7 +189,7 @@ class Perf(BaseConfig):
     auto_render_cache_enable: bool = Field(alias="perfAutoRenderCacheEnable")
     auto_render_cache_fu_effect: bool = Field(alias="perfAutoRenderCacheFuEffect")
     auto_render_cache_transition: bool = Field(alias="perfAutoRenderCacheTransition")
-    cache_clips_location: Optional[Union[Path, str]] = Field(alias="perfCacheClipsLocation")
+    cache_clips_location: Optional[Union[Path, str]] = Field(default=None, alias="perfCacheClipsLocation")
     optimised_codec: Literal[
         "rgb",
         "dnxhd_444_12b",
@@ -234,12 +224,10 @@ class Perf(BaseConfig):
     ] = Field(alias="perfRenderCacheCodec")
     render_cache_mode: Literal["user", "smart", "none"] = Field(alias="perfRenderCacheMode")
 
-    @validator("proxy_media_mode")  # type: ignore
-    def proxy_validator(cls: Type["BaseModel"], value: str, field: "ModelField") -> str | None:  # type: ignore
+    @field_validator("proxy_media_mode")
+    @classmethod
+    def proxy_validator(cls, value: str) -> str | None:  # type: ignore
         return map.perf_proxy_media_transform(value) if value else None
-
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
 
 
 class Deck(BaseConfig):
@@ -253,9 +241,6 @@ class Deck(BaseConfig):
     use444_sdi: bool = Field(alias="videoDeckUse444SDI")
     use_auto_edit: bool = Field(alias="videoDeckUseAudoEdit")
     use_stereo_sdi: bool = Field(alias="videoDeckUseStereoSDI")
-
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
 
 
 class Capture(BaseConfig):
@@ -278,14 +263,11 @@ class Capture(BaseConfig):
             "v210 ",
             "apch",
         ]
-    ] = Field(alias="videoCaptureCodec")
-    format: Optional[Literal["mov", "dpx"]] = Field(alias="videoCaptureFormat")
+    ] = Field(default=None, alias="videoCaptureCodec")
+    format: Optional[Literal["mov", "dpx"]] = Field(default=None, alias="videoCaptureFormat")
     ingest_handles: int = Field(alias="videoCaptureIngestHandles", ge=0, le=9999)
-    location: Optional[Union[Path, str]] = Field(alias="videoCaptureLocation")
+    location: Optional[Union[Path, str]] = Field(default=None, alias="videoCaptureLocation")
     mode: Literal["video_only", "video_audio"] = Field(alias="videoCaptureMode")
-
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
 
 
 class Playout(BaseConfig):
@@ -296,9 +278,6 @@ class Playout(BaseConfig):
     mode: Literal["video_only", "audio_only", "video_audio"] = Field(alias="videoPlayoutMode")
     show_ltc: bool = Field(alias="videoPlayoutShowLTC")
     show_source_timecode: bool = Field(alias="videoPlayoutShowSourceTimecode")
-
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
 
 
 class ProjectUniqueSettings(BaseConfig):
@@ -340,13 +319,13 @@ class ProjectUniqueSettings(BaseConfig):
     timeline_frame_rate_mismatch_behavior: Literal["fcp7", "fcpx", "none", "resolve"] = Field(
         alias="timelineFrameRateMismatchBehavior"
     )
-    timeline_input_res_mismatch_custom_preset: Optional[str] = Field(
+    timeline_input_res_mismatch_custom_preset: Optional[str] = Field(default=None, 
         alias="timelineInputResMismatchCustomPreset"
     )
     timeline_input_res_mismatch_use_custom_preset: str = Field(
         alias="timelineInputResMismatchUseCustomPreset"
     )
-    timeline_output_res_mismatch_custom_preset: Optional[str] = Field(
+    timeline_output_res_mismatch_custom_preset: Optional[str] = Field(default=None, 
         alias="timelineOutputResMismatchCustomPreset"
     )
     timeline_output_res_mismatch_use_custom_preset: bool = Field(
@@ -356,9 +335,6 @@ class ProjectUniqueSettings(BaseConfig):
     timeline_save_thumbs_in_project: bool = Field(alias="timelineSaveThumbsInProject")
     timeline_working_luminance: int = Field(alias="timelineWorkingLuminance")
     timeline_working_luminance_mode: str = Field(alias="timelineWorkingLuminanceMode")
-
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
 
 
 class TimelineMeta(BaseConfig):
@@ -381,9 +357,6 @@ class TimelineMeta(BaseConfig):
     resolution_height: int = Field(alias="timelineResolutionHeight", ge=1)
     resolution_width: int = Field(alias="timelineResolutionWidth", ge=1)
 
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
-
 
 class CommonMonitor(BaseConfig):
     monitor_bit_depth: int = Field(alias="videoMonitorBitDepth")
@@ -405,9 +378,6 @@ class CommonMonitor(BaseConfig):
     )
     monitor_use_stereo_sdi: bool = Field(alias="videoMonitorUseStereoSDI")
 
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
-
 
 class CommonSettings(BaseConfig):
     super_scale: Literal["auto", "no_scaling", "2x", "3x", "4x"] = Field(alias="superScale")
@@ -416,8 +386,9 @@ class CommonSettings(BaseConfig):
         alias="videoDataLevelsRetainSubblockAndSuperWhiteData"
     )
 
-    @validator("super_scale")  # type: ignore
-    def superscale_validator(cls: Type["BaseModel"], value: int | str, field: "ModelField") -> str | int | None:  # type: ignore
+    @field_validator("super_scale")
+    @classmethod
+    def superscale_validator(cls, value: int | str) -> str | int | None:  # type: ignore
         return map.super_scale_transform(value)
 
 

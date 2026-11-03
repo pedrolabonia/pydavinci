@@ -1,7 +1,6 @@
 # flake8: noqa
 # type: ignore
 import random
-from cgi import test
 from pathlib import Path
 from typing import List
 

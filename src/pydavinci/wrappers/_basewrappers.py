@@ -1,6 +1,5 @@
 # type: ignore
 # flake8: noqa
-import imp
 import os
 import platform
 import subprocess
@@ -11,7 +10,7 @@ from typing import Dict, List, Optional
 
 import psutil
 
-from pydavinci.connect import load_fusionscript
+from pydavinci.connect import load_dynamic, load_fusionscript
 from pydavinci.utils import default_resolve_install
 
 
@@ -87,7 +86,7 @@ class BaseResolveWrapper:
             lib_path = os.getenv("RESOLVE_SCRIPT_LIB")
             if lib_path:
                 try:
-                    script_module = imp.load_dynamic("fusionscript", lib_path)
+                    script_module = load_dynamic("fusionscript", lib_path)
                 except ImportError:
                     pass
             if not script_module:
@@ -102,7 +101,7 @@ class BaseResolveWrapper:
                     path = "/opt/resolve/libs/Fusion/"
 
                 try:
-                    script_module = imp.load_dynamic(
+                    script_module = load_dynamic(
                         "fusionscript", path + "fusionscript" + ext
                     )  # noqa: E501, B950
                 except ImportError:

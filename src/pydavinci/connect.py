@@ -1,5 +1,24 @@
+def load_dynamic(name: str, path: str):  # type: ignore
+    # Replacement for imp.load_dynamic, the imp module was removed in Python 3.12
+    import importlib.machinery
+    import importlib.util
+    import sys
+
+    loader = importlib.machinery.ExtensionFileLoader(name, path)
+    spec = importlib.util.spec_from_file_location(name, path, loader=loader)
+    if spec is None:
+        raise ImportError(f"Cannot load {name} from {path}", name=name, path=path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    try:
+        loader.exec_module(module)
+    except BaseException:
+        del sys.modules[name]
+        raise
+    return module
+
+
 def load_fusionscript():  # type: ignore
-    import imp
     import os
     import sys
 
@@ -43,7 +62,7 @@ def load_fusionscript():  # type: ignore
         lib_path = os.getenv("RESOLVE_SCRIPT_LIB")
         if lib_path:
             try:
-                script_module = imp.load_dynamic("fusionscript", lib_path)
+                script_module = load_dynamic("fusionscript", lib_path)
             except ImportError:
                 pass
         if not script_module:
@@ -60,7 +79,7 @@ def load_fusionscript():  # type: ignore
                 path = "/opt/resolve/libs/Fusion/"
 
             try:
-                script_module = imp.load_dynamic(
+                script_module = load_dynamic(
                     "fusionscript", f"{path}fusionscript{ext}"
                 )  # noqa: E501, B950 # type: ignore
             except ImportError:

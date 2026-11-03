@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, Optional, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, Type, TypeVar
 
 from pydavinci.wrappers.settings.components import (
     Audio,
@@ -41,15 +41,11 @@ class _ProjectSettings(ProjectUniqueSettings, CommonMonitor, CommonSettings):
 
 
 class TimelineSettings(TimelineUniqueSettings, TimelineMeta, CommonSettings, CommonMonitor):
-    # putting them here so they don't appear first when user calls Timeline.settings
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
+    pass
 
 
 class ProjectSettings(_ProjectMeta, _ProjectSettings):
-    # putting them here so they don't appear first when user calls Proejct.settings
-    _selfvalidate: Optional[bool]
-    _obj: Optional[Any]
+    pass
 
 
 def get_appropriate_keys(pydantic_model: Type["AnyModel"], data: Dict[Any, Any]) -> Dict[Any, Any]:
@@ -59,7 +55,7 @@ def get_appropriate_keys(pydantic_model: Type["AnyModel"], data: Dict[Any, Any])
 
     _ret: Dict[str, str] = {}
     data = data
-    model = pydantic_model.__fields__
+    model = pydantic_model.model_fields
     for value in model.values():
         if value.alias in data.keys():
             _ret[value.alias] = data[value.alias]
@@ -72,20 +68,19 @@ def get_prj_settings(obj: "Project") -> ProjectSettings:
 
     # First setting validation to off, we just want Pydantic to infer the types for now
     # such as transforming str: "1" into int: 1 or str: "1" to bool: True on a bool field
-    data["_selfvalidate"] = False
     data["perfProxyMediaMode"] = perf_proxy_media_transform(data["perfProxyMediaMode"])
     data["superScale"] = super_scale_transform(data["superScale"])
-    audio = Audio.parse_obj(get_appropriate_keys(Audio, data))
-    color = Color.parse_obj(get_appropriate_keys(Color, data))
-    perf = Perf.parse_obj(get_appropriate_keys(Perf, data))
-    deck = Deck.parse_obj(get_appropriate_keys(Deck, data))
-    capture = Capture.parse_obj(get_appropriate_keys(Capture, data))
-    playout = Playout.parse_obj(get_appropriate_keys(Playout, data))
-    timeline = TimelineMeta.parse_obj(get_appropriate_keys(TimelineMeta, data))
+    audio = Audio.model_validate(get_appropriate_keys(Audio, data))
+    color = Color.model_validate(get_appropriate_keys(Color, data))
+    perf = Perf.model_validate(get_appropriate_keys(Perf, data))
+    deck = Deck.model_validate(get_appropriate_keys(Deck, data))
+    capture = Capture.model_validate(get_appropriate_keys(Capture, data))
+    playout = Playout.model_validate(get_appropriate_keys(Playout, data))
+    timeline = TimelineMeta.model_validate(get_appropriate_keys(TimelineMeta, data))
 
-    _projectsettings = _ProjectSettings.parse_obj(
+    _projectsettings = _ProjectSettings.model_validate(
         get_appropriate_keys(_ProjectSettings, data)
-    ).dict()
+    ).model_dump()
 
     # From now on we set manually the resolve ._obj so we can call them from the validator
     # later on and avoid sending the settings to the wrong Project instance for example.
@@ -125,7 +120,7 @@ def get_prj_settings(obj: "Project") -> ProjectSettings:
     # We assemble everything and then pass it to the main ProjectSettings class
     # using pydantic's construct so we don't need to infer the types again
 
-    _ret = ProjectSettings.construct(_fields_set=None, **const)
+    _ret = ProjectSettings.model_construct(_fields_set=None, **const)
     _ret._obj = obj._obj
     _ret._selfvalidate = True
 
