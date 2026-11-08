@@ -134,7 +134,9 @@ def get_tl_settings(obj: "Timeline") -> TimelineSettings:
     data: Dict[Any, Any] = obj.get_setting()  # type: ignore
     data["superScale"] = super_scale_transform(data["superScale"])
 
-    _ret = TimelineSettings(**data)
+    # Resolve 19+ returns timeline settings the model doesn't know (e.g. "rcmPresetMode",
+    # "timelineWorkingLuminance") - filter them like the project settings above, the model forbids extra keys
+    _ret = TimelineSettings(**get_appropriate_keys(TimelineSettings, data))
     _ret._obj = obj._obj
     _ret._selfvalidate = True
 

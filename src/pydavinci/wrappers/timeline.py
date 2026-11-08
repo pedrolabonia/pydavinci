@@ -3,16 +3,36 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import pydavinci.logger as log
 from pydavinci.exceptions import TimelineNotFound
 from pydavinci.main import resolve_obj
-from pydavinci.utils import TRACK_ERROR, TRACK_TYPES, get_resolveobjs, is_resolve_obj
+from pydavinci.utils import (
+    TRACK_ERROR,
+    TRACK_TYPES,
+    as_list,
+    get_resolveobjs,
+    is_resolve_obj,
+)
+from pydavinci.wrappers import constants
 from pydavinci.wrappers.marker import MarkerCollection
 from pydavinci.wrappers.settings.constructor import get_tl_settings
 from pydavinci.wrappers.timelineitem import TimelineItem
 
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteTimeline
+    from pydavinci.wrappers._resolve_stubs import (
+        AutoAlignOptions,
+        AutoCaptionSettings,
+        ExportFrameOptions,
+        NormalizeAudioOptions,
+        OutputBlanking,
+        PyRemoteTimeline,
+        TimelineItemPosition,
+        VoiceIsolationState,
+    )
     from pydavinci.wrappers.gallerystill import GalleryStill
+    from pydavinci.wrappers.graph import Graph
+    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
     from pydavinci.wrappers.settings.constructor import TimelineSettings
+
+MARK_TYPES = ["video", "audio", "all"]
 
 
 class Timeline:
@@ -160,7 +180,10 @@ class Timeline:
         if track_type not in TRACK_TYPES:
             raise ValueError(TRACK_ERROR)
 
-        return [TimelineItem(x) for x in self._obj.GetItemListInTrack(track_type, track_index)]
+        # Resolve 21 returns None for an empty or missing track
+        return [
+            TimelineItem(x) for x in as_list(self._obj.GetItemListInTrack(track_type, track_index))
+        ]
 
     def grab_all_stills(self, still_frame_source: int) -> List["GalleryStill"]:
         """
@@ -373,25 +396,27 @@ class Timeline:
     ) -> bool:
         """
         Exports timeline file ``(.aaf, .xml, etc)``
-        Supported ``export_type``:
+        Supported ``export_type`` (Resolve 21.1.2, the ``EXPORT_*`` constants without prefix):
         ```
         "AAF"
         "DRT"
         "EDL"
         "FCP_7_XML"
-        "FCPXML_1_3"
-        "FCPXML_1_4"
-        "FCPXML_1_5"
-        "FCPXML_1_6"
-        "FCPXML_1_7"
         "FCPXML_1_8"
+        "FCPXML_1_9"
+        "FCPXML_1_10"
         "HDR_10_PROFILE_A"
         "HDR_10_PROFILE_B"
         "TEXT_CSV"
         "TEXT_TAB"
         "DOLBY_VISION_VER_2_9"
         "DOLBY_VISION_VER_4_0"
+        "DOLBY_VISION_VER_5_1"
+        "OTIO"
+        "ALE"
+        "ALE_CDL"
         ```
+        ``FCPXML_1_3`` to ``FCPXML_1_7`` are not supported since Resolve 18.1.
 
         Supported ``export_subtype``:
         ```python
@@ -418,40 +443,19 @@ class Timeline:
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        export_type_map = {
-            "AAF": 0.0,
-            "DRT": 1.0,
-            "EDL": 2.0,
-            "FCP_7_XML": 3.0,
-            "FCPXML_1_3": 4.0,
-            "FCPXML_1_4": 5.0,
-            "FCPXML_1_5": 6.0,
-            "FCPXML_1_6": 7.0,
-            "FCPXML_1_7": 8.0,
-            "FCPXML_1_8": 9.0,
-            "HDR_10_PROFILE_A": 10.0,
-            "HDR_10_PROFILE_B": 11.0,
-            "TEXT_CSV": 12.0,
-            "TEXT_TAB": 13.0,
-            "DOLBY_VISION_VER_2_9": 14.0,
-            "DOLBY_VISION_VER_4_0": 15.0,
-        }
-
-        export_subtype_map = {
-            "NONE": -1.0,
-            "AAF_NEW": 0.0,
-            "AAF_EXISTING": 1.0,
-            "CDL": 2.0,
-            "SDL": 3.0,
-            "MISSING_CLIPS": 4.0,
-        }
+        # The values of the EXPORT_* constants changed between Resolve versions (e.g. EXPORT_TEXT_CSV is 12.0 in
+        # Resolve 18 and 10.0 in 21) - look them up in the running Resolve instead of hard coding them.
+        try:
+            export_type_value = constants.get("EXPORT_" + export_type)
+            if export_subtype:
+                export_subtype_value = constants.get("EXPORT_" + export_subtype)
+        except AttributeError as error:
+            raise ValueError(f"Unsupported export type or subtype: {error}") from None
 
         if export_subtype:
-            return self._obj.Export(
-                file_name, export_type_map[export_type], export_subtype_map[export_subtype]
-            )
+            return self._obj.Export(file_name, export_type_value, export_subtype_value)
         else:
-            return self._obj.Export(file_name, export_type_map[export_type])
+            return self._obj.Export(file_name, export_type_value)
 
     def get_setting(
         self, settingname: Optional[str] = None
@@ -555,6 +559,503 @@ class Timeline:
             str: Unique ID
         """
         return self._obj.GetUniqueId()
+
+    @property
+    def enabled(self) -> bool:
+        """
+        Gets or sets whether the timeline is enabled
+
+        Returns:
+            bool: ``True`` if enabled
+        """
+        return self._obj.GetIsEnabled()
+
+    @enabled.setter
+    def enabled(self, enabled: bool) -> None:
+        self._obj.SetIsEnabled(enabled)
+
+    @property
+    def mediapoolitem(self) -> Optional["MediaPoolItem"]:
+        """
+        Returns the ``MediaPoolItem`` of this timeline (its entry in the media pool)
+
+        Returns:
+            Optional[MediaPoolItem]: media pool item
+        """
+        from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+
+        item = self._obj.GetMediaPoolItem()
+        return MediaPoolItem(item) if item else None
+
+    @property
+    def start_timecode(self) -> str:
+        """
+        Gets or sets the start timecode of the timeline, e.g. ``"10:00:00:00"``
+
+        Returns:
+            str: start timecode
+        """
+        return self._obj.GetStartTimecode()
+
+    @start_timecode.setter
+    def start_timecode(self, timecode: str) -> None:
+        self._obj.SetStartTimecode(timecode)
+
+    @property
+    def selected_clips(self) -> List["TimelineItem"]:
+        """
+        Returns the selected ``TimelineItem``s
+
+        Returns:
+            List[TimelineItem]: selected items
+        """
+        return [TimelineItem(x) for x in as_list(self._obj.GetSelectedClips())]
+
+    def get_settings(self) -> Dict[str, Any]:
+        """
+        Returns all timeline settings - the current form of ``get_setting()``. While ``"useCustomSettings"`` is
+        ``"0"`` Resolve returns the project settings instead.
+
+        Returns:
+            dict: timeline settings
+        """
+        return self._obj.GetSettings()
+
+    def set_settings(self, settings: Dict[str, Any]) -> bool:
+        """
+        Sets timeline settings, e.g. ``{"useCustomSettings": "1", "timelineFrameRate": "25"}``. Settings other than
+        ``"useCustomSettings"`` (always applied first) need ``"useCustomSettings"`` to be ``"1"``.
+
+        Args:
+            settings (dict): setting names and values
+
+        Returns:
+            bool: ``True`` if all were set, ``False`` otherwise
+        """
+        return self._obj.SetSettings(settings)
+
+    def export_frame(
+        self, frame_offset: int = 0, options: Optional["ExportFrameOptions"] = None
+    ) -> Dict[str, Any]:
+        """
+        Exports a frame of the timeline as a still image
+
+        Args:
+            frame_offset (int, optional): 0-based frame offset from the timeline start. Defaults to ``0``.
+            options (dict, optional): ``outputType`` (``"file"`` or ``"encodedString"``), ``encodedImageFormat``,
+                ``filePath``, ``maxDimension``. Defaults to a base64 encoded jpg.
+
+        Returns:
+            dict: ``success``, ``error`` and ``data`` (base64 image for ``"encodedString"``)
+        """
+        if options is None:
+            return self._obj.ExportFrame(frame_offset)
+        return self._obj.ExportFrame(frame_offset, options)
+
+    # --- tracks ----------------------------------------------------------------------------------
+
+    def add_track(self, track_type: str, sub_track_type: Optional[str] = None) -> bool:
+        """
+        Adds a track
+
+        Args:
+            track_type (str): ``video``, ``audio`` or ``subtitle``
+            sub_track_type (str, optional): audio track format, e.g. ``"mono"``, ``"stereo"``, ``"5.1"``
+
+        Raises:
+            ValueError: Not a valid track type
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if track_type not in TRACK_TYPES:
+            raise ValueError(TRACK_ERROR)
+        if sub_track_type is None:
+            return self._obj.AddTrack(track_type)
+        return self._obj.AddTrack(track_type, sub_track_type)
+
+    def delete_track(self, track_type: str, track_index: int) -> bool:
+        """
+        Deletes a track
+
+        Args:
+            track_type (str): ``video``, ``audio`` or ``subtitle``
+            track_index (int): track index. Starts at ``1``
+
+        Raises:
+            ValueError: Not a valid track type
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if track_type not in TRACK_TYPES:
+            raise ValueError(TRACK_ERROR)
+        return self._obj.DeleteTrack(track_type, track_index)
+
+    def get_track_sub_type(self, track_type: str, track_index: int) -> str:
+        """
+        Gets the format of an audio track, e.g. ``"stereo"``
+
+        Args:
+            track_type (str): ``audio``
+            track_index (int): track index. Starts at ``1``
+
+        Raises:
+            ValueError: Not a valid track type
+
+        Returns:
+            str: track sub type
+        """
+        if track_type not in TRACK_TYPES:
+            raise ValueError(TRACK_ERROR)
+        return self._obj.GetTrackSubType(track_type, track_index)
+
+    def set_track_enabled(self, track_type: str, track_index: int, enabled: bool) -> bool:
+        """
+        Enables or disables a track
+
+        Args:
+            track_type (str): ``video``, ``audio`` or ``subtitle``
+            track_index (int): track index. Starts at ``1``
+            enabled (bool): ``True`` to enable
+
+        Raises:
+            ValueError: Not a valid track type
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if track_type not in TRACK_TYPES:
+            raise ValueError(TRACK_ERROR)
+        return self._obj.SetTrackEnable(track_type, track_index, enabled)
+
+    def is_track_enabled(self, track_type: str, track_index: int) -> bool:
+        """
+        Returns whether a track is enabled
+
+        Args:
+            track_type (str): ``video``, ``audio`` or ``subtitle``
+            track_index (int): track index. Starts at ``1``
+
+        Raises:
+            ValueError: Not a valid track type
+
+        Returns:
+            bool: ``True`` if enabled
+        """
+        if track_type not in TRACK_TYPES:
+            raise ValueError(TRACK_ERROR)
+        return self._obj.GetIsTrackEnabled(track_type, track_index)
+
+    def set_track_locked(self, track_type: str, track_index: int, locked: bool) -> bool:
+        """
+        Locks or unlocks a track
+
+        Args:
+            track_type (str): ``video``, ``audio`` or ``subtitle``
+            track_index (int): track index. Starts at ``1``
+            locked (bool): ``True`` to lock
+
+        Raises:
+            ValueError: Not a valid track type
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if track_type not in TRACK_TYPES:
+            raise ValueError(TRACK_ERROR)
+        return self._obj.SetTrackLock(track_type, track_index, locked)
+
+    def is_track_locked(self, track_type: str, track_index: int) -> bool:
+        """
+        Returns whether a track is locked
+
+        Args:
+            track_type (str): ``video``, ``audio`` or ``subtitle``
+            track_index (int): track index. Starts at ``1``
+
+        Raises:
+            ValueError: Not a valid track type
+
+        Returns:
+            bool: ``True`` if locked
+        """
+        if track_type not in TRACK_TYPES:
+            raise ValueError(TRACK_ERROR)
+        return self._obj.GetIsTrackLocked(track_type, track_index)
+
+    def get_voice_isolation_state(self, track_index: int) -> "VoiceIsolationState":
+        """
+        Gets the Voice Isolation state of audio track ``track_index``
+
+        Args:
+            track_index (int): audio track index. Starts at ``1``
+
+        Returns:
+            dict: ``{"isEnabled": bool, "amount": int}``
+        """
+        return self._obj.GetVoiceIsolationState(track_index)
+
+    def set_voice_isolation_state(self, track_index: int, state: "VoiceIsolationState") -> bool:
+        """
+        Sets the Voice Isolation state of audio track ``track_index``
+
+        Args:
+            track_index (int): audio track index. Starts at ``1``
+            state (dict): ``{"isEnabled": bool, "amount": int}``, amount ``0`` to ``100``
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SetVoiceIsolationState(track_index, state)
+
+    # --- editing ---------------------------------------------------------------------------------
+
+    def delete_clips(self, timeline_items: List["TimelineItem"], ripple: bool = False) -> bool:
+        """
+        Deletes ``timeline_items`` from the timeline
+
+        Args:
+            timeline_items (List[TimelineItem]): items to delete
+            ripple (bool, optional): ripple delete. Defaults to ``False``.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.DeleteClips(get_resolveobjs(timeline_items), ripple)
+
+    def delete_gaps(self) -> bool:
+        """
+        Deletes all gaps between clips, rippling the content
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.DeleteGaps()
+
+    def set_clips_linked(self, timeline_items: List["TimelineItem"], linked: bool) -> bool:
+        """
+        Links or unlinks ``timeline_items``
+
+        Args:
+            timeline_items (List[TimelineItem]): items
+            linked (bool): ``True`` to link
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SetClipsLinked(get_resolveobjs(timeline_items), linked)
+
+    def move_items(
+        self,
+        timeline_items: List["TimelineItem"],
+        position: "TimelineItemPosition",
+        move_linked_items: bool = True,
+        subframe_precision: bool = False,
+    ) -> bool:
+        """
+        Moves the leftmost of ``timeline_items`` to ``position`` and the others relative to it. Fails if any item
+        cannot reach its destination.
+
+        Args:
+            timeline_items (List[TimelineItem]): items to move
+            position (dict): ``{"trackIndex": int, "startFrame": float}``, omitted keys keep the current value
+            move_linked_items (bool, optional): move linked items too. Defaults to ``True``.
+            subframe_precision (bool, optional): allow fractional ``startFrame`` for audio. Defaults to ``False``.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.MoveItems(
+            get_resolveobjs(timeline_items), position, move_linked_items, subframe_precision
+        )
+
+    @property
+    def normalize_audio_modes(self) -> List[str]:
+        """
+        Returns the ``normalizationMode`` names for ``normalize_audio_level``
+
+        Returns:
+            List[str]: mode names
+        """
+        return as_list(self._obj.GetNormalizeAudioModes())
+
+    def normalize_audio_level(
+        self,
+        timeline_items: List["TimelineItem"],
+        options: Optional["NormalizeAudioOptions"] = None,
+    ) -> bool:
+        """
+        Normalizes the audio level of ``timeline_items``
+
+        Args:
+            timeline_items (List[TimelineItem]): audio items
+            options (dict, optional): ``normalizationMode`` (see ``normalize_audio_modes``), ``targetLevel`` (dBFS),
+                ``targetLoudness`` (LKFS), ``setLevelMode`` (``NORMALIZE_AUDIO_SET_LEVEL_*``)
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if options is None:
+            return self._obj.NormalizeAudioLevel(get_resolveobjs(timeline_items))
+        return self._obj.NormalizeAudioLevel(get_resolveobjs(timeline_items), options)
+
+    def auto_align_clips(
+        self, timeline_items: List["TimelineItem"], options: Optional["AutoAlignOptions"] = None
+    ) -> bool:
+        """
+        Aligns ``timeline_items`` by timecode or waveform
+
+        Args:
+            timeline_items (List[TimelineItem]): items to align
+            options (dict, optional): ``SyncUsing`` (``AUTO_ALIGN_CLIPS_USING_*``), ``UseTrack`` (track index or
+                ``AUTO_ALIGN_CLIPS_WAVEFORM_TRACK_*``). Defaults to timecode.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if options is None:
+            return self._obj.AutoAlignClips(get_resolveobjs(timeline_items))
+        return self._obj.AutoAlignClips(get_resolveobjs(timeline_items), options)
+
+    def insert_fusion_composition(self) -> "TimelineItem":
+        """
+        Inserts a Fusion composition into the timeline
+
+        Returns:
+            (TimelineItem): fusion composition
+        """
+        return TimelineItem(self._obj.InsertFusionCompositionIntoTimeline())
+
+    @property
+    def mark_in_out(self) -> Dict[str, Dict[str, int]]:
+        """
+        Returns the in/out marks of the timeline
+
+        Returns:
+            dict: ``{"video": {"in": int, "out": int}, "audio": {...}}``, empty dicts if not set
+        """
+        return self._obj.GetMarkInOut()
+
+    def set_mark_in_out(self, mark_in: int, mark_out: int, mark_type: str = "all") -> bool:
+        """
+        Sets the in/out marks of the timeline
+
+        Args:
+            mark_in (int): in frame, relative to the timeline start
+            mark_out (int): out frame, relative to the timeline start
+            mark_type (str, optional): ``"video"``, ``"audio"`` or ``"all"``. Defaults to ``"all"``.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if mark_type not in MARK_TYPES:
+            raise ValueError(f"Mark type must be one of {MARK_TYPES}")
+        return self._obj.SetMarkInOut(mark_in, mark_out, mark_type)
+
+    def clear_mark_in_out(self, mark_type: str = "all") -> bool:
+        """
+        Clears the in/out marks of the timeline
+
+        Args:
+            mark_type (str, optional): ``"video"``, ``"audio"`` or ``"all"``. Defaults to ``"all"``.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if mark_type not in MARK_TYPES:
+            raise ValueError(f"Mark type must be one of {MARK_TYPES}")
+        return self._obj.ClearMarkInOut(mark_type)
+
+    # --- analysis --------------------------------------------------------------------------------
+
+    def create_subtitles_from_audio(self, settings: Optional["AutoCaptionSettings"] = None) -> bool:
+        """
+        Creates subtitles from the timeline audio (Resolve Studio). Poll
+        ``Project.create_subtitles_from_audio_status``.
+
+        Args:
+            settings (dict, optional): ``language`` (``AUTO_CAPTION_*``), ``captionPreset``, ``charsPerLine``,
+                ``lineBreak``, ``gap``, ``extendedLanguageSupport`` - see ``AutoCaptionSettings`` in
+                ``_resolve_stubs.pyi``
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if settings is None:
+            return self._obj.CreateSubtitlesFromAudio()
+        return self._obj.CreateSubtitlesFromAudio(settings)
+
+    def detect_scene_cuts(self) -> bool:
+        """
+        Detects scene cuts and cuts the timeline at them (Resolve Studio). Poll ``Project.detect_scene_cuts_status``.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.DetectSceneCuts()
+
+    def analyze_dolby_vision(
+        self, timeline_items: List["TimelineItem"], analysis_type: Optional[Union[str, float]] = None
+    ) -> bool:
+        """
+        Analyzes Dolby Vision on ``timeline_items``
+
+        Args:
+            timeline_items (List[TimelineItem]): items to analyze
+            analysis_type (Union[str, float], optional): ``"blend_shots"`` or a ``DLB_*`` constant
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if analysis_type is None:
+            return self._obj.AnalyzeDolbyVision(get_resolveobjs(timeline_items))
+        return self._obj.AnalyzeDolbyVision(
+            get_resolveobjs(timeline_items), constants.lookup("DLB_", analysis_type)
+        )
+
+    def convert_to_stereo(self) -> bool:
+        """
+        Converts the timeline to stereoscopic 3D
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ConvertTimelineToStereo()
+
+    @property
+    def node_graph(self) -> "Graph":
+        """
+        Returns the timeline's node graph
+
+        Returns:
+            Graph: node graph
+        """
+        from pydavinci.wrappers.graph import Graph
+
+        return Graph(self._obj.GetNodeGraph())
+
+    @property
+    def output_blanking(self) -> "OutputBlanking":
+        """
+        Returns the output blanking of the timeline in pixels (keys ``Top``, ``Bottom``, ``Left``, ``Right``)
+
+        Returns:
+            dict: output blanking
+        """
+        return self._obj.GetOutputBlanking()
+
+    def set_output_blanking(self, blanking: "OutputBlanking") -> bool:
+        """
+        Sets the output blanking of the timeline in pixels
+
+        Args:
+            blanking (dict): keys ``Top``, ``Bottom``, ``Left``, ``Right``
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SetOutputBlanking(blanking)
 
     def __repr__(self) -> str:
         return f"Timeline(name: {self.name})"

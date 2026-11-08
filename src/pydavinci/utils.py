@@ -5,8 +5,32 @@ import pydavinci.main
 # import psutil
 
 
+def get_resolveobj(obj: Any) -> Any:
+    """Returns the Resolve object wrapped by a pydavinci wrapper, or ``obj`` itself if it already is one (or ``None``).
+
+    Note: a Resolve object answers any unknown attribute with ``None`` - so ``getattr(obj, "_obj", obj)`` is not enough.
+    """
+    if obj is None or is_resolve_obj(obj):
+        return obj
+    return obj._obj
+
+
 def get_resolveobjs(objs: List[Any]) -> List[Any]:
-    return [x._obj for x in objs]
+    return [get_resolveobj(x) for x in objs]
+
+
+def as_list(value: Any) -> List[Any]:
+    """Normalizes a list returned by the Resolve API.
+
+    Resolve 21 returns ``None`` instead of an empty list for some calls (e.g. ``Timeline.GetItemListInTrack`` on an
+    empty track, ``MediaPool.GetSelectedClips`` without selection) and an empty dict for others (e.g.
+    ``TimelineItem.GetFusionCompNameList``). Both become ``[]``; a dict with index keys becomes the list of its values.
+    """
+    if not value:
+        return []
+    if isinstance(value, dict):
+        return [value[key] for key in sorted(value)]
+    return list(value)
 
 
 TRACK_TYPES = ["video", "audio", "subtitle"]

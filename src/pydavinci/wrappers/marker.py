@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, get_args
 
 from typing_extensions import Literal, TypeAlias, TypedDict
 
@@ -68,7 +68,13 @@ class MarkerCollection:
         self._obj: "PydavinciParent" = obj
         self._parent_obj: "RemoteMarkerParent" = obj._obj
         self._cache: Dict[int, Marker] = {}
-        self.fetch()
+        # Markers are fetched on first use, not here: every MediaPoolItem / TimelineItem wrapper creates a
+        # MarkerCollection, and a GetMarkers() call per wrapper adds up for large bins and timelines.
+        self._fetched = False
+
+    def _ensure_fetched(self) -> None:
+        if not self._fetched:
+            self.fetch()
 
     def add(
         self,
@@ -101,6 +107,7 @@ class MarkerCollection:
         """
         # return self._parent_obj.AddMarker(frameid, color, name, note, duration, customdata)
 
+        self._ensure_fetched()
         if frameid in self._cache:
             if not overwrite:
                 log.info(
@@ -139,6 +146,7 @@ class MarkerCollection:
         Returns:
             (Marker): first marker found with matching query
         """
+        self._ensure_fetched()
 
         for marker in self._cache.values():
             if (
@@ -158,6 +166,7 @@ class MarkerCollection:
             (Optional[List[Marker]]): all markers found or if none found, returns `None`
         """
         _ret: List[Marker] = []
+        self._ensure_fetched()
 
         for marker in self._cache.values():
             if (
@@ -182,10 +191,22 @@ class MarkerCollection:
         """
         return self._parent_obj.GetMarkerByCustomData(customdata)
 
+    def get_custom_data(self, frameid: int) -> str:
+        """
+        Gets the custom data of the marker at ``frameid`` directly from Resolve (not from the cache)
+
+        Args:
+            frameid (int): marker frame
+
+        Returns:
+            str: custom data, empty if the marker has none
+        """
+        return self._parent_obj.GetMarkerCustomData(frameid)
+
     def delete(
         self,
         *,
-        frameid: int = 0,
+        frameid: Optional[int] = None,
         color: COLORS = "",  # type: ignore
         customdata: str = "",
     ) -> bool:
@@ -193,8 +214,8 @@ class MarkerCollection:
         Deletes marker using ``frameid``, ``color`` or ``customdata``
 
         Args:
-            frameid (int, optional): frameid to use for choosing which markers to delete
-            color (str, optional): color to use for choosing which markers to delete
+            frameid (int, optional): frameid to use for choosing which markers to delete (``0`` is a valid frame)
+            color (str, optional): color to use for choosing which markers to delete, ``"All"`` deletes all markers
             customdata (str, optional): custom data to use for choosing which markers to delete
 
         Raises:
@@ -210,28 +231,31 @@ class MarkerCollection:
 
             When selecting by ``customdata``, will delete first marker with matching custom data
         """
+        self._ensure_fetched()
 
-        if frameid:
-            del self._cache[frameid]
+        if frameid is not None:
+            self._cache.pop(frameid, None)
             return self._parent_obj.DeleteMarkerAtFrame(frameid)
         elif color:
             # Delete all entries in the cache that are not the specified color
-            # DeleteMarkersByColor() deletes all with that specified color
+            # DeleteMarkersByColor() deletes all with that specified color ("All": all markers)
             self._cache = {
-                frame: marker for frame, marker in self._cache.items() if marker.color != color
+                frame: marker
+                for frame, marker in self._cache.items()
+                if color != "All" and marker.color != color
             }
             return self._parent_obj.DeleteMarkersByColor(color)
 
         elif customdata:
-            # DeleteMarkerByCustomData deletes the first frame entry with the specified customdata,
-            # so we're grabbing the keys and sorting them to ensure we delete the right entry in our
-            # cache
-
-            sorted = list(self._cache.keys())
-            sorted.sort()
-            self._parent_obj.DeleteMarkerByCustomData(customdata)
-            del self._cache[sorted[0]]
-            return True
+            # DeleteMarkerByCustomData deletes the first marker (lowest frame) with the specified customdata -
+            # remove the same one from the cache
+            deleted = self._parent_obj.DeleteMarkerByCustomData(customdata)
+            matching = sorted(
+                frame for frame, marker in self._cache.items() if marker.customdata == customdata
+            )
+            if deleted and matching:
+                del self._cache[matching[0]]
+            return deleted
 
         raise ValueError("You need to provide either 'frameid', 'color' or 'customdata'")
 
@@ -278,9 +302,10 @@ class MarkerCollection:
 
         Why not:
             You would only use this if during the middle of the script execution a user manually added a marker. Otherwise, a `MarkerCollection` knows about all the markers
-            it has deleted, added or updated, and `.fetch() ` is run on the class initialization.
+            it has deleted, added or updated, and `.fetch() ` is run on its first use.
 
         """
+        self._fetched = True
         markers: RemoteMarkerData = self._parent_obj.GetMarkers()
         if markers:
             for frameid in markers:
@@ -355,9 +380,8 @@ class Marker:
 
     @color.setter
     def color(self, color: Literal[COLORS]) -> None:
-        # we don't have get_items on 3.6,
-        # TODO update when support Davinci v18 and Python > 3.7
-        if color not in COLORS.__values__:  # type: ignore
+        # Literal.__values__ only existed in the typing_extensions backport of Python 3.6
+        if color not in get_args(COLORS):
             return
         self.delete()
         self._update("color", color)

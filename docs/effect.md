@@ -1,0 +1,1 @@
+::: pydavinci.wrappers.effect.Effect
