@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "A Davinci Resolve API Wrapper"
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.10.0,<4.0.0"
+requires-python = ">=3.15"
 authors = [
     { name = "Pedro Labonia", email = "pedromslabonia@gmail.com" },
 ]
@@ -21,9 +21,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "loguru>=0.6.0",
-    "pydantic==1.10.13",
-    "typing_extensions>=4.1.1",
+    "loguru>=0.7.3",
+    "psutil>=7.2.2",
+    "pydantic>=2.14.1",
+    "typing_extensions>=4.16.0",
 ]
 
 [project.optional-dependencies]

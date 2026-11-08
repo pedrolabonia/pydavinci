@@ -15,7 +15,7 @@ def none_to_str(value: None = None) -> str:
 
 
 def path_to_str(value: Union[Path, DirectoryPath, str]) -> Optional[str]:
-    if isinstance(value, Path) or isinstance(value, DirectoryPath):
+    if isinstance(value, Path):
         return str(value)
     elif value == "":
         return None

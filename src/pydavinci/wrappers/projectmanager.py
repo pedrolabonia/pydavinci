@@ -1,11 +1,11 @@
-from typing import TYPE_CHECKING, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 # from pydavinci.wrappers._basewrappers import BaseResolveWrapper
 from pydavinci.main import resolve_obj
 from pydavinci.wrappers.project import Project
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteProjectManager
+    from pydavinci.wrappers._resolve_stubs import CloudSettings, PyRemoteProjectManager
 
 # import fusionscript as dvr_script
 
@@ -20,17 +20,21 @@ class ProjectManager:
 
         self._obj: PyRemoteProjectManager = resolve_obj.GetProjectManager()
 
-    def create_project(self, project_name: str) -> Project:
+    def create_project(self, project_name: str, media_location_path: Optional[str] = None) -> Project:
         """
-        Creates a project with ``project_name``
+        Creates a project with ``project_name`` and loads it
 
         Args:
             project_name (str): project name
+            media_location_path (str, optional): media location of the project. Defaults to Resolve's default.
 
         Returns:
             Project: Project
         """
-        created = self._obj.CreateProject(project_name)
+        if media_location_path is None:
+            created = self._obj.CreateProject(project_name)
+        else:
+            created = self._obj.CreateProject(project_name, media_location_path)
         return Project(created)
 
     def delete_project(self, project_name: str) -> bool:
@@ -153,17 +157,20 @@ class ProjectManager:
         """
         return self._obj.OpenFolder(folder_name)
 
-    def import_project(self, path: str) -> bool:
+    def import_project(self, path: str, project_name: Optional[str] = None) -> bool:
         """
         Imports ``.drp`` project located at ``path``
 
         Args:
             path (str): path to ``.drp`` project
+            project_name (str, optional): name of the imported project. Defaults to the name in the file.
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        return self._obj.ImportProject(path)
+        if project_name is None:
+            return self._obj.ImportProject(path)
+        return self._obj.ImportProject(path, project_name)
 
     def export_project(self, project_name: str, path: str, stills_and_luts: bool = False) -> bool:
         """
@@ -179,17 +186,125 @@ class ProjectManager:
         """
         return self._obj.ExportProject(project_name, path, stills_and_luts)
 
-    def restore_project(self, path: str) -> bool:
+    def restore_project(self, path: str, project_name: Optional[str] = None) -> bool:
         """
         Restore project from ``path``
 
         Args:
             path (str): project path
+            project_name (str, optional): name of the restored project. Defaults to the name in the archive.
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
-        return self._obj.RestoreProject(path)
+        if project_name is None:
+            return self._obj.RestoreProject(path)
+        return self._obj.RestoreProject(path, project_name)
+
+    def archive_project(
+        self,
+        project_name: str,
+        path: str,
+        source_media: bool = True,
+        render_cache: bool = True,
+        proxy_media: bool = False,
+    ) -> bool:
+        """
+        Archives project ``project_name`` to ``path`` (``.dra``). Resolve 21.1.2 returned ``False`` for the
+        currently open project in tests.
+
+        Args:
+            project_name (str): project to archive
+            path (str): target path
+            source_media (bool, optional): archive the source media. Defaults to ``True``.
+            render_cache (bool, optional): archive the render cache. Defaults to ``True``.
+            proxy_media (bool, optional): archive the proxy media. Defaults to ``False``.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ArchiveProject(project_name, path, source_media, render_cache, proxy_media)
+
+    def get_project_last_modified_time(self, project_name: str) -> Optional[int]:
+        """
+        Returns the last modification time of project ``project_name`` in the current folder
+
+        Info:
+            Resolve 21.1.2 returned ``None`` for every project in tests - ``project_attributes`` has the
+            ``lastModifiedDate`` as ISO 8601 string.
+
+        Args:
+            project_name (str): project name
+
+        Returns:
+            Optional[int]: epoch timestamp
+        """
+        return self._obj.GetProjectLastModifiedTime(project_name)
+
+    @property
+    def project_attributes(self) -> Dict[str, Dict[str, Any]]:
+        """
+        Returns the attributes of all projects in the current folder: project name ->
+        ``{"lastModifiedDate", "creationDate", "notes", "liveCollaborationMode"}`` (dates in ISO 8601)
+
+        Returns:
+            dict: project attributes
+        """
+        return self._obj.GetProjectAttributesInCurrentFolder()
+
+    def load_cloud_project(self, cloud_settings: "CloudSettings") -> Optional[Project]:
+        """
+        Loads a cloud project
+
+        Args:
+            cloud_settings (dict): ``projectName`` and ``projectMediaPath`` (required), ``syncMode``
+                (``CLOUD_SYNC_*`` constant) - only the first load on a system honors all of them
+
+        Returns:
+            Optional[Project]: loaded project, ``None`` if not found
+        """
+        project = self._obj.LoadCloudProject(cloud_settings)
+        return Project(project) if project else None
+
+    def create_cloud_project(self, cloud_settings: "CloudSettings") -> Optional[Project]:
+        """
+        Creates a cloud project
+
+        Args:
+            cloud_settings (dict): ``projectName``, ``projectMediaPath`` (required), ``isCollab``, ``syncMode``,
+                ``isCameraAccess``
+
+        Returns:
+            Optional[Project]: created project, ``None`` if it failed
+        """
+        project = self._obj.CreateCloudProject(cloud_settings)
+        return Project(project) if project else None
+
+    def import_cloud_project(self, path: str, cloud_settings: "CloudSettings") -> bool:
+        """
+        Imports a cloud project from ``path``
+
+        Args:
+            path (str): project file path
+            cloud_settings (dict): cloud settings, ``projectMediaPath`` is required
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ImportCloudProject(path, cloud_settings)
+
+    def restore_cloud_project(self, folder_path: str, cloud_settings: "CloudSettings") -> bool:
+        """
+        Restores a cloud project from ``folder_path``
+
+        Args:
+            folder_path (str): backup folder path
+            cloud_settings (dict): cloud settings, ``projectMediaPath`` is required
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.RestoreCloudProject(folder_path, cloud_settings)
 
     @property
     def db(self) -> Dict[str, str]:

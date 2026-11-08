@@ -1,7 +1,7 @@
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Optional, Union
 
 
-from pydavinci.utils import is_resolve_obj
+from pydavinci.utils import as_list, get_resolveobj, is_resolve_obj
 
 from pydavinci.wrappers.gallerystillalbum import GalleryStillAlbum
 
@@ -30,13 +30,16 @@ class Gallery:
         return GalleryStillAlbum(self._obj, self._obj.GetCurrentStillAlbum())
 
     @album.setter
-    def album(self, gallery_still_album: str) -> bool:
+    def album(self, gallery_still_album: Union["GalleryStillAlbum", str]) -> bool:
         """
         Changes current album to ``GalleryStillAlbum`` object.
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
+        # Resolve expects the album object - a pydavinci GalleryStillAlbum is unwrapped
+        if isinstance(gallery_still_album, GalleryStillAlbum):
+            return self._obj.SetCurrentStillAlbum(get_resolveobj(gallery_still_album))
         return self._obj.SetCurrentStillAlbum(gallery_still_album)
 
     @property
@@ -48,4 +51,36 @@ class Gallery:
             (List[GalleryStill]): List of ``GalleryStillAlbum`` objects
         """
 
-        return [GalleryStillAlbum(self._obj, x) for x in self._obj.GetGalleryStillAlbums()]
+        return [GalleryStillAlbum(self._obj, x) for x in as_list(self._obj.GetGalleryStillAlbums())]
+
+    @property
+    def power_grade_albums(self) -> List["GalleryStillAlbum"]:
+        """
+        List of PowerGrade albums as ``GalleryStillAlbum`` objects.
+
+        Returns:
+            (List[GalleryStillAlbum]): PowerGrade albums
+        """
+        return [
+            GalleryStillAlbum(self._obj, x) for x in as_list(self._obj.GetGalleryPowerGradeAlbums())
+        ]
+
+    def create_still_album(self) -> Optional["GalleryStillAlbum"]:
+        """
+        Creates a new still album
+
+        Returns:
+            Optional[GalleryStillAlbum]: created album, ``None`` if it failed
+        """
+        album = self._obj.CreateGalleryStillAlbum()
+        return GalleryStillAlbum(self._obj, album) if album else None
+
+    def create_power_grade_album(self) -> Optional["GalleryStillAlbum"]:
+        """
+        Creates a new PowerGrade album
+
+        Returns:
+            Optional[GalleryStillAlbum]: created album, ``None`` if it failed
+        """
+        album = self._obj.CreateGalleryPowerGradeAlbum()
+        return GalleryStillAlbum(self._obj, album) if album else None

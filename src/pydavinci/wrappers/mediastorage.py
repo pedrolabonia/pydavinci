@@ -1,10 +1,12 @@
-from typing import TYPE_CHECKING, Any, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from pydavinci.main import resolve_obj
+from pydavinci.utils import as_list
+from pydavinci.wrappers import constants
 from pydavinci.wrappers.mediapoolitem import MediaPoolItem
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteMediaStorage
+    from pydavinci.wrappers._resolve_stubs import CloneStatus, PyRemoteMediaStorage
 
 
 class MediaStorage:
@@ -58,7 +60,7 @@ class MediaStorage:
         return self._obj.RevealInStorage(path)
 
     def add_clip_mattes(
-        self, mediapool_item: "MediaPoolItem", paths: List[str], stereo_eye: str
+        self, mediapool_item: "MediaPoolItem", paths: List[str], stereo_eye: Optional[str] = None
     ) -> bool:
         """
         Adds clip mattes from ``path`` in ``mediapool_item``
@@ -66,10 +68,13 @@ class MediaStorage:
         Args:
             mediapool_item (MediaPoolItem): a MediaPoolItem object
             paths (Union[List[str], str]): A list of path strings or a single path string
+            stereo_eye (str, optional): ``"left"`` or ``"right"`` for stereo clips
 
         Returns:
             bool: ``True`` if successful, ``False`` otherwise
         """
+        if stereo_eye is None:
+            return self._obj.AddClipMattesToMediaPool(mediapool_item._obj, paths)
         return self._obj.AddClipMattesToMediaPool(mediapool_item._obj, paths, stereo_eye)
 
     def add_timelilne_mattes(self, paths: List[str]) -> List["MediaPoolItem"]:
@@ -84,12 +89,15 @@ class MediaStorage:
         """
         return [MediaPoolItem(x) for x in self._obj.AddTimelineMattesToMediaPool(paths)]
 
-    def addclips_to_mediapool(self, item: List[str]) -> List["MediaPoolItem"]:
+    def addclips_to_mediapool(
+        self, item: List[Union[str, Dict[str, Any]]]
+    ) -> List["MediaPoolItem"]:
         """
         Adds clips to media pool
 
         Args:
-            item (List[str]): a list of media paths or folders to add to media pool
+            item (List[Union[str, dict]]): a list of media paths or folders to add to media pool, or of dicts
+                ``{"media": path, "startFrame": int, "endFrame": int}`` to add a part of a clip
 
         Returns:
             List[MediaPoolItem]: list of added ``MediaPoolItem``s
@@ -112,5 +120,61 @@ class MediaStorage:
         # else:
         #     return [MediaPoolItem(self._obj.AddItemListToMediaPool(item)[0])]
 
-        objs_added = [MediaPoolItem(x) for x in self._obj.AddItemListToMediaPool(item)]
+        objs_added = [MediaPoolItem(x) for x in as_list(self._obj.AddItemListToMediaPool(item))]
         return objs_added
+
+    def set_clone_tool_settings(
+        self,
+        preserve_folder_name: Optional[bool] = None,
+        checksum_type: Optional[Union[str, float]] = None,
+    ) -> bool:
+        """
+        Sets the options of the Clone Tool, used by ``start_clone_media`` (and the Clone Tool UI)
+
+        Args:
+            preserve_folder_name (bool, optional): keep the source folder name. Resolve's default is ``False``.
+            checksum_type (Union[str, float], optional): ``"none"``, ``"filesize"``, ``"crc32"``, ``"md5"``
+                (Resolve's default), ``"sha256"``, ``"sha512"``, ``"xxh_64"`` or a ``CLONE_CHECKSUM_TYPE_*`` constant
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        settings: Dict[str, Any] = {}
+        if preserve_folder_name is not None:
+            settings["PreserveFolderName"] = preserve_folder_name
+        if checksum_type is not None:
+            settings["ChecksumType"] = constants.lookup("CLONE_CHECKSUM_TYPE_", checksum_type)
+        return self._obj.SetCloneToolSettings(settings)
+
+    def start_clone_media(self, source_dir: str, target_dirs: Union[str, List[str]]) -> bool:
+        """
+        Starts cloning ``source_dir`` to ``target_dirs`` (Clone Tool) - poll ``clone_status``
+
+        Args:
+            source_dir (str): source folder, e.g. a camera card
+            target_dirs (Union[str, List[str]]): one or more target folders
+
+        Returns:
+            bool: ``True`` if the clone job was started, ``False`` otherwise
+        """
+        return self._obj.StartCloneMedia(source_dir, target_dirs)
+
+    def stop_clone_media(self) -> bool:
+        """
+        Stops the running clone job
+
+        Returns:
+            bool: ``True`` if successful, ``False`` if no clone job is running
+        """
+        return self._obj.StopCloneMedia()
+
+    @property
+    def clone_status(self) -> "CloneStatus":
+        """
+        Returns the status of the current or last clone job
+
+        Returns:
+            dict: ``JobStatus`` (``"Complete"``, ``"Cloning"``, ``"Cancelled"``, ``"Failed"``),
+            ``CompletionPercentage``, ``Error``
+        """
+        return self._obj.GetCloneStatus()

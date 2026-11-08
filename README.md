@@ -68,6 +68,23 @@ Here's a quick list of changes and added API support not present in the [origina
 - Added [timeline.settings.timecode](https://github.com/in03/pydavinci/commit/67bb10f07414df040c511ff781cacd5c1d2eda4c) setter
 - Support Resolve's [GetUniqueID](https://github.com/in03/pydavinci/commit/f7520595a3708a0ca2b64a151de014c9b61b7318) method
 
+### DaVinci Resolve Studio 21.1.2 API (0.4.0)
+
+Tested with DaVinci Resolve Studio 21.1.2 and Python 3.15.
+
+- Wrappers for the Resolve 19 - 21.1.2 API: transcription (`MediaPoolItem` / `Folder.transcribe_audio`,
+  `get_transcription`, `set_transcription`, `Project.transcribe_audio_status`), audio sync (`MediaPool.auto_sync_audio`),
+  clip info dicts for `import_media` (image sequences), `create_timeline_from_clips` and `append_to_timeline`,
+  IntelliSearch, slate analysis, audio classification, third party metadata, tracks, timeline item editing, effects,
+  photo albums, color groups, node graphs, presets, Clone Tool, ...
+- New wrappers: `Graph`, `ColorGroup`, `Effect`, `PhotoAlbum`, `PhotoAlbumItem`
+- `pydavinci.wrappers.constants`: the `resolve.*` constants (`AUDIO_SYNC_TIMECODE`, `MARKER_RED`, ...), looked up in the
+  running Resolve. Wrapper methods also accept their names without prefix (`sync_mode="timecode"`)
+- `_resolve_stubs.pyi` is generated from Resolve's own `DaVinciResolveScript.pyi`: `python tools/update_resolve_stubs.py`
+- Fixes: `Timeline.export` (export type values changed since Resolve 18), `MediaPool.import_timeline_fromfile` ignored
+  its options, timeline settings with Resolve 21 keys, markers on frame 0, `Marker.color` setter on Python 3.12+,
+  empty tracks (`Timeline.items`)
+
 
 
 

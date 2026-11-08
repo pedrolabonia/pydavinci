@@ -93,6 +93,18 @@ class GalleryStillAlbum:
         remote_gallery_stills = [x._obj for x in gallery_stills]
         return self._obj.DeleteStills(remote_gallery_stills)
 
+    def import_stills(self, file_paths: List[str]) -> bool:
+        """
+        Imports stills (e.g. ``.drx``, ``.dpx``, ``.jpg``) into the album
+
+        Args:
+            file_paths (List[str]): still file paths
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ImportStills(file_paths)
+
     # TODO: Add repr method
     # Should ideally return name, but that's a method of the parent object.
     # See gallery.py

@@ -2,13 +2,28 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from pydavinci.exceptions import ObjectNotFound
 from pydavinci.main import resolve_obj
-from pydavinci.utils import is_resolve_obj
+from pydavinci.utils import as_list, get_resolveobj, is_resolve_obj
 from pydavinci.wrappers.gallery import Gallery
 from pydavinci.wrappers.settings.constructor import get_prj_settings
 
 if TYPE_CHECKING:
-    from pydavinci.wrappers._resolve_stubs import PyRemoteProject
+    from pydavinci.wrappers._resolve_stubs import (
+        CreateSubtitlesFromAudioStatus,
+        DetectSceneCutsStatus,
+        PhotoQuickExportRenderSettings,
+        PhotoRenderSettings,
+        PyRemoteProject,
+        QuickExportRenderSettings,
+        QuickExportRenderStatus,
+        SlateAnalysisStatus,
+        SmartReframeStatus,
+        SpeechSettings,
+        TranscribeAudioStatus,
+    )
+    from pydavinci.wrappers.colorgroup import ColorGroup
     from pydavinci.wrappers.mediapool import MediaPool
+    from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+    from pydavinci.wrappers.photoalbum import PhotoAlbum
     from pydavinci.wrappers.settings.constructor import ProjectSettings
     from pydavinci.wrappers.timeline import Timeline
 
@@ -318,7 +333,7 @@ class Project:
         Returns:
             List of available resolutions
         """
-        if format and codec is None:
+        if format is None and codec is None:
             return self._obj.GetRenderResolutions()
         else:
             return self._obj.GetRenderResolutions(format, codec)
@@ -508,6 +523,478 @@ class Project:
             str: Unique ID
         """
         return self._obj.GetUniqueId()
+
+    # --- analysis jobs ---------------------------------------------------------------------------
+
+    @property
+    def transcribe_audio_status(self) -> "TranscribeAudioStatus":
+        """
+        Returns the status of the running ``transcribe_audio`` job (of a ``MediaPoolItem`` or ``Folder``)
+
+        Returns:
+            dict: ``JobStatus`` (``"Inactive"``, ``"Initializing"``, ``"Analyzing"``, ``"Cancelling"``,
+            ``"Cancelled"``, ``"Complete"``), while analyzing also ``CompletionPercentage``, ``CurrentClipIndex``,
+            ``TotalClips``, ``EstimatedTimeRemaining`` (seconds), on failure ``Error``
+        """
+        return self._obj.GetTranscribeAudioStatus()
+
+    @property
+    def analyze_for_slate_status(self) -> "SlateAnalysisStatus":
+        """
+        Returns the status of the running ``analyze_for_slate`` job
+
+        Returns:
+            dict: ``JobStatus`` (... ``"Complete"`` or ``"Failed"``), ``CompletionPercentage``, ``CurrentClipIndex``,
+            ``TotalClips``, ``EstimatedTimeRemaining``, ``Error``
+        """
+        return self._obj.GetAnalyzeForSlateStatus()
+
+    @property
+    def smart_reframe_status(self) -> "SmartReframeStatus":
+        """
+        Returns the status of the running ``TimelineItem.smart_reframe`` job
+
+        Returns:
+            dict: ``JobStatus``, ``CompletionPercentage``, ``AnalysisSpeed``, ``EstimatedTimeRemaining``, ``Error``
+        """
+        return self._obj.GetSmartReframeStatus()
+
+    @property
+    def detect_scene_cuts_status(self) -> "DetectSceneCutsStatus":
+        """
+        Returns the status of the running ``Timeline.detect_scene_cuts`` job
+
+        Returns:
+            dict: ``JobStatus``, ``CompletionPercentage``, ``AnalysisSpeed``, ``EstimatedTimeRemaining``
+        """
+        return self._obj.GetDetectSceneCutsStatus()
+
+    @property
+    def create_subtitles_from_audio_status(self) -> "CreateSubtitlesFromAudioStatus":
+        """
+        Returns the status of the running ``Timeline.create_subtitles_from_audio`` job
+
+        Returns:
+            dict: ``JobStatus``, ``CompletionPercentage``, ``AnalysisSpeed``, ``EstimatedTimeRemaining``, ``Error``
+        """
+        return self._obj.GetCreateSubtitlesFromAudioStatus()
+
+    def reset_intellisearch_analysis(self) -> bool:
+        """
+        Resets the IntelliSearch analysis of the project
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ResetIntellisearchAnalysis()
+
+    # --- settings and presets --------------------------------------------------------------------
+
+    def get_settings(self) -> Dict[str, Any]:
+        """
+        Returns all project settings - the current form of ``get_setting()``, see ``ProjectSettings``
+        in ``_resolve_stubs.pyi`` for keys and values
+
+        Returns:
+            dict: project settings
+        """
+        return self._obj.GetSettings()
+
+    def set_settings(self, settings: Dict[str, Any]) -> bool:
+        """
+        Sets project settings, e.g. ``{"timelineFrameRate": "25"}``. Settings are applied one by one: on failure the
+        ones applied before are kept.
+
+        Args:
+            settings (dict): setting names and values
+
+        Returns:
+            bool: ``True`` if all were set, ``False`` otherwise
+        """
+        return self._obj.SetSettings(settings)
+
+    @property
+    def project_settings_presets(self) -> List[Dict[str, Any]]:
+        """
+        Returns the project settings presets (keys ``Name``, ``Width``, ``Height``)
+
+        Returns:
+            List[dict]: presets
+        """
+        return as_list(self._obj.GetProjectSettingsPresetList())
+
+    def set_project_settings_preset(self, preset_name: str) -> bool:
+        """
+        Applies project settings preset ``preset_name``
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SetProjectSettingsPreset(preset_name)
+
+    def save_project_settings_preset_as(self, preset_name: str) -> bool:
+        """
+        Saves the current project settings as new preset ``preset_name``
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SaveCurrentProjectSettingsAsNewPreset(preset_name)
+
+    def update_project_settings_preset(self, preset_name: str) -> bool:
+        """
+        Updates project settings preset ``preset_name`` with the current settings
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.UpdateProjectSettingsPreset(preset_name)
+
+    def delete_project_settings_preset(self, preset_name: str) -> bool:
+        """
+        Deletes project settings preset ``preset_name``
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.DeleteProjectSettingsPreset(preset_name)
+
+    def export_project_settings_preset(self, preset_name: str, path: str) -> bool:
+        """
+        Exports project settings preset ``preset_name`` to ``path``
+
+        Args:
+            preset_name (str): preset name
+            path (str): target file path
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ExportProjectSettingsPreset(preset_name, path)
+
+    def import_project_settings_preset(self, path: str, preset_name: Optional[str] = None) -> bool:
+        """
+        Imports a project settings preset from ``path``
+
+        Args:
+            path (str): preset file path
+            preset_name (str, optional): preset name. Defaults to the file name.
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        if preset_name is None:
+            return self._obj.ImportProjectSettingsPreset(path)
+        return self._obj.ImportProjectSettingsPreset(path, preset_name)
+
+    def load_burn_in_preset(self, preset_name: str) -> bool:
+        """
+        Loads the user defined data burn-in preset ``preset_name`` for the project
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.LoadBurnInPreset(preset_name)
+
+    # --- rendering -------------------------------------------------------------------------------
+
+    def delete_render_preset(self, preset_name: str) -> bool:
+        """
+        Deletes render preset ``preset_name``
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.DeleteRenderPreset(preset_name)
+
+    def update_render_preset(self, preset_name: str) -> bool:
+        """
+        Updates render preset ``preset_name`` with the current render settings
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.UpdateRenderPreset(preset_name)
+
+    def set_quick_export_enabled(self, preset_name: str, enabled: bool) -> bool:
+        """
+        Enables or disables Quick Export for render preset ``preset_name``
+
+        Args:
+            preset_name (str): render preset name
+            enabled (bool): ``True`` to enable
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SetQuickExportEnabledForRenderPreset(preset_name, enabled)
+
+    @property
+    def quick_export_presets(self) -> List[str]:
+        """
+        Returns the Quick Export render presets
+
+        Returns:
+            List[str]: preset names
+        """
+        return as_list(self._obj.GetQuickExportRenderPresets())
+
+    def render_with_quick_export(
+        self, preset_name: str, settings: Optional["QuickExportRenderSettings"] = None
+    ) -> "QuickExportRenderStatus":
+        """
+        Renders the current timeline with Quick Export preset ``preset_name``
+
+        Args:
+            preset_name (str): Quick Export preset name
+            settings (dict, optional): ``TargetDir``, ``CustomName``, ``VideoQuality``, ``EnableUpload``
+
+        Returns:
+            dict: render status, see ``quick_export_status``
+        """
+        return self._obj.RenderWithQuickExport(preset_name, settings or {})
+
+    @property
+    def quick_export_status(self) -> "QuickExportRenderStatus":
+        """
+        Returns the status of the running ``render_with_quick_export``
+
+        Returns:
+            dict: ``JobStatus``, ``CompletionPercentage``, ``TimeTakenToRenderInMs``, ``EstimatedTimeRemainingInMs``,
+            ``Error``
+        """
+        return self._obj.GetRenderWithQuickExportStatus()
+
+    @property
+    def photo_quick_export_presets(self) -> List[str]:
+        """
+        Returns the Quick Export render presets for photo albums
+
+        Returns:
+            List[str]: preset names
+        """
+        return as_list(self._obj.GetPhotoQuickExportRenderPresets())
+
+    def set_photo_render_settings(self, settings: "PhotoRenderSettings") -> bool:
+        """
+        Sets render settings for the current photo album, settings not given keep their value
+        (see ``PhotoRenderSettings`` in ``_resolve_stubs.pyi``)
+
+        Args:
+            settings (dict): photo render settings
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SetPhotoRenderSettings(settings)
+
+    def render_photos_with_quick_export(
+        self, preset_name: str, settings: "PhotoQuickExportRenderSettings"
+    ) -> "QuickExportRenderStatus":
+        """
+        Renders the current photo album with Quick Export preset ``preset_name``. Needs the Photo page
+        (``Resolve.page = "photo"``), otherwise the status is ``"Render Failed"``.
+
+        Args:
+            preset_name (str): photo Quick Export preset name
+            settings (dict): ``TargetDir`` and ``CustomName`` (required), ``BitDepth``, ``ManualQualityPercent``, ...
+                see ``PhotoQuickExportRenderSettings`` in ``_resolve_stubs.pyi``
+
+        Returns:
+            dict: render status
+        """
+        return self._obj.RenderPhotosWithQuickExport(preset_name, settings)
+
+    @property
+    def audio_render_formats(self) -> Dict[str, str]:
+        """
+        Returns the audio render formats (format -> file extension)
+
+        Returns:
+            dict: audio render formats
+        """
+        return self._obj.GetAudioRenderFormats()
+
+    def get_audio_render_codecs(self, audio_format: str) -> Dict[str, str]:
+        """
+        Returns the audio codecs of ``audio_format`` (codec description -> codec name)
+
+        Args:
+            audio_format (str): audio render format file extension
+
+        Returns:
+            dict: audio codecs
+        """
+        return self._obj.GetAudioRenderCodecs(audio_format)
+
+    # --- photo albums ----------------------------------------------------------------------------
+
+    @property
+    def photo_albums(self) -> List["PhotoAlbum"]:
+        """
+        Returns all photo albums of the project
+
+        Returns:
+            List[PhotoAlbum]: photo albums
+        """
+        from pydavinci.wrappers.photoalbum import PhotoAlbum
+
+        albums = [self._obj.GetPhotoAlbumByIndex(i + 1) for i in range(self._obj.GetPhotoAlbumCount())]
+        return [PhotoAlbum(x) for x in albums if x]
+
+    @property
+    def photo_album(self) -> Optional["PhotoAlbum"]:
+        """
+        Returns the current photo album
+
+        Returns:
+            Optional[PhotoAlbum]: current photo album, ``None`` if there is none
+        """
+        from pydavinci.wrappers.photoalbum import PhotoAlbum
+
+        album = self._obj.GetCurrentPhotoAlbum()
+        return PhotoAlbum(album) if album else None
+
+    def set_current_photo_album(self, photo_album: "PhotoAlbum") -> bool:
+        """
+        Makes ``photo_album`` the current photo album
+
+        Args:
+            photo_album (PhotoAlbum): photo album
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.SetCurrentPhotoAlbum(get_resolveobj(photo_album))
+
+    # --- color groups ----------------------------------------------------------------------------
+
+    @property
+    def color_groups(self) -> List["ColorGroup"]:
+        """
+        Returns all color groups of the project
+
+        Returns:
+            List[ColorGroup]: color groups
+        """
+        from pydavinci.wrappers.colorgroup import ColorGroup
+
+        return [ColorGroup(x) for x in as_list(self._obj.GetColorGroupsList())]
+
+    def add_color_group(self, group_name: str) -> Optional["ColorGroup"]:
+        """
+        Creates color group ``group_name`` (must be unique)
+
+        Args:
+            group_name (str): group name
+
+        Returns:
+            Optional[ColorGroup]: created color group, ``None`` if it failed
+        """
+        from pydavinci.wrappers.colorgroup import ColorGroup
+
+        group = self._obj.AddColorGroup(group_name)
+        return ColorGroup(group) if group else None
+
+    def delete_color_group(self, color_group: "ColorGroup") -> bool:
+        """
+        Deletes ``color_group``, its clips become ungrouped
+
+        Args:
+            color_group (ColorGroup): color group
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.DeleteColorGroup(get_resolveobj(color_group))
+
+    # --- audio and stills ------------------------------------------------------------------------
+
+    def insert_audio_at_playhead(
+        self, media_path: str, start_offset_samples: int, duration_samples: int
+    ) -> bool:
+        """
+        Inserts audio media into the current track at the playhead (Fairlight page)
+
+        Args:
+            media_path (str): audio file path
+            start_offset_samples (int): start offset in samples
+            duration_samples (int): duration in samples
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.InsertAudioToCurrentTrackAtPlayhead(
+            media_path, start_offset_samples, duration_samples
+        )
+
+    def apply_fairlight_preset(self, preset_name: str) -> bool:
+        """
+        Applies Fairlight preset ``preset_name`` to the current timeline, see ``Resolve.fairlight_presets``
+
+        Args:
+            preset_name (str): preset name
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ApplyFairlightPresetToCurrentTimeline(preset_name)
+
+    def generate_speech(
+        self, settings: "SpeechSettings", timecode: Optional[str] = None
+    ) -> Optional["MediaPoolItem"]:
+        """
+        Generates speech audio (Resolve Studio, Extras download "AI Speech Generator") into the current project
+        and timeline
+
+        Args:
+            settings (dict): ``TextInput`` (max 350 characters), ``VoiceModel``, ``Speed``, ``Pitch``, ``Filename``,
+                ``AddToTimeline``, ``AudioTrack``, ... see ``SpeechSettings`` in ``_resolve_stubs.pyi``
+            timecode (str, optional): timeline position, used if ``AddToTimeline`` is set
+
+        Returns:
+            Optional[MediaPoolItem]: generated clip, ``None`` if it failed
+        """
+        from pydavinci.wrappers.mediapoolitem import MediaPoolItem
+
+        if timecode is None:
+            item = self._obj.GenerateSpeech(settings)
+        else:
+            item = self._obj.GenerateSpeech(settings, timecode)
+        return MediaPoolItem(item) if item else None
+
+    def export_current_frame_as_still(self, path: str) -> bool:
+        """
+        Exports the current frame as still image to ``path``
+
+        Args:
+            path (str): target file path, the format follows the extension
+
+        Returns:
+            bool: ``True`` if successful, ``False`` otherwise
+        """
+        return self._obj.ExportCurrentFrameAsStill(path)
 
     def __repr__(self) -> str:
         return f'Project(Name: "{self.name})"'

@@ -23,6 +23,13 @@ nav:
     - "TimelineItem": timelineitem.md
     - "Marker Collection": markercollection.md
     - "Marker": marker.md
+    - "Gallery": gallery.md
+    - "Graph": graph.md
+    - "ColorGroup": colorgroup.md
+    - "Effect": effect.md
+    - "PhotoAlbum": photoalbum.md
+    - "PhotoAlbumItem": photoalbumitem.md
+    - "Constants": constants.md
 
 theme:
   name: "material"
